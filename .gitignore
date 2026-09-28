@@ -1,0 +1,9 @@
+node_modules/
+artifacts/
+.chrome-test-profile/
+.chrome-*-profile/
+.pytest_cache/
+*.log
+.cache/
+__pycache__/
+*.pyc

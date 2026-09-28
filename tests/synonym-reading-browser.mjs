@@ -1,0 +1,51 @@
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import path from 'node:path';
+import {mkdir,writeFile} from 'node:fs/promises';
+
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const port=9235;
+const chrome=process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const child=spawn(chrome,['--headless=new','--no-first-run',`--remote-debugging-port=${port}`,`--user-data-dir=${path.resolve('.chrome-synonym-reading-profile')}`,'about:blank'],{windowsHide:true,stdio:'ignore'});
+let ws;
+try{
+  let tab;
+  for(let i=0;i<80;i++){try{tab=(await(await fetch(`http://127.0.0.1:${port}/json`)).json()).find(x=>x.type==='page');if(tab)break;}catch{}await sleep(150);}
+  if(!tab)throw Error('Chrome did not start');
+  ws=new WebSocket(tab.webSocketDebuggerUrl);
+  await new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject;});
+  let nextId=0;const pending=new Map();
+  ws.onmessage=({data})=>{const msg=JSON.parse(data);if(msg.id&&pending.has(msg.id)){const p=pending.get(msg.id);pending.delete(msg.id);msg.error?p.reject(Error(msg.error.message)):p.resolve(msg.result);}};
+  const send=(method,params={})=>new Promise((resolve,reject)=>{const id=++nextId;pending.set(id,{resolve,reject});ws.send(JSON.stringify({id,method,params}));});
+  const evalJS=async expression=>{const result=await send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(result.exceptionDetails)throw Error(result.exceptionDetails.exception?.description||result.exceptionDetails.text);return result.result.value;};
+  const waitFor=async expression=>{for(let i=0;i<100;i++){if(await evalJS(expression))return;await sleep(100);}throw Error('Timed out: '+expression);};
+  await send('Page.enable');await send('Runtime.enable');
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/favicon.svg'});
+  await waitFor('location.pathname==="/favicon.svg"');
+  await evalJS('localStorage.removeItem("ielts-practice-v1-c15-t1-reading");localStorage.removeItem("ielts-review-v1")');
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=15&test=1&skill=reading'});
+  await waitFor('Boolean(document.querySelector("#submit-practice"))');
+  await evalJS('document.querySelector("#submit-practice").click()');
+  await waitFor('document.querySelector("#practice-submit").open');
+  await evalJS('document.querySelector("#practice-submit button[value=submit]").click()');
+  await waitFor('Boolean(document.querySelector(".practice-review"))');
+  assert.ok(await evalJS('document.querySelectorAll(".practice-review .synonym-note").length > 0'));
+  await evalJS('document.querySelector(".practice-review [data-add-review=\\"2\\"]").click()');
+  assert.equal(await evalJS('JSON.parse(localStorage.getItem("ielts-review-v1")).items[0].id'),'c15-t1-reading-q2');
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/review.html#item/c15-t1-reading-q2'});
+  await waitFor('Boolean(document.querySelector("#review-retry"))');
+  await evalJS('document.querySelector("#review-answer").value="A";document.querySelector("#review-retry").requestSubmit()');
+  await waitFor('Boolean(document.querySelector(".review-result"))');
+  assert.match(await evalJS('document.querySelector(".review-result").textContent'),/待核验/);
+  assert.equal(await evalJS('JSON.parse(localStorage.getItem("ielts-review-v1")).items[0].attempts[0].match'),null);
+  await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+  assert.equal(await evalJS('document.documentElement.scrollWidth <= innerWidth'),true);
+  const shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});
+  await mkdir('artifacts',{recursive:true});
+  await writeFile('artifacts/review-mobile.png',Buffer.from(shot.data,'base64'));
+  const id=await evalJS('document.querySelector(".review-panel [data-save-synonym]").dataset.saveSynonym');
+  await evalJS('document.querySelector(".review-panel [data-save-synonym]").click()');
+  assert.equal(await evalJS(`JSON.parse(localStorage.getItem('ielts-vocabulary-v1')).progress[${JSON.stringify(id)}].starred`),true);
+  console.log('PASS: C15 reading submission, review queue, unverified retry, evidence and vocabulary save.');
+  await send('Browser.close');
+}finally{ws?.close();child.kill();}
