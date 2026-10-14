@@ -543,3 +543,24 @@ python scripts/import_cambridge_skills.py --book 19 --test 1 --skill reading --a
    - **质量审计**：`npm test` 90/90 测试通过，`audit.py` 144/144 科目试卷全部通过（`TOTAL 144 FAIL 0 ISSUES 0`）。
 
 
+
+---
+
+## 十二、阅读填空题 OCR 噪声重识别（2026-10-14）
+
+**问题**：填空题印在原卷上的点状答题线（`........`）被 Tesseract 识别成字母噪声，并连带打乱同一行单词的大小写，例如 C18 T1 Q1 `Grow StrAWDEITIES, ......oeerenenenememennnee ANG herbs`。原卷图像本身清晰，提高 DPI 不能解决。
+
+**处理**：`scripts/reocr_leader_fields.py` 按每个字段自己的 `source.pdfPage` 与 `boundingBox` 重新渲染（300 DPI），先在图像中擦除点状答题线，再运行 Tesseract，并在答题线位置写入 `______`。只在新文本更好时替换（噪声命中更少、已知词比例更高），并拒绝以下情况：新文本比原文多出过多行（区域含整张表格）、丢失原有答题空位。
+
+**结果**：213 个可疑字段中 165 个替换（26 套阅读），32 个保留原文，16 个因缺少 OCR 来源坐标跳过。`scripts/audit_ocr_text.py` 全库可疑字段 369 → 226；其中阅读题干 107 → 33、题组说明 110 → 41。
+
+**可追溯性**：每套试卷目录新增 `ocr-cleanup.json`，逐条记录原文、新文本、页码、坐标、DPI、Tesseract 版本、原卷 SHA-256 和评分。被替换字段的 `source.method` 改为 `ocr-leader-stripped`，`confidence` 更新为新 OCR 置信度。此为机器重识别，**不是人工或视觉复核**；`needsReview`、`verified`、`status` 均未改动。原文件备份于 `.cache/data-backup/`。
+
+**命令**：
+```sh
+python scripts/audit_ocr_text.py                 # 只读审计，输出 artifacts/ocr-text-audit.json
+python scripts/reocr_leader_fields.py            # 试运行，可加 --book/--test、--report
+python scripts/reocr_leader_fields.py --write    # 应用并记录日志
+```
+
+**未解决**：剩余可疑项主要是表格边框残留的 `|`、口语与听力中的少量噪声、阅读正文 90 处（多为分栏符号），以及需对照原卷才能改正的真实误识别；这些需按 assistant-visual 流程逐项校订并写入 curations。
