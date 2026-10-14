@@ -50,7 +50,7 @@ function historyRows(items) {
   return items.map(a=>`<div class="history-row">${icon(a.sections.length===4?'book':SECTIONS.find(s=>s.id===a.sections[0]).icon)}<div class="history-text"><h3>${a.sections.length===4?'全科模考':SECTIONS.find(s=>s.id===a.sections[0]).name+'单项练习'} · 示例卷 01</h3><p>${date(a.finished,true)} · 练习 ${elapsed(a)} 分钟</p></div><a class="btn small" href="#report/${a.id}">查看复盘 ${icon('arrow')}</a></div>`).join('');
 }
 function home() {
-  shell(studioHome()+localPracticeLinks({hideEmpty:true}));
+  shell(studioHome());
 }
 function practice() {
   shell(`<div class="intro"><div><div class="eyebrow">BUILD YOUR SKILLS</div><h1>把专注，留给这一科。</h1><p>选择你想练习的科目，按自己的节奏开始。</p></div></div>${resumeBanner()}${subjectCards()}<section class="panel practice-info"><h2>关于这套示例练习</h2><p class="hint">当前提供一套原创学术类缩减题目，用于体验四科流程，题量与时长均不等同于正式考试。听力使用浏览器合成英文语音，可重复播放；阅读支持标记待检查题目。</p><p class="hint">写作与口语提供字数统计、录音及自查清单，暂未接入人工或 AI 评分。听读结果仅展示正确率，不换算雅思分数。</p><button class="btn primary" data-start="all">体验完整流程 ${icon('arrow')}</button></section>`, 'practice');

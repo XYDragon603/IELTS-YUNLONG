@@ -15,6 +15,14 @@ const icons = {
   pause: '<path d="M8 5v14M16 5v14"/>',
   check: '<path d="m5 12 4 4L20 5"/>',
   cards: '<rect x="3" y="7" width="14" height="14" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v12M7 14h6"/>',
+  house: '<path d="M3 11 12 4l9 7"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
+  doc: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7m-7 4h7"/>',
+  bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+  bars: '<path d="M5 20v-6m5 6V9m5 11v-8m5 8V5M3 20h18"/>',
+  folder: '<path d="M3 6h6l2 2h10v11H3z"/>',
+  moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  chevron: '<path d="m9 6 6 6-6 6"/>',
   download: '<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
 };
 export const icon = name => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.book}</svg>`;

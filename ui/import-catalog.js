@@ -1,4 +1,6 @@
 import { escapeHTML as esc } from '../core.js';
+import { icon } from './icons.js';
+import { getTestResources } from '../lib/cambridge.js';
 const labels={listening:'听力',reading:'阅读',writing:'写作',speaking:'口语'};
 const statuses={ready:'已核对','needs-review':'待核对','missing-resource':'资料缺失','not-imported':'尚未导入'};
 export function catalogPlaceholder(book=null,test=null){return `<section class="import-catalog" data-catalog ${book?`data-book-number="${book}" data-test-number="${test}"`:''}><h2>四科在线练习</h2><p role="status">正在检查本地题库…</p></section>`;}
@@ -41,7 +43,8 @@ export async function mountCatalog(){
     const ready=imported.filter(e=>e.status==='ready').length;
     const missingBooks=Array.from({length:17},(_,i)=>20-i).filter(b=>!imported.some(e=>e.book===b));
     const legend=`<p class="catalog-legend"><span><i class="status-dot ready"></i>已核对</span><span><i class="status-dot needs-review"></i>待核对 · 由 OCR 自动整理，题干或答案可能有识别错误，可对照原卷练习</span><span><i class="status-dot missing-resource"></i>资料缺失</span></p>`;
-    host.innerHTML=`<h2>${book?`Test ${test} · 四科状态`:'在线题库'}</h2><p class="hint">${book?'资料新增后点击刷新即可发现。':`已导入 ${imported.length} 项 · 已核对 ${ready} 项。资料新增后点击刷新即可发现。`}</p>${legend}<div class="catalog-filters">${book?'':`<label>册次<select data-filter="book"><option value="">全部册次</option>${Array.from({length:17},(_,i)=>20-i).map(b=>`<option>${b}</option>`).join('')}</select></label>`}<label>科目<select data-filter="skill"><option value="">全部科目</option>${Object.entries(labels).map(([id,label])=>`<option value="${id}">${label}</option>`).join('')}</select></label><label>状态<select data-filter="status"><option value="imported">已导入</option><option value="">全部状态</option><option value="needs-review">待核对</option><option value="ready">已核对</option><option value="missing-resource">资料缺失</option><option value="not-imported">尚未导入</option></select></label><button class="btn" data-refresh>刷新题库</button></div><div data-catalog-list></div>`;
+    const note=`<p class="hint">${book?'资料新增后点击刷新即可发现。':`已导入 ${imported.length} 项 · 已核对 ${ready} 项。资料新增后点击刷新即可发现。`}</p>${legend}`;
+    host.innerHTML=`<h2 ${book?'':'class="sr-only"'}>${book?`Test ${test} · 四科状态`:'在线题库'}</h2>${book?note:''}<div class="catalog-filters">${book?'':`<label>册次<select data-filter="book"><option value="">全部册次</option>${Array.from({length:17},(_,i)=>20-i).map(b=>`<option>${b}</option>`).join('')}</select></label>`}<label>科目<select data-filter="skill"><option value="">全部科目</option>${Object.entries(labels).map(([id,label])=>`<option value="${id}">${label}</option>`).join('')}</select></label><label>状态<select data-filter="status"><option value="imported">已导入</option><option value="">全部状态</option><option value="needs-review">待核对</option><option value="ready">已核对</option><option value="missing-resource">资料缺失</option><option value="not-imported">尚未导入</option></select></label><button class="btn" data-refresh>刷新题库</button></div><div data-catalog-list></div>${book?'':`<div class="catalog-note">${note}</div>`}`;
     if(book)host.querySelector('[data-filter=status]').value='';
     const progress=e=>{
       const key=`ielts-practice-v1-c${e.book}-t${e.test}-${e.skill}`;
@@ -64,18 +67,42 @@ export async function mountCatalog(){
       const label=p.submitted?'已提交':p.answered?`继续 · ${p.answered}`:'开始';
       return `<span class="shelf-cell${p.submitted?' done':p.answered?' active':''}" data-entry="${e.book}-${e.test}-${e.skill}"><a href="${esc(e.href)}" title="${esc(title)}" aria-label="Test ${e.test} ${esc(title)} · ${label}">${dot(e)}${label}</a>${p.count?`<a class="shelf-history" href="${p.historyHref}">历史 ${p.count}</a>`:''}</span>`;
     };
+    const SELECT_KEY='ielts-library-selection';
+    const remembered=()=>{try{return JSON.parse(localStorage.getItem(SELECT_KEY))||{};}catch{return {};}};
+    const remember=v=>{try{localStorage.setItem(SELECT_KEY,JSON.stringify(v));}catch{}};
+    const icons={listening:'headphones',reading:'book',writing:'pen',speaking:'mic'};
     const shelf=visible=>{
       const skillFilter=host.querySelector('[data-filter=skill]').value;
       const columns=skillFilter?[skillFilter]:Object.keys(labels);
       const books=[...new Set(visible.map(e=>e.book))].sort((a,b)=>b-a);
-      const html=books.map(b=>{
-        const own=visible.filter(e=>e.book===b);
-        const all=result.entries.filter(e=>e.book===b&&e.status!=='not-imported');
-        const pending=all.filter(e=>e.status==='needs-review').length;
-        const tests=[1,2,3,4].filter(t=>own.some(e=>e.test===t));
-        return `<section class="shelf-book" data-shelf-book="${b}"><header><span class="shelf-index">${b}</span><div><strong>Cambridge IELTS ${b}</strong><small>已导入 ${all.length} / 16 项${pending?` <span class="shelf-flag"><i class="status-dot needs-review"></i>待核对 ${pending}</span>`:''}</small></div></header><div class="shelf-grid" style="--shelf-cols:${columns.length}"><span class="shelf-head" aria-hidden="true"></span>${columns.map(s=>`<span class="shelf-head">${labels[s]}</span>`).join('')}${tests.map(t=>`<a class="shelf-test" href="#library/${b}/${t}">Test ${t}</a>${columns.map(s=>cell(own.find(e=>e.test===t&&e.skill===s))).join('')}`).join('')}</div></section>`;
-      }).join('');
-      return html?`<div class="shelf">${html}</div>${missingBooks.length&&!host.querySelector('[data-filter=book]').value?`<p class="hint shelf-missing">第 ${bookRanges(missingBooks)} 册尚未导入在线题目，可在下方“原卷与音频”中打开 PDF 练习。</p>`:''}`:'';
+      if(!books.length)return '';
+      const saved=remembered(),bookFilter=Number(host.querySelector('[data-filter=book]').value)||0;
+      const draft=localPracticeEntries().drafts[0];
+      const selected=bookFilter||[saved.book,draft?.book].find(b=>books.includes(b))||books[0];
+      const own=visible.filter(e=>e.book===selected);
+      const tests=[1,2,3,4].filter(t=>own.some(e=>e.test===t));
+      const test=[saved.book===selected&&saved.test,draft?.book===selected&&draft.test].find(t=>tests.includes(t))||tests[0];
+      const all=result.entries.filter(e=>e.book===selected&&e.status!=='not-imported');
+      const pending=all.filter(e=>e.status==='needs-review').length;
+      const year=b=>({20:2025,19:2024,18:2023,17:2022,16:2021,15:2020,14:2019,13:2018,12:2017}[b]);
+      const covers=books.map(b=>`<button type="button" class="book-cover-pick" data-pick-book="${b}" aria-pressed="${b===selected}"><span class="book-cover tone-${b%3}"><small>CAMBRIDGE</small><strong>${b}</strong><em>IELTS</em><small>ACADEMIC</small></span><span class="book-cover-label"><i aria-hidden="true"></i><span>Cambridge ${b}<small>Academic${year(b)?` · ${year(b)}`:''}</small></span></span></button>`).join('');
+      const tableCell=e=>{
+        if(!e)return '<td class="book-cell empty">—</td>';
+        const p=progress(e);
+        if(!e.available)return `<td class="book-cell locked" data-entry="${e.book}-${e.test}-${e.skill}"><span>${e.status==='not-imported'?'未导入':'暂不可用'}</span></td>`;
+        const label=p.submitted?'已提交':p.answered?'继续':'开始练习';
+        return `<td class="book-cell${p.submitted?' done':p.answered?' active':''}" data-entry="${e.book}-${e.test}-${e.skill}"><a class="btn small${p.answered&&!p.submitted?' primary':''}" href="${esc(e.href)}" aria-label="Test ${e.test} ${labels[e.skill]} · ${label}">${label}</a>${dot(e)?`<span class="cell-status">${dot(e)}${statuses[e.status]}</span>`:''}${p.count?`<a class="shelf-history" href="${p.historyHref}">历史 ${p.count}</a>`:''}</td>`;
+      };
+      const table=`<table class="book-table"><thead><tr><th scope="col">试卷</th>${columns.map(s=>`<th scope="col"><span class="th-skill">${icon(icons[s])}${labels[s]}</span></th>`).join('')}</tr></thead><tbody>${tests.map(t=>`<tr${t===test?' class="is-selected"':''}><th scope="row"><button type="button" data-pick-test="${t}" aria-pressed="${t===test}">Test ${t}</button></th>${columns.map(s=>tableCell(own.find(e=>e.test===t&&e.skill===s))).join('')}</tr>`).join('')}</tbody></table>`;
+      const res=getTestResources(selected,test);
+      const audio=res&&Object.values(res.audio||{})[0];
+      const side=`<aside class="test-panel" aria-label="Test ${test} 资料与进度"><h3>Test ${test} · 资料与进度</h3><ul>${Object.keys(labels).map(s=>{const e=own.find(x=>x.test===test&&x.skill===s);const p=e&&progress(e);
+        const action=!e||!e.available?'<span class="hint">暂不可用</span>':`<a class="btn small${p.answered&&!p.submitted?' primary':''}" href="${esc(p.submitted&&p.historyHref?p.historyHref:e.href)}">${p.submitted?'查看记录':p.answered?'继续练习':'开始练习'}</a>`;
+        return `<li>${icon(icons[s])}<span>${labels[s]}</span>${action}<span class="cell-status">${e&&dot(e)?`${dot(e)}${statuses[e.status]}`:p?.answered&&!p.submitted?`已作答 ${p.answered}`:''}</span></li>`;}).join('')}</ul>
+        <a class="btn primary test-enter" href="#library/${selected}/${test}">进入练习 ${icon('arrow')}</a>
+        <div class="test-resources">${res?.documents?.[0]?`<a href="${esc(res.documents[0].url)}" target="_blank" rel="noopener">${icon('doc')}<span>原卷 PDF</span>↗</a>`:''}${audio?`<a href="${esc(audio.url)}" target="_blank" rel="noopener">${icon('headphones')}<span>配套音频</span>↗</a>`:''}</div></aside>`;
+      const missing=missingBooks.length&&!bookFilter?`<p class="hint shelf-missing">第 ${bookRanges(missingBooks)} 册尚未导入在线题目，可在下方“原卷与音频”中打开 PDF 练习。</p>`:'';
+      return `<div class="cover-shelf" role="group" aria-label="选择册次">${covers}</div><div class="library-detail"><section class="book-panel" data-shelf-book="${selected}"><header><h2>Cambridge ${selected} · Academic</h2>${pending?`<span class="shelf-flag">${icon('flag')}资料由本地原卷导入，待人工核对</span>`:''}</header><div class="book-table-wrap">${table}</div></section>${side}</div>${missing}`;
     };
     const draw=()=>{
       const filters=[...host.querySelectorAll('[data-filter]')];
@@ -83,6 +110,9 @@ export async function mountCatalog(){
       host.querySelector('[data-catalog-list]').innerHTML=(book?visible.map(row).join(''):shelf(visible))||'<p class="hint">没有符合筛选条件的试卷。</p>';
     };
     host.querySelectorAll('select').forEach(el=>el.addEventListener('change',draw));
-    host.querySelector('[data-refresh]').onclick=()=>mountCatalog();draw();
+    host.querySelector('[data-refresh]').onclick=()=>mountCatalog();
+    host._draw=draw;
+    if(!host.dataset.bound)host.dataset.bound='1',host.addEventListener('click',event=>{const b=event.target.closest('[data-pick-book]'),t=event.target.closest('[data-pick-test]');if(!b&&!t)return;const cur=host.querySelector('[data-shelf-book]');const book=b?Number(b.dataset.pickBook):Number(cur?.dataset.shelfBook);const sel=host.querySelector('[data-filter=book]');if(b&&sel&&sel.value&&Number(sel.value)!==book)sel.value='';try{localStorage.setItem('ielts-library-selection',JSON.stringify({book,test:t?Number(t.dataset.pickTest):undefined}));}catch{}host._draw();});
+    draw();
   }catch{if(host.isConnected)host.innerHTML='<h2>导入题库</h2><p role="status">无法读取题库索引，请重启本地服务器后刷新页面。</p>';}
 }

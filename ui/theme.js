@@ -13,6 +13,10 @@ function paint(button) {
   const dark = current() === 'dark';
   if (button.dataset.mode === current()) return; // avoid re-triggering the MutationObserver
   button.dataset.mode = current();
+  if (button.classList.contains('theme-switch')) { // sidebar switch: static label, state in aria-checked
+    button.setAttribute('aria-checked', String(dark));
+    return;
+  }
   button.innerHTML = dark ? icons.sun : icons.moon;
   button.setAttribute('aria-label', dark ? '切换到浅色模式' : '切换到深色模式');
   button.title = dark ? '浅色模式' : '深色模式';

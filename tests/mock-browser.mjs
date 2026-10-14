@@ -54,13 +54,15 @@ try {
   await send('Page.navigate',{url:'http://127.0.0.1:4173/mock.html'});
   await waitFor('Boolean(document.querySelector("#new-mock"))');
   await send('Emulation.setDeviceMetricsOverride',{width:1200,height:900,deviceScaleFactor:1,mobile:false});
-  assert.ok(await evaluate('document.querySelector(".studio-nav nav").getBoundingClientRect().top < document.querySelector(".brand").getBoundingClientRect().bottom'));
-  assert.ok(await evaluate('document.querySelector(".yunlong-signature").getBoundingClientRect().left > document.querySelector(".studio-nav nav").getBoundingClientRect().left'));
+  // Desktop: fixed sidebar on the left, links stacked below the brand, user name in the content top bar.
+  assert.ok(await evaluate('document.querySelector(".studio-nav").getBoundingClientRect().right <= 300 && document.querySelector(".studio-nav nav").getBoundingClientRect().top >= document.querySelector(".brand").getBoundingClientRect().bottom'));
+  assert.ok(await evaluate('document.querySelector(".studio-user").getBoundingClientRect().left > document.querySelector(".studio-nav nav").getBoundingClientRect().right'));
   assert.equal(await evaluate('document.documentElement.scrollWidth<=innerWidth'),true);
   await screenshot('navigation-1200.png');
   await send('Emulation.setDeviceMetricsOverride',{width:977,height:900,deviceScaleFactor:1,mobile:false});
-  assert.ok(await evaluate('document.querySelector(".studio-nav nav").getBoundingClientRect().top >= document.querySelector(".brand").getBoundingClientRect().bottom'));
-  assert.ok(await evaluate('document.querySelector(".yunlong-signature").getBoundingClientRect().left > innerWidth/2'));
+  // Narrow: full-width top bar, one row of links below the brand.
+  assert.ok(await evaluate('document.querySelector(".studio-nav nav").getBoundingClientRect().top >= document.querySelector(".brand").getBoundingClientRect().bottom && document.querySelector(".studio-nav").getBoundingClientRect().width >= document.documentElement.clientWidth - 1'));
+  assert.ok(await evaluate('document.querySelector(".studio-user").getBoundingClientRect().left > innerWidth/2'));
   assert.equal(await evaluate('document.documentElement.scrollWidth<=innerWidth'),true);
   await screenshot('navigation-977.png');
   await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});

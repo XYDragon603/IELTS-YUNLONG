@@ -1,56 +1,71 @@
-/* Design tokens and base typography. Loaded last on every page so these values win. */
+/* Design tokens and base typography (UI redesign 2026-10-14: warm paper, terracotta, navy).
+   Loaded last on every page so these values win. Token names are kept from the previous
+   palette so every page picks up the new colours: --green is the emphasis text colour,
+   --accent the primary action colour, --soft the tinted surface behind icons and states. */
 :root{
   --sans:"Inter Variable","Noto Sans SC Variable",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-  --serif:var(--sans);
-  --bg:#f7f4ef;--surface:#fff;--surface-2:#faf8f4;--surface-3:#f1eee8;
-  --soft:#edf2ea;--soft-2:#dce8dc;
-  --line:#e5e0d8;--line-green:#dbe3d6;--line-accent:#a3bda7;--line-strong:#c9c4bb;
-  --ink:#202621;--muted:#667068;
-  --green:#1b4332;--accent:#1b4332;--accent-2:#6d8f75;--accent-ink:#1b4332;--accent-ink-2:#6d8463;--on-accent:#fff;--lime:#e3edbe;
-  --amber:#d29a3a;--amber-soft:#f6ecd8;--amber-ink:#7a5520;
-  --red:#a73732;--red-soft:#fae4e0;
-  --shadow:0 16px 40px #322e2010;
+  --serif:"Source Serif 4 Variable","Noto Serif SC Variable","Songti SC",Georgia,serif;
+  --bg:#f6f3ee;--surface:#fffdfa;--surface-2:#faf7f2;--surface-3:#f1ece4;
+  --soft:#f7e7de;--soft-2:#f0d5c7;
+  --line:#e7e1d7;--line-green:#efdfd5;--line-accent:#e0ab95;--line-strong:#cfc8bc;
+  --ink:#252c43;--muted:#6d7380;--faint:#9ca0a9;
+  --green:#b4502f;--accent:#c35d3b;--accent-2:#de8f71;--accent-ink:#a9492b;--accent-ink-2:#c3785e;--on-accent:#fff;--lime:#fbefe8;
+  --navy:#26304a;--navy-2:#34415f;--on-navy:#f4efe6;
+  --amber:#e08a2e;--amber-soft:#fbefdc;--amber-ink:#8a5413;
+  --red:#b23b30;--red-soft:#f9e1dc;
+  --radius:14px;--radius-lg:18px;
+  --shadow:0 1px 2px #2a24180a,0 10px 30px #2a24180d;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme=light]){
-    --bg:#121614;--surface:#1a1f1c;--surface-2:#171c19;--surface-3:#222824;
-    --soft:#1f2b25;--soft-2:#29392f;
-    --line:#2c332f;--line-green:#2f3d35;--line-accent:#4b6b57;--line-strong:#48514c;
-    --ink:#e5eae6;--muted:#9ba69f;
-    --green:#9fd3b4;--accent:#7cc39b;--accent-2:#5b8a6c;--accent-ink:#9fd3b4;--accent-ink-2:#86a98f;--on-accent:#0e1a13;--lime:#0e1a13;
-    --amber:#d6a24a;--amber-soft:#33291a;--amber-ink:#e7c17c;
-    --red:#e58f86;--red-soft:#3a201e;
-    --shadow:0 16px 40px #0006;
+    --bg:#1a1f2d;--surface:#222838;--surface-2:#1e2333;--surface-3:#2a3143;
+    --soft:#3a2d2c;--soft-2:#4a3631;
+    --line:#333b4e;--line-green:#3c3539;--line-accent:#8a5745;--line-strong:#4a536a;
+    --ink:#eceef3;--muted:#a4aab8;--faint:#7c8294;
+    --green:#f0936d;--accent:#d8704c;--accent-2:#b86249;--accent-ink:#f3a385;--accent-ink-2:#c98a74;--on-accent:#fff;--lime:#2c2a33;
+    --navy:#141a29;--navy-2:#202941;--on-navy:#f4efe6;
+    --amber:#f0a043;--amber-soft:#3a2f22;--amber-ink:#f2c27f;
+    --red:#ef8f84;--red-soft:#3d2326;
+    --shadow:0 1px 2px #0003,0 10px 30px #0004;
     color-scheme:dark;
   }
 }
 :root[data-theme=dark]{
-  --bg:#121614;--surface:#1a1f1c;--surface-2:#171c19;--surface-3:#222824;
-  --soft:#1f2b25;--soft-2:#29392f;
-  --line:#2c332f;--line-green:#2f3d35;--line-accent:#4b6b57;--line-strong:#48514c;
-  --ink:#e5eae6;--muted:#9ba69f;
-  --green:#9fd3b4;--accent:#7cc39b;--accent-2:#5b8a6c;--accent-ink:#9fd3b4;--accent-ink-2:#86a98f;--on-accent:#0e1a13;--lime:#0e1a13;
-  --amber:#d6a24a;--amber-soft:#33291a;--amber-ink:#e7c17c;
-  --red:#e58f86;--red-soft:#3a201e;
-  --shadow:0 16px 40px #0006;
+  --bg:#1a1f2d;--surface:#222838;--surface-2:#1e2333;--surface-3:#2a3143;
+  --soft:#3a2d2c;--soft-2:#4a3631;
+  --line:#333b4e;--line-green:#3c3539;--line-accent:#8a5745;--line-strong:#4a536a;
+  --ink:#eceef3;--muted:#a4aab8;--faint:#7c8294;
+  --green:#f0936d;--accent:#d8704c;--accent-2:#b86249;--accent-ink:#f3a385;--accent-ink-2:#c98a74;--on-accent:#fff;--lime:#2c2a33;
+  --navy:#141a29;--navy-2:#202941;--on-navy:#f4efe6;
+  --amber:#f0a043;--amber-soft:#3a2f22;--amber-ink:#f2c27f;
+  --red:#ef8f84;--red-soft:#3d2326;
+  --shadow:0 1px 2px #0003,0 10px 30px #0004;
   color-scheme:dark;
 }
 
-/* Base typography: one sans family for Latin (Inter) and Chinese (Noto Sans SC). */
+/* Base typography: sans for UI text, serif for display headings and passages. */
 html{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 body,button,input,select,textarea{font-family:var(--sans)}
 body{background:var(--bg);color:var(--ink);font-feature-settings:"cv11"}
 h1,h2,h3,h4{font-weight:650;letter-spacing:-.01em}
+h1,h2{font-family:var(--serif);font-weight:700;letter-spacing:-.015em}
 strong,b{font-weight:650}
-.eyebrow{font-weight:500}
+.eyebrow{font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--green)}
 input,select,textarea{color:var(--ink);background-color:var(--surface)}
 ::placeholder{color:var(--muted);opacity:.8}
+a{text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-/* Display numbers: tabular lining figures in the same family. */
-.home-stat strong,.review-stat strong,.shelf-index,.studio-cover span,.word-book-cover strong,.collection-count,.goal-display strong{font-family:var(--sans);font-weight:500;font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.03em}
+/* Shared components. */
+.btn{border-radius:10px;font-weight:600}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);box-shadow:0 6px 16px #c35d3b33}
+.btn.primary:hover{filter:brightness(1.06)}
 
-/* Theme toggle (inserted into page headers by ui/theme.js). */
+/* Display numbers: tabular lining figures. */
+.review-stat strong,.shelf-index,.studio-cover span,.word-book-cover strong,.collection-count,.goal-display strong{font-family:var(--serif);font-weight:600;font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.02em}
+
+/* Theme toggle (compact icon button, inserted into practice headers by ui/theme.js). */
 .theme-toggle{display:inline-grid;place-items:center;width:36px;height:36px;flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s}
 .theme-toggle:hover{color:var(--green);border-color:var(--line-accent)}
 .theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
