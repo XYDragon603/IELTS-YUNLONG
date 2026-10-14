@@ -1,0 +1,56 @@
+/* Design tokens and base typography. Loaded last on every page so these values win. */
+:root{
+  --sans:"Inter Variable","Noto Sans SC Variable",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:var(--sans);
+  --bg:#f7f4ef;--surface:#fff;--surface-2:#faf8f4;--surface-3:#f1eee8;
+  --soft:#edf2ea;--soft-2:#dce8dc;
+  --line:#e5e0d8;--line-green:#dbe3d6;--line-accent:#a3bda7;--line-strong:#c9c4bb;
+  --ink:#202621;--muted:#667068;
+  --green:#1b4332;--accent:#1b4332;--accent-2:#6d8f75;--accent-ink:#1b4332;--accent-ink-2:#6d8463;--on-accent:#fff;--lime:#e3edbe;
+  --amber:#d29a3a;--amber-soft:#f6ecd8;--amber-ink:#7a5520;
+  --red:#a73732;--red-soft:#fae4e0;
+  --shadow:0 16px 40px #322e2010;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --bg:#121614;--surface:#1a1f1c;--surface-2:#171c19;--surface-3:#222824;
+    --soft:#1f2b25;--soft-2:#29392f;
+    --line:#2c332f;--line-green:#2f3d35;--line-accent:#4b6b57;--line-strong:#48514c;
+    --ink:#e5eae6;--muted:#9ba69f;
+    --green:#9fd3b4;--accent:#7cc39b;--accent-2:#5b8a6c;--accent-ink:#9fd3b4;--accent-ink-2:#86a98f;--on-accent:#0e1a13;--lime:#0e1a13;
+    --amber:#d6a24a;--amber-soft:#33291a;--amber-ink:#e7c17c;
+    --red:#e58f86;--red-soft:#3a201e;
+    --shadow:0 16px 40px #0006;
+    color-scheme:dark;
+  }
+}
+:root[data-theme=dark]{
+  --bg:#121614;--surface:#1a1f1c;--surface-2:#171c19;--surface-3:#222824;
+  --soft:#1f2b25;--soft-2:#29392f;
+  --line:#2c332f;--line-green:#2f3d35;--line-accent:#4b6b57;--line-strong:#48514c;
+  --ink:#e5eae6;--muted:#9ba69f;
+  --green:#9fd3b4;--accent:#7cc39b;--accent-2:#5b8a6c;--accent-ink:#9fd3b4;--accent-ink-2:#86a98f;--on-accent:#0e1a13;--lime:#0e1a13;
+  --amber:#d6a24a;--amber-soft:#33291a;--amber-ink:#e7c17c;
+  --red:#e58f86;--red-soft:#3a201e;
+  --shadow:0 16px 40px #0006;
+  color-scheme:dark;
+}
+
+/* Base typography: one sans family for Latin (Inter) and Chinese (Noto Sans SC). */
+html{-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+body,button,input,select,textarea{font-family:var(--sans)}
+body{background:var(--bg);color:var(--ink);font-feature-settings:"cv11"}
+h1,h2,h3,h4{font-weight:650;letter-spacing:-.01em}
+strong,b{font-weight:650}
+.eyebrow{font-weight:500}
+input,select,textarea{color:var(--ink);background-color:var(--surface)}
+::placeholder{color:var(--muted);opacity:.8}
+
+/* Display numbers: tabular lining figures in the same family. */
+.home-stat strong,.review-stat strong,.shelf-index,.studio-cover span,.word-book-cover strong,.collection-count,.goal-display strong{font-family:var(--sans);font-weight:500;font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.03em}
+
+/* Theme toggle (inserted into page headers by ui/theme.js). */
+.theme-toggle{display:inline-grid;place-items:center;width:36px;height:36px;flex-shrink:0;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s}
+.theme-toggle:hover{color:var(--green);border-color:var(--line-accent)}
+.theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}

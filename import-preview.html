@@ -1,18 +1,25 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8"><script>try{const t=localStorage.getItem("ielts-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch{}</script><link rel="stylesheet" href="fonts.css">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Cambridge 18 · Listening 导入预览</title>
+  <title>IELTS Studio · 听力练习</title>
+  <link rel="icon" href="favicon.svg">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="study.css">
-  <style>body{padding:24px}main{max-width:980px;margin:auto}audio{width:100%;margin:16px 0}.preview-actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}.study-question{margin:20px 0}#preview-status{min-height:2em}button:focus-visible,a:focus-visible{outline:3px solid #287d68}blockquote{white-space:pre-wrap} @media(max-width:600px){body{padding:12px}}</style>
+  <link rel="stylesheet" href="practice.css">
+  <link rel="stylesheet" href="studio.css">
+  <link rel="stylesheet" href="exam-workspace.css">
   <script type="module" src="features/import-preview.js"></script>
-</head>
-<body><main id="main">
-  <a href="/#library/18/1" class="text-btn">← 返回题库</a>
-  <h1>Cambridge 18 · Test 1 · Listening</h1>
-  <p class="note-box">导入预览 · 题目与听力证据仍待核对。提交后提供暂定参考分，不代表已验证成绩。此页面单独保存进度。</p>
-  <p id="preview-status" role="status">正在载入题目…</p>
+<link rel="stylesheet" href="theme.css"><script type="module" src="ui/theme.js"></script></head>
+<body class="listening-preview"><a class="skip-link" href="#main">跳至练习内容</a>
+<header class="practice-header"><a class="brand" href="/#home"><span class="brand-mark">i.</span><span>IELTS Studio</span></a><nav aria-label="科目切换" id="skill-links"></nav><a id="back-link" href="/#library/18/1" class="text-btn">← 返回题库</a></header>
+<main id="main" class="listening-main">
+  <div class="listening-intro">
+    <span class="eyebrow">LISTENING · 听力练习</span>
+    <h1>Cambridge 18 · Test 1</h1>
+    <p id="preview-status" role="status">正在载入题目…</p>
+  </div>
+  <details class="exam-data-note unverified listening-note"><summary>资料待核对 · 题目与听力证据可能有识别错误</summary><p class="note-box">导入预览 · 题目与听力证据仍待核对。提交后提供暂定参考分，不代表已验证成绩。此页面单独保存进度。</p></details>
   <div id="preview-content"></div>
 </main></body></html>

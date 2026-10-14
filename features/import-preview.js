@@ -14,9 +14,13 @@ let mockRun=null;
 let mockError=null;
 try {if(mockRunId){mockRun=requireMockStage(mockRunId,'listening');if(mockRun.book!==book||mockRun.test!==testNumber)throw Error('整套练习与试卷不匹配');}} catch(error){mockError=error;}
 const key = mockRun?listeningRunKey(mockRun):`ielts-c${book}-t${testNumber}-import-preview-v1`;
-document.querySelector('h1').textContent=`Cambridge ${book} \u00b7 Test ${testNumber} \u00b7 Listening`;
-document.querySelector('a[href]').href=mockRun?'/mock.html':`/#library/${book}/${testNumber}`;
-if(mockRun)document.querySelector('a[href]').textContent='← 返回整套进度';
+document.querySelector('h1').textContent=`Cambridge ${book} · Test ${testNumber}`;
+document.title=`IELTS Studio · Cambridge ${book} Test ${testNumber} 听力`;
+const backLink=document.querySelector('#back-link');
+backLink.href=mockRun?'/mock.html':`/#library/${book}/${testNumber}`;
+if(mockRun)backLink.textContent='← 返回整套进度';
+const skillNames={listening:'听力',reading:'阅读',writing:'写作',speaking:'口语'};
+document.querySelector('#skill-links').innerHTML=mockRun?'':Object.entries(skillNames).map(([id,label])=>id==='listening'?`<a href="${esc(location.pathname+location.search)}" aria-current="page">${label}</a>`:`<a href="/practice.html?book=${book}&test=${testNumber}&skill=${id}">${label}</a>`).join('');
 if(mockRun)document.querySelector('.note-box').textContent='整套练习 · 本科进度与单科练习分别保存。提交后可查看参考答案，返回整套进度可继续阅读。';
 const status = document.querySelector('#preview-status');
 const content = document.querySelector('#preview-content');
@@ -40,12 +44,12 @@ function render() {
   const part = test.parts.find(p => p.number === state.part);
   const navigation = test.parts.map(p => `<button class="btn" data-part="${p.number}" aria-pressed="${p.number===state.part}">Part ${p.number}</button>`).join('');
   const paper = localResourceURL(test.sources.paper.path);
-  const groups = (part.groups || []).map(g => `<p>${esc(g.instruction || '')}</p>`).join('');
-  content.innerHTML = `<div class="preview-actions">${navigation}</div><h2>${esc(part.title)}</h2>
+  const notes = [...new Set([part.instruction, ...(part.groups || []).map(g => g.instruction), part.context].map(t => String(t || '').trim()).filter(Boolean))];
+  content.innerHTML = `<div class="listening-bar"><nav class="practice-tabs listening-parts" aria-label="听力分段">${navigation}</nav>
     <audio controls preload="metadata" src="${esc(localResourceURL(test.audio[state.part].path))}"></audio>
-    <a target="_blank" rel="noopener" href="${esc(paper)}#page=${part.questions[0].source.pdfPage}">对照原卷题页 ↗</a>
-    <p>${esc(part.instruction || '')}</p>${groups}${part.context?`<p>${esc(part.context)}</p>`:''}
-    ${part.questions.map(q => questionRenderer(q, state.answers, state.flags)).join('')}
+    <a class="text-btn" target="_blank" rel="noopener" href="${esc(paper)}#page=${part.questions[0].source.pdfPage}">对照原卷 ↗</a></div>
+    <section class="listening-sheet"><h2>Part ${state.part} · ${esc(part.title)}</h2>${notes.map(t => `<p class="listening-instruction">${esc(t)}</p>`).join('')}
+    ${part.questions.map(q => questionRenderer(q, state.answers, state.flags)).join('')}</section>
     <div class="preview-actions"><button class="btn primary" id="submit-preview">提交并查看暂定结果</button><button class="btn" id="export-preview">导出答题记录</button></div>
     <section id="preview-results" aria-live="polite"></section>`;
   const audio = content.querySelector('audio');
