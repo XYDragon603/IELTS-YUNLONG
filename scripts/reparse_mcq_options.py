@@ -46,7 +46,7 @@ STOP = re.compile(r"^(Questions?\s+\d|Choose\b|Do the following|Complete the|Loo
 
 
 _VOCAB: set[str] | None = None
-LEADING = ("a", "i", "it", "he", "she", "we", "they", "an", "the")
+LEADING = ("a", "i", "it", "he", "she", "we", "they", "an", "the", "can", "how", "to")
 
 
 def split_words(text: str) -> str:
@@ -72,7 +72,8 @@ def split_words(text: str) -> str:
 
     def fix(m: re.Match) -> str:
         word = m.group(0)
-        if word.lower() in _VOCAB:
+        low = word.lower()
+        if low in _VOCAB or any(low.endswith(s) and low[:-len(s)] in _VOCAB for s in ("s", "es", "d", "ed", "ing")):
             return word
         for lead in sorted(LEADING, key=len, reverse=True):
             rest = word[len(lead):]
@@ -86,19 +87,28 @@ def split_words(text: str) -> str:
     return re.sub(r"\b[A-Za-z][a-z]+(?:-[a-z]+)?\b", fix, text)
 
 
+MCQ_INSTRUCTION = re.compile(r"Choose the correct letter|correct letter, A, B, C or D, in boxes|Write the correct letter in boxes|Choose (TWO|THREE) letters", re.I)
+NOT_MCQ = re.compile(r"NB You may use|list of|correct ending|Match each|Look at the following", re.I)
+
+
 def needs_fix(group: dict) -> bool:
-    if not str(group.get("type", "")).startswith("multiple"):
+    # Some multiple-choice groups were imported as "unclassified" or "summary-completion".
+    context = group.get("context") or ""
+    own = re.split(r"\nQuestions?\s+\d", context, maxsplit=1)[0]  # ignore a following group's instruction
+    looks_mcq = MCQ_INSTRUCTION.search(own) and not NOT_MCQ.search(own)
+    if not (str(group.get("type", "")).startswith("multiple") or looks_mcq):
         return False
     if any(q.get("options") for q in group.get("questions", [])):
         return False
     opts = group.get("options") or []
     values = [o.get("value") for o in opts]
-    instruction_like = any(re.match(r"(h?oose|choose|write|which)\b", (o.get("label") or "").strip(), re.I) for o in opts)
+    instruction_like = any(re.match(r"(h?oose|choose|write)\b|which\s+(TWO|THREE)\b", (o.get("label") or "").strip(), re.I) for o in opts)
     return len(opts) < 3 or instruction_like or len(values) != len(set(values))
 
 
 def expected_letters(context: str) -> tuple[int | None, bool]:
     """(number of letters, multi-answer?) from the instruction text."""
+    context = re.split(r"\nQuestions?\s+\d", context, maxsplit=1)[0]
     multi = re.search(r"Choose\s+(TWO|THREE|FOUR)\s+letters", context, re.I) is not None
     m = re.search(r"\bA\s*[-–—]\s*([B-I])\b", context)
     if m:
@@ -142,9 +152,13 @@ def ocr_region(page: fitz.Page, y0: float, y1: float) -> list[dict]:
     return out
 
 
-def option_line(text: str, expected: str):
-    """Return (letter, label) if text starts with the expected option letter (allowing common misreads)."""
+def option_line(text: str, expected: str, glued: bool = False):
+    """Return (letter, label) if text starts with the expected option letter (allowing common misreads).
+
+    With glued=True (mid-sequence) a letter run into its text is accepted too: "DA few", "Eto collect"."""
     m = re.match(r"^\s*([A-I©¢(08|l1O])[\s_|.,:;—–-]+(.+)$", text)
+    if not m and glued:
+        m = re.match(rf"^\s*({expected})((?:[A-Z]\s|[a-z]{{2,}}\s).+)$", text)
     if not m:
         return None
     letter = MISREAD.get(m[1], m[1]) if m[1] not in LETTERS else m[1]
@@ -162,16 +176,21 @@ def parse(lines: list[dict], numbers: list[int], count: int, multi: bool):
         text = ln["text"].strip()
         if not text:
             continue
-        qm = re.match(r"^(\d{1,2})\s+\S", text)
-        if qm and int(qm[1]) in numbers and not multi:
-            current = int(qm[1])
-            result.setdefault(current, [])
-            continue
+        qm = re.match(r"^(\d{1,2})(?:[\s.,]+\S|\s*$)", text)  # "27 What", "38.What" or a bare "32"
+        if qm and not multi:
+            n = int(qm[1])
+            upcoming = [k for k in numbers if current is None or k > current]
+            if n not in numbers and upcoming and n % 10 == upcoming[0] % 10 and (current is None or len(result.get(current, [])) == count):
+                n = upcoming[0]  # misread tens digit, e.g. "45" for 15 right after question 14
+            if n in upcoming:
+                current = n
+                result.setdefault(current, [])
+                continue
         if current is None:
             continue
         opts = result.setdefault(current, [])
         if len(opts) < count:
-            hit = option_line(text, LETTERS[len(opts)])
+            hit = option_line(text, LETTERS[len(opts)], glued=bool(opts))
             if hit:
                 opts.append({"value": hit[0], "label": hit[1], "source": {"box": ln["box"], "confidence": ln["confidence"]}})
                 continue
@@ -256,6 +275,13 @@ def main() -> None:
                 def tidy(o):
                     label = re.sub(r"^(?:l\||\||lI)(?=[a-zA-Z])", "I", o["label"])  # "l|ts", "lIt" -> "Its", "It"
                     label = re.sub(r"^I(?=[A-Z][a-z])", "", label)
+                    label = re.sub(r"^lt(?=[a-z]*\b)", "It", label)                       # "lt is", "ltis"
+                    label = re.sub(r"\bI\|t", "It", label)                                    # "I|tleads"
+                    label = re.sub(r"\b(It|it|[Cc]an)(is|be)\b", r"\1 \2", label)                # "Itis", "canbe"
+                    label = re.sub(r"\b([A-Z]{2,})(has|is|was)\b", r"\1 \2", label)           # "USAhas"
+                    label = re.sub(r"(?<=[a-z])\.(?=[a-z])", " ", label)                      # "that.can"
+                    label = re.sub(r"(?<!\S)/l(?=[a-z])", "Il", label)                        # "/liad" -> "Iliad"
+                    label = re.sub(r"^arising (?=number\b)", "a rising ", label)              # "a rising number"
                     if o["source"]["box"][2] > 0.85:  # last lines on the page: drop the page footer
                         label = re.split(r"\s+(?=\S{0,4}\s?p\.?\s?\d{2,3}\b)", label)[0]           # "[© p. 123] 47 Test 2"
                         label = re.sub(r"\s+\d{1,3}(?:\s+(?:Reading|Reaaing|Listening|Test\s*\d))?\s*$", "", label)
@@ -265,10 +291,13 @@ def main() -> None:
                     return split_words(label.strip())
 
                 def build(opts):
-                    return [{"value": o["value"], "label": tidy(o),
+                    labels = [tidy(o) for o in opts]
+                    if any(re.match(r"Its?\b", l) for l in labels):  # sentence options: "it was" -> "It was"
+                        labels = [re.sub(r"^(its?)\b", lambda m: m[1].capitalize(), l) for l in labels]
+                    return [{"value": o["value"], "label": label,
                              "source": {"pdfPage": next(l["pdfPage"] for l in lines if l["box"] == o["source"]["box"]),
                                         "method": METHOD, "boundingBox": o["source"]["box"], "confidence": o["source"]["confidence"]}}
-                            for o in opts]
+                            for o, label in zip(opts, labels)]
                 before = {"groupOptions": g.get("options"), "questionOptions": {q["number"]: q.get("options") for q in g["questions"]}}
                 if multi:
                     g["options"] = build(parsed[0])
@@ -284,9 +313,9 @@ def main() -> None:
                                 "paperSha256": data["sources"]["paper"].get("sha256")})
                 print(f"OK   {where}: {'shared' if multi else 'per question'} {count} options")
                 if args.verbose:
-                    for k in keys:
-                        for o in parsed[k]:
-                            print(f"     {k or 'shared'} {o['value']} {o['label']}")
+                    for q in ([None] if multi else g["questions"]):
+                        for o in (g["options"] if q is None else q["options"]):
+                            print(f"     {q['number'] if q else 'shared'} {o['value']} {o['label']}")
         if changes and args.write:
             backup = WORKSPACE / ".cache" / "data-backup" / path.parent.relative_to(ROOT) / "reading.json"
             if not backup.exists():
