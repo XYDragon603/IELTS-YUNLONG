@@ -20,10 +20,10 @@ ROOT = WORKSPACE / "resources" / "cambridge"
 
 # Each rule: (code, description, regex). Order matters only for reporting.
 RULES = [
-    ("dot-leader-garble", "dotted answer line read as letters", re.compile(r"[.…]{3,}\s*[a-z]{6,}|[a-z]*(?:en|em|ne|me|nn|ee){4,}[a-z]*", re.I)),
+    ("dot-leader-garble", "dotted answer line read as letters", re.compile(r"[.…]{3,}[a-z]{4,}|[a-z]*(?:en|em|ne|me|nn|ee){4,}[a-z]*", re.I)),
     ("mixed-case-word", "word with random capitals", re.compile(r"\b(?=[A-Za-z]*[a-z][A-Z])(?=[A-Za-z]*[A-Z]{2})[A-Za-z]{5,}\b")),
     ("repeated-char", "same character 4+ times", re.compile(r"([A-Za-z])\1{3,}")),
-    ("stray-symbols", "OCR symbol noise", re.compile(r"[|¢©®§¥£€]{1}|[~^`]{2,}|\\[a-z]")),
+    ("stray-symbols", "OCR symbol noise", re.compile(r"[|¢©®§]|[~^`]{2,}|\\[a-z]")),  # £ € ¥ are legitimate currency
     ("broken-hyphen", "word split by hyphen and space", re.compile(r"\b[a-z]{2,}- [a-z]{2,}\b")),
     ("digit-in-word", "digit inside a word (l/1, O/0 confusion)", re.compile(r"\b[a-z]+[0-9][a-z]+\b|\b[a-z]{2,}[0-9]\b", re.I)),
 ]
