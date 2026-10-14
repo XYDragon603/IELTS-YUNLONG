@@ -70,7 +70,7 @@ async function render(){
   state.index=Math.max(0,Math.min(state.index,items.length-1));
   const item=items[state.index];
   main.innerHTML=`<div class="practice-intro"><div><span class="eyebrow">CAMBRIDGE ${book} / TEST ${test}</span><h1>${names[skill]} · ${skill[0].toUpperCase()+skill.slice(1)}</h1><span id="save-status" class="practice-muted">本机草稿 · ${state.submitted?'已提交':'未提交'}</span></div><div class="practice-clock"><output id="practice-clock" aria-label="剩余时间">${formatTime(practiceRemaining(state))}</output><button class="btn" id="clock-toggle" ${state.submitted?'disabled':''}>${state.deadline?'暂停计时':'开始计时'}</button></div></div>
-    ${!data.verified?'<p class="practice-warning">遇到缺失题干或识别异常时，请对照原卷继续练习。</p>':''}
+    ${!data.verified?'<p class="practice-warning" data-unverified>本卷由 OCR 自动整理，尚未人工核对。遇到缺失题干或识别异常时，请对照原卷继续练习；答案待核对的题不计为错误。</p>':''}
     ${state.legacySnapshot?'<p class="practice-warning">这是旧版练习记录。旧答案已保留，题目与参考结果在本次迁移时保存，无法还原首次提交时的题库版本。</p>':''}
     ${skill==='reading'&&readingItems(data).length!==40?`<p class="practice-warning">当前导入 ${readingItems(data).length} 个题目记录，完整卷应有 40 个计分点；资料补齐后刷新即可加载。</p>`:''}
     <nav class="practice-tabs" aria-label="练习分段">${items.map((p,i)=>`<button class="btn" data-index="${i}" aria-pressed="${i===state.index}">${skill==='reading'?'Passage':skill==='writing'?'Task':'Part'} ${p.number||p.part||i+1}</button>`).join('')}</nav>
