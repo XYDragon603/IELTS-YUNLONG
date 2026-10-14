@@ -14,6 +14,7 @@ const icons = {
   play: '<path d="m9 5 11 7-11 7z"/>',
   pause: '<path d="M8 5v14M16 5v14"/>',
   check: '<path d="m5 12 4 4L20 5"/>',
+  cards: '<rect x="3" y="7" width="14" height="14" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v12M7 14h6"/>',
   download: '<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
 };
 export const icon = name => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.book}</svg>`;

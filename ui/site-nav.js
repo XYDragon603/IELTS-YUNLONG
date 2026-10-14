@@ -5,8 +5,8 @@ const items=[
  ['library','book','Cambridge 题库','/#library'],
  ['review','flag','错题复习','/review.html'],
  ['history','chart','练习记录','/#history'],
- ['mock',null,'整套练习','/mock.html'],
- ['words',null,'记单词','/words.html']
+ ['mock','clock','整套练习','/mock.html'],
+ ['words','cards','记单词','/words.html']
 ];
 
 export function siteNav(page='home'){

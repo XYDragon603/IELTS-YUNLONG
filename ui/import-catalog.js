@@ -8,20 +8,26 @@ function bookRanges(books){
   return parts.join('、');
 }
 function read(key){try{return JSON.parse(localStorage.getItem(key));}catch{return null;}}
-export function localPracticeLinks(){
+export function localPracticeEntries(){
   const drafts=[],history=[];
   try{for(let i=0;i<localStorage.length;i++){
     const key=localStorage.key(i);
     const listening=key.match(/^ielts-c(\d+)-t([1-4])-import-preview-v1$/);
-    if(listening){const s=read(key);if(s?.answers&&!s.submitted&&Object.keys(s.answers).length)drafts.push({title:`Cambridge ${listening[1]} · Test ${listening[2]} · 听力预览`,href:`/import-preview.html?book=${listening[1]}&test=${listening[2]}`});continue;}
+    if(listening){const s=read(key);if(s?.answers&&!s.submitted&&Object.keys(s.answers).length)drafts.push({book:Number(listening[1]),test:Number(listening[2]),skill:'listening',answered:Object.keys(s.answers).length,savedAt:Number(s.savedAt)||0,title:`Cambridge ${listening[1]} · Test ${listening[2]} · 听力预览`,href:`/import-preview.html?book=${listening[1]}&test=${listening[2]}`});continue;}
     const m=key.match(/^ielts-practice-v1-c(\d+)-t([1-4])-(reading|writing|speaking)(-history)?$/);if(!m)continue;
     const value=read(key);const url=`/practice.html?book=${m[1]}&test=${m[2]}&skill=${m[3]}`;
-    const title=`Cambridge ${m[1]} · Test ${m[2]} · ${labels[m[3]]}`;
-    if(m[4]){if(Array.isArray(value))for(const item of value)if(item?.id&&item.submitted)history.push({title,href:url+'&attempt='+encodeURIComponent(item.id),date:item.submitted});}
-    else if(value?.version===1&&!value.submitted&&value.answers&&(Object.keys(value.answers).length||value.deadline))drafts.push({title,href:url});
+    const base={book:Number(m[1]),test:Number(m[2]),skill:m[3],title:`Cambridge ${m[1]} · Test ${m[2]} · ${labels[m[3]]}`};
+    if(m[4]){if(Array.isArray(value))for(const item of value)if(item?.id&&item.submitted)history.push({...base,href:url+'&attempt='+encodeURIComponent(item.id),date:item.submitted});}
+    else if(value?.version===1&&!value.submitted&&value.answers&&(Object.keys(value.answers).length||value.deadline))drafts.push({...base,answered:Object.values(value.answers).filter(v=>Array.isArray(v)?v.length:String(v||'').trim()).length,savedAt:Number(value.savedAt)||0,href:url});
   }}catch{}
+  drafts.sort((a,b)=>b.savedAt-a.savedAt);
+  history.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  return {drafts,history};
+}
+export function localPracticeLinks(){
+  const {drafts,history}=localPracticeEntries();
   const links=(items,action)=>items.map(v=>`<a class="catalog-row" href="${esc(v.href)}"><span>${esc(v.title)}${v.date?`<small>${esc(new Date(v.date).toLocaleString('zh-CN'))}</small>`:''}</span><strong>${action} ↗</strong></a>`).join('');
-  return `<section class="import-catalog"><h2>继续四科练习</h2>${links(drafts,'继续练习')||'<p class="hint">暂无阅读、写作或口语草稿。</p>'}<a class="text-btn" href="#library">选择题库 ↗</a></section><section class="import-catalog"><h2>三科练习历史</h2>${links(history.sort((a,b)=>String(b.date).localeCompare(String(a.date))),'查看记录')||'<p class="hint">提交后的练习记录会显示在这里。</p>'}</section>`;
+  return `<section class="import-catalog"><h2>继续四科练习</h2>${links(drafts,'继续练习')||'<p class="hint">暂无阅读、写作或口语草稿。</p>'}<a class="text-btn" href="#library">选择题库 ↗</a></section><section class="import-catalog"><h2>三科练习历史</h2>${links(history,'查看记录')||'<p class="hint">提交后的练习记录会显示在这里。</p>'}</section>`;
 }
 export async function mountCatalog(){
   const host=document.querySelector('[data-catalog]');if(!host)return;
