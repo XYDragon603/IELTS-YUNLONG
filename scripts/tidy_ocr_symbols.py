@@ -43,6 +43,8 @@ AFTER_I = {
 }
 BULLET_LINE = re.compile(r"^[ \t]*(?:[¢©®*•]|e(?=[ \t]*[—–-][ \t]))[ \t]*[—–-]?[ \t]+(?=\S)", re.M)
 PIPE_AS_I = re.compile(r"(^|[\s‘“'\"(])\|(?=[ \t]+([A-Za-z’']+))", re.M)
+# Printed page reference + page number, e.g. ">/@ p.121| 19", "3/Q p.120| 23", "[© p. 123] 47".
+PAGE_FOOTER = re.compile(r"\n?^[^\w\n]{0,4}\w?[^\w\n]{0,3}\s*p\.?\s*\d{2,3}[^\w\n]{0,3}\s*\d{1,3}[ \t]*$", re.M)
 PIPE_RESIDUE = re.compile(r"[ \t]*(?<![A-Za-z0-9])\|(?![A-Za-z0-9])[ \t]*")
 
 
@@ -58,6 +60,15 @@ def tidy(text: str, list_field: bool) -> tuple[str, list[str]]:
     def as_i(m: re.Match) -> str:
         return f"{m.group(1)}I" if m.group(2).lower() in AFTER_I else m.group(0)
 
+    new = PAGE_FOOTER.sub("", out)
+    if new != out:
+        fired.append("page-footer")
+        out = new
+    new = re.sub(r"^([A-H]|[ivx]{1,4})[ \t]*_+[ \t.]*(?=\S)", r"\1 ", out, flags=re.M)   # "B__. Its" -> "B Its"
+    new = re.sub(r"(?<![A-Za-z])l\|(?=t)", "I", new)                                      # "l|ts" -> "Its"
+    if new != out:
+        fired.append("option-label")
+        out = new
     new = PIPE_AS_I.sub(as_i, out)
     if new != out:
         fired.append("pipe-as-I")
@@ -116,7 +127,7 @@ def main() -> None:
         changes = []
         for location, container, key, mode in slots(data):
             before = container.get(key)
-            if not isinstance(before, str) or not re.search(r"[|¢©®]|^[ \t]*e[ \t]*[—–-]", before, re.M):
+            if not isinstance(before, str) or not re.search(r"[|¢©®]|^[ \t]*e[ \t]*[—–-]|^[A-H][ \t]*_|p\.?\s*\d{2,3}", before, re.M):
                 continue
             after, fired = tidy(before, mode)
             if after == before:

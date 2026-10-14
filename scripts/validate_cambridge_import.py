@@ -496,10 +496,27 @@ def validate_reading(reading_path: Path) -> dict:
         cur = v.get("curation")
         if cur and cur.get("reviewMethod") not in ("assistant-visual", "human"):
             no_fake_human = False
+    # Visually checked text corrections must be traceable to an evidence image on a real page.
+    text_cur_path = skill_dir / "text-curations.json"
+    text_cur_count = 0
+    if text_cur_path.is_file():
+        try:
+            entries = json.loads(text_cur_path.read_text(encoding="utf-8")).get("curations", [])
+            text_cur_count = len(entries)
+            for c in entries:
+                if not (c.get("reviewMethod") in ("assistant-visual", "human")
+                        and isinstance(c.get("sourcePdfPage"), int) and not isinstance(c.get("sourcePdfPage"), bool)
+                        and valid_normalized_box(c.get("evidenceBoundingBox"))
+                        and re.fullmatch(r"[0-9a-f]{64}", str(c.get("evidenceImageSha256", "")))
+                        and (c.get("originalOcr") is None or isinstance(c.get("originalOcr"), str))  # empty prompts were null
+                        and isinstance(c.get("curatedValue"), str)):
+                    no_fake_human = False
+        except (OSError, json.JSONDecodeError):
+            no_fake_human = False
     checks.append({
         "name": "reading_curation_provenance",
         "passed": no_fake_human,
-        "detail": "Curations have authentic reviewMethod (assistant-visual/human)",
+        "detail": f"Curations have authentic reviewMethod (assistant-visual/human); text corrections traceable: {text_cur_count}",
     })
 
     # 8. Assets verification (e.g. table-completion and summary-completion assets)

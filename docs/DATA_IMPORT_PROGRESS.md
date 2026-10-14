@@ -572,3 +572,21 @@ python scripts/reocr_leader_fields.py --write    # 应用并记录日志
 结果：154 个字段（规则命中：表格线残留 127、项目符号 20、代词 I 15），日志同样写入各试卷 `ocr-cleanup.json`（`method: rule`），备份于 `.cache/data-backup/`。审计脚本同时去掉误报：`£ € ¥` 为正常货币符号，听力人工校订题干中的 `...` 空位不再计入。
 
 全库可疑字段：369 → 226 → **34**，口语、听力、写作已为 0。剩余 34 项全部在阅读：约 10 项为误报（`high- and low-` 等悬垂连字符、`ME2`），约 15 项为机器无法纠正的真实误识别（如 C12 T1 Q6/Q13、C15 T3 Q8、C16 T3 Q39、C14 T2 Q36 `theMSelVes`、C16 T3 题组 6–13），需按 assistant-visual 流程对照原卷校订。另发现 C12、C14 部分阅读正文混入插图或另一栏文字（如 C14 T1 Passage 2 `fuk HAH A FS A`），需按原卷重新分段。
+
+### 十二（续）视觉校订、选择题选项重读与图示补充（2026-10-14）
+
+**1. 阅读文本视觉校订（assistant-visual）**：新增 `resources/cambridge/c*/test-*/text-curations.json`，与 `curations.json` 分开存放（后者会被 `generate_c*_curations.py` 整体重写）。每条记录：字段位置、原 OCR 文本、校订文本、页码、证据框、**证据截图 SHA-256**、原卷 SHA-256、`reviewMethod: assistant-visual`、理由。工具：
+```sh
+python scripts/render_evidence.py --book 12 --test 1 --field "Q6 prompt"     # 渲染证据截图并打印哈希
+python scripts/apply_text_curations.py --add corrections.json                 # 记录并应用
+python scripts/apply_text_curations.py                                        # 重放全部校订（幂等）
+```
+已校订 40 个字段：C12 T1 Q6–13（原题干为整块笔记或为空）及题组；C14 T2 Q36–37 与标题列表；C14 T4 Q34–39；C15 T2 题组 18–22；C15 T3 Q8–13 及题组；C16 T3 题组 6–13（OCR 漏掉第 8 空所在行）与 Q39；C16 T4 Q1–6 及题组；C13 T1、C18 T1 表格题组；C18 T2 Q23；C13 T2、C20 T4 正文各 1 处。校验器 `reading_curation_provenance` 同时检查 text-curations（审核方式、页码、证据框、截图哈希），新增单元测试覆盖伪造审核方式、无效哈希与无效坐标。
+
+**2. 选择题选项重读**：52 个选择题题组的选项不可用（为空，或把说明行 “Choose the correct letter” 误识为选项 C），题组上下文往往也缺少选项。`scripts/reparse_mcq_options.py` 从题组起点 OCR 至下一题组起点（可跨页），拆分题号行与 A/B/C… 选项行，仅在字母连续且数量与说明一致时写入：单选题写入每题 `options`，“Choose TWO letters” 写入题组共享 `options`。已修复 **35 组**；**17 组**未通过校验保持原样，待逐组处理：C12 T3 32–36、C15 T4 32–34、C16 T1 25–26、C16 T2 27–30、C16 T4 33–35、C17 T2 27–31、C17 T3 27–31、C18 T4 12–13 与 14–16、C19 T1 22–23 与 27–30、C19 T3 27–30、C20 T1 27–30、C20 T2 23–24 与 38–40、C20 T3 20–21 与 37–40。
+
+**3. 图示补充**：C16 T4 Q1–6 为“标注图示”题但原导入无图片，`scripts/attach_group_asset.py` 从原卷第 86 页直接裁剪图示（200 DPI，不重绘）挂到题组 `asset`。
+
+**4. 符号规则补充**：`tidy_ocr_symbols.py` 新增页脚（如 `>/@ p.121| 19`）与选项字母下划线（`B__.`、`l|ts`）规则，再清理 123 个字段。
+
+**当前状态**：全库可疑字段 369 → **13**（7 项为 `high- and low-` 类误报）；36 份阅读全部通过校验器；所有试卷仍为“待核对”。下一步：清理混入正文的题目与选项（C12、C13 T2、C14、C15 T3、C18 T3 等），以及上述 17 个选择题组。

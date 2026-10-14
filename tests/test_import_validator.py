@@ -486,6 +486,24 @@ class TestImportValidatorNegative(unittest.TestCase):
         failed = {c["name"] for c in res["checks"] if not c["passed"]}
         self.assertIn("reading_curation_provenance", failed)
 
+    def test_rejects_untraceable_text_curation(self):
+        data = json.loads((C18_T1_DIR / "reading.json").read_text(encoding="utf-8"))
+        test_file = self.temp_path / "reading.json"
+        test_file.write_text(json.dumps(data), encoding="utf-8")
+        entry = {"skill": "reading", "field": "Q1 prompt", "originalOcr": "x", "curatedValue": "y",
+                 "sourcePdfPage": 20, "evidenceBoundingBox": [0.1, 0.1, 0.2, 0.9],
+                 "evidenceImageSha256": "a" * 64, "reviewMethod": "assistant-visual"}
+        cur_file = self.temp_path / "text-curations.json"
+
+        cur_file.write_text(json.dumps({"curations": [entry]}), encoding="utf-8")
+        self.assertNotIn("reading_curation_provenance",
+                         {c["name"] for c in validate_reading(test_file)["checks"] if not c["passed"]})
+
+        for broken in ({"reviewMethod": "auto"}, {"evidenceImageSha256": "not-a-hash"}, {"evidenceBoundingBox": [0.5, 0.1, 0.2, 0.9]}):
+            cur_file.write_text(json.dumps({"curations": [{**entry, **broken}]}), encoding="utf-8")
+            failed = {c["name"] for c in validate_reading(test_file)["checks"] if not c["passed"]}
+            self.assertIn("reading_curation_provenance", failed, broken)
+
     def test_rejects_status_ready_when_needs_review_is_present(self):
         data = json.loads((C18_T1_DIR / "writing.json").read_text(encoding="utf-8"))
         # Inconsistent state: claim verified=true, status="ready" while needsReview is not empty
