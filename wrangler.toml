@@ -1,0 +1,9 @@
+# Cloudflare Pages project for the private static build (see docs/CLOUDFLARE_DEPLOY.md).
+name = "ielts-studio"
+compatibility_date = "2025-06-01"
+pages_build_output_dir = "dist"
+
+# Papers, audio and video live in R2 and are served by functions/IELTS/[[path]].js.
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "ielts-media"

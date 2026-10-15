@@ -43,6 +43,9 @@ test('reading review evidence requires exact source match; listening keeps audio
   const noisy=createReadingReviewItem(paper,{...q,prompt:'© '+q.prompt.repeat(90)},group,passage,'B');
   assert.match(noisy.prompt,/OCR 待核对/);
   assert.match(noisy.rawPrompt,/Which shell/);
+  const layout={kind:'notes',lines:[{text:'The {{1}} surrounds the fruit.'},{text:'The {{2}} is used for nutmeg.'}]};
+  const fromLayout=createReadingReviewItem(paper,{...q,id:'q1',number:1,prompt:null},group,passage,'',layout);
+  assert.equal(fromLayout.prompt,'The 【1】____ surrounds the fruit.');
   const listening=createListeningReviewItem({book:14,test:1,verified:false,sources:paper.sources,audio:{1:{path:'IELTS/audio.mp3'}}},{id:'q1',numbers:[1],prompt:'Name?',accepted:['John'],evidence:[{text:'John said hello',sourcePdfPage:90}]},{number:1,instruction:'Write one word'},'Jack');
   assert.equal(listening.audioPath,'IELTS/audio.mp3');
   assert.equal(listening.evidence[0].sourcePdfPage,90);

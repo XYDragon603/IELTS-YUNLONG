@@ -180,6 +180,9 @@ try {
   await click('#practice-submit button[value="submit"]');
   await waitFor('Boolean(document.querySelector(".practice-review"))');
   assert.ok(await evaluate('document.querySelectorAll(".practice-review .synonym-note").length > 0'));
+  assert.ok(await evaluate('document.querySelector("[data-add-review=\"8\"]").closest("details").textContent.includes("【8】____")'));
+  await click('[data-add-review="8"]');
+  assert.ok(await evaluate('JSON.parse(localStorage.getItem("ielts-review-v1")).items.some(item=>item.id==="c15-t1-reading-q8"&&item.prompt.includes("【8】____"))'));
   // A submitted C20 writing attempt may still contain the old cropped first table.
   // Display the current two source pages without rewriting its saved paper or essay.
   await evaluate(`(async()=>{

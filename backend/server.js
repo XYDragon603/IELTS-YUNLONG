@@ -14,7 +14,7 @@ const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=
 http.createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-    if(pathname==='/api/catalog'){
+    if(pathname==='/api/catalog'||pathname==='/api/catalog.json'){
       const catalog=await buildCatalog(projectRoot);
       res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
       res.end(JSON.stringify(catalog));return;

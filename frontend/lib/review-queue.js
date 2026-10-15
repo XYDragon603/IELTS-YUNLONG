@@ -1,5 +1,6 @@
 import {normalizeAnswer} from '../core.js';
 import {exactReadingExcerpt} from './synonym-notes.js';
+import {layoutPrompt} from './listening-layouts.js';
 
 export const REVIEW_KEY='ielts-review-v1';
 export const REVIEW_REASONS={vocabulary:'词汇 / 同义替换',misread:'审题',distractor:'干扰信息',time:'时间不够',careless:'疏忽',listening:'辨音'};
@@ -53,10 +54,10 @@ export function setReviewStatus(id,status,storage=globalThis.localStorage,now=Da
   return updateReviewItem(id,item=>({...item,status,dueAt:now+(status==='mastered'?7*DAY:status==='reviewing'?DAY:0)}),storage);
 }
 
-export function createReadingReviewItem(data,q,group,passage,given=''){
+export function createReadingReviewItem(data,q,group,passage,given='',layout=null){
   const synonyms=q.explanation?.paraphraseSources||[];
   const evidence=synonyms.map(item=>exactReadingExcerpt(passage?.blocks,item.paraphrase)).filter(Boolean).map(hit=>({text:hit.text,sourcePdfPage:hit.source?.pdfPage||null}));
-  const rawPrompt=q.prompt||null,rawContext=group.context||group.instruction||null;
+  const rawPrompt=layoutPrompt(layout,q.number)||q.prompt||null,rawContext=group.context||group.instruction||null;
   const noisy=text=>Boolean(text&&(text.length>180||/[©@]|\.{5,}/.test(text)));
   return {id:reviewId(data.book,data.test,'reading',q.id),book:data.book,test:data.test,skill:'reading',questionId:q.id,number:q.number,prompt:noisy(rawPrompt)?'题干 OCR 待核对，请对照原卷题页':rawPrompt,rawPrompt:noisy(rawPrompt)?rawPrompt:null,groupContext:noisy(rawContext)?null:rawContext,rawGroupContext:noisy(rawContext)?rawContext:null,options:q.options||group.options||[],accepted:q.answer?.accepted||data.answerKey?.[q.number]?.accepted||null,multiple:q.type==='multiple'||(q.numbers?.length||0)>1,sourceVerified:data.verified===true,paperPath:data.sources?.paper?.path||null,sourcePdfPage:q.source?.pdfPage||null,evidence,synonymNotes:synonyms,latestGiven:given};
 }

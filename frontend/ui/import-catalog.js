@@ -39,7 +39,7 @@ export async function mountCatalog(){
   const host=document.querySelector('[data-catalog]');if(!host)return;
   const book=Number(host.dataset.bookNumber),test=Number(host.dataset.testNumber);
   try{
-    const response=await fetch('/api/catalog');if(!response.ok)throw new Error();const result=await response.json();
+    const response=await fetch('/api/catalog.json');if(!response.ok)throw new Error();const result=await response.json();
     // Also hold this book when an already-running server still has the previous catalog module cached.
     result.entries=result.entries.map(e=>e.book===12?{...e,status:'missing-resource',available:false,issues:['按要求暂留空，等待可靠原卷']}:e);
     if(!host.isConnected)return;

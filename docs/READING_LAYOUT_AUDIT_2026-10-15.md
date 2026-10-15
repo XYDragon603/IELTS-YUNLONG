@@ -10,3 +10,9 @@
 验证：`python backend/scripts/audit_reading_completion_groups.py`、`python backend/scripts/audit_reading_question_text.py`、`python -m unittest tests.test_reading_inline_layouts`、`npm run check`、`npm test` 和 `node tests/practice-browser.mjs` 均通过。浏览器抽测覆盖行内答框、词库下拉、段落标题列表及题号。
 
 本记录只说明阅读题的呈现与题干复核；参考答案、听力/写作/口语及整套试卷的 `verified` 状态仍按各自的数据审核流程处理。
+
+## 追加复查
+
+进一步扫描 32 套阅读题的 271 个题组、1,280 个题号后，又对照原卷页面修正了 26 处底层题干和 6 处选项文字。问题包括剑雅 13 Test 4 第 10 题把后续几题拼入题干、剑雅 14 Test 1 和剑雅 17 Test 1 的笔记题元数据串题、剑雅 16 的 `Al`/`AI` 混淆，以及选项中的 `=`, `{tis`, `itis` 等 OCR 残留。已把四组串题的题组说明收敛为原卷作答要求，完整题目继续由行内布局呈现。
+
+`audit_reading_integrity.py` 现在检查题号 1–40 的完整性、选择题选项、异常字符与图片存在性；本轮结果无异常。图片清单复查为 158 个引用，文件与记录的 SHA-256 一致，`invalidImages: 0`。这些结构和 OCR 规则只能发现可模式化的问题，不能证明全部非填空题的语义文字与原卷逐字一致。

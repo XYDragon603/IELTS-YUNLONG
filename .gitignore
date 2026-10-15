@@ -36,3 +36,7 @@ backend/scripts/repair_reading_wordbank_layouts.py
 backend/scripts/repair_stray_reading_prompts.py
 backend/scripts/review_remaining_reading_layouts.py
 backend/scripts/repair_reading_matching_options.py
+
+# Static build output (contains paper content) and Cloudflare local state
+dist/
+.wrangler/

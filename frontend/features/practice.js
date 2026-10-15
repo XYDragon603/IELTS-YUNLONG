@@ -11,7 +11,7 @@ import { recordingStore } from '../lib/practice-recordings.js';
 import { localResourceURL } from '../lib/imported-listening.js';
 import { exactReadingExcerpt, renderSynonymNotes, saveSynonymWord } from '../lib/synonym-notes.js';
 import { addReviewItem, createReadingReviewItem } from '../lib/review-queue.js';
-import { renderLayout, layoutBlanks } from '../lib/listening-layouts.js';
+import { renderLayout, layoutBlanks, layoutPrompt } from '../lib/listening-layouts.js';
 import { withCurrentPracticeImages } from '../lib/practice-images.js';
 
 const params=new URLSearchParams(location.search);
@@ -126,8 +126,8 @@ function review(){
   if(skill==='reading'){
     const rows=archiveEntry?.readingResults||readingReport(data,state.answers),known=rows.filter(r=>r.correct!==null),correct=known.filter(r=>r.correct).length;
     const questions=new Map(readingItems(data).map(q=>[q.number,q]));
-    const passages=new Map((data.passages||[]).flatMap(p=>(p.groups||[]).flatMap(g=>(g.questions||[]).map(q=>[q.number,p]))));
-    return `<section class="practice-review"><h2>本次答题记录</h2><p>${data.verified?'已录入答案的题目':'暂定参考结果'}：${correct} / ${known.length}；${rows.length-known.length} 题答案待核对。未导入或未确认的题目不计为错误，不换算 Band。</p><p><a class="text-btn" href="/review.html">打开复盘清单 ↗</a></p>${rows.map(r=>{const q=questions.get(r.number),notes=(q?.explanation?.paraphraseSources||[]).map(item=>({...item,paperExcerpt:exactReadingExcerpt(passages.get(r.number)?.blocks,item.paraphrase)}));return `<details><summary>Q${r.number} · ${r.correct===null?'待核对':r.correct?'匹配参考答案':'需复盘'}</summary>${q?.prompt?`<p>题干：${esc(q.prompt)}</p>`:''}<p>你的答案：${esc(r.given||'未填写')}</p><p>参考答案：${esc(r.accepted?.join(' / ')||'尚未确认')}</p>${sourceLink(q?.source)}${renderSynonymNotes(notes)}${q?`<p><button class="btn" data-add-review="${r.number}">加入复盘清单</button></p>`:''}</details>`;}).join('')}</section>`;
+    const locations=new Map((data.passages||[]).flatMap(p=>(p.groups||[]).flatMap(g=>(g.questions||[]).map(q=>[q.number,{passage:p,group:g}]))));
+    return `<section class="practice-review"><h2>本次答题记录</h2><p>${data.verified?'已录入答案的题目':'暂定参考结果'}：${correct} / ${known.length}；${rows.length-known.length} 题答案待核对。未导入或未确认的题目不计为错误，不换算 Band。</p><p><a class="text-btn" href="/review.html">打开复盘清单 ↗</a></p>${rows.map(r=>{const q=questions.get(r.number),location=locations.get(r.number),prompt=layoutPrompt(location?.group&&groupLayout(location.group),r.number)||q?.prompt,notes=(q?.explanation?.paraphraseSources||[]).map(item=>({...item,paperExcerpt:exactReadingExcerpt(location?.passage?.blocks,item.paraphrase)}));return `<details><summary>Q${r.number} · ${r.correct===null?'待核对':r.correct?'匹配参考答案':'需复盘'}</summary>${prompt?`<p>题干：${esc(prompt)}</p>`:''}<p>你的答案：${esc(r.given||'未填写')}</p><p>参考答案：${esc(r.accepted?.join(' / ')||'尚未确认')}</p>${sourceLink(q?.source)}${renderSynonymNotes(notes)}${q?`<p><button class="btn" data-add-review="${r.number}">加入复盘清单</button></p>`:''}</details>`;}).join('')}</section>`;
   }
   return `<section class="practice-review"><h2>已保存 · 待自查</h2><p>${skill==='writing'?'检查任务回应、段落逻辑与表达。当前没有自动评分。':'回听录音，检查内容是否完整、表达是否连贯。当前没有自动评分。'}</p>${Object.entries(state.answers).map(([id,value])=>`<details><summary>${esc(id)}${skill==='writing'?` · ${wordCount(value)} 词`:''}</summary><pre>${esc(value)}</pre></details>`).join('')}</section>`;
 }
@@ -218,7 +218,7 @@ main.addEventListener('input',e=>{if(!e.target.dataset.answer||state.submitted)r
 main.addEventListener('click',async e=>{
   const el=e.target.closest('button');if(!el||el.disabled)return;
   if(el.dataset.saveSynonym){try{saveSynonymWord(el.dataset.saveSynonym);el.textContent='已收藏到词书';el.disabled=true;message('已加入词书收藏，可在记单词页面复习。');}catch(error){message(error.message);}return;}
-  if(el.dataset.addReview!==undefined){try{if(!state.submitted)throw Error('交卷后才能加入复盘');const number=Number(el.dataset.addReview);let found;for(const passage of data.passages||[])for(const group of passage.groups||[])for(const q of group.questions||[])if(q.number===number&&!found)found={q,group,passage};if(!found)throw Error('未找到原题');const entry=createReadingReviewItem(data,found.q,found.group,found.passage,state.answers[found.q.id]);const result=addReviewItem(entry);el.textContent='已在复盘清单';el.disabled=true;message(result.added?'已加入复盘清单，可随时复做。':'这道题已在复盘清单。');}catch(error){message(error.message);}return;}
+  if(el.dataset.addReview!==undefined){try{if(!state.submitted)throw Error('交卷后才能加入复盘');const number=Number(el.dataset.addReview);let found;for(const passage of data.passages||[])for(const group of passage.groups||[])for(const q of group.questions||[])if(q.number===number&&!found)found={q,group,passage};if(!found)throw Error('未找到原题');const entry=createReadingReviewItem(data,found.q,found.group,found.passage,state.answers[found.q.id],groupLayout(found.group));const result=addReviewItem(entry);el.textContent='已在复盘清单';el.disabled=true;message(result.added?'已加入复盘清单，可随时复做。':'这道题已在复盘清单。');}catch(error){message(error.message);}return;}
   if(el.dataset.index!==undefined){if(pendingMic||finishingRecording||recorder?.state==='recording'){message('请先停止并保存录音，再切换 Part。');return;}state.index=Number(el.dataset.index);save();await render();}
   if(el.dataset.flag&&!state.submitted){const id=el.dataset.flag;state.flags=state.flags.includes(id)?state.flags.filter(v=>v!==id):[...state.flags,id];el.setAttribute('aria-pressed',String(state.flags.includes(id)));save();refreshCounters();}
   if(el.id==='clock-toggle'){if(state.deadline)pausePractice(state);else if(state.remaining>0)state.deadline=Date.now()+state.remaining*1000;save();el.textContent=state.deadline?'暂停计时':'开始计时';}

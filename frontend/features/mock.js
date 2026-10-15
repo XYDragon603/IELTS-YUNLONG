@@ -30,7 +30,7 @@ const tips=`<aside class="mock-tips"><h2>按你的节奏完成</h2><ul><li>${ico
 
 async function render(){
  try{
-  const response=await fetch('/api/catalog');
+  const response=await fetch('/api/catalog.json');
   if(!response.ok)throw Error('无法读取题库，请确认本地服务器已启动。');
   const catalog=await response.json();
   const papers=mockPaperOptions(catalog.entries);

@@ -14,6 +14,33 @@ function texts(layout) {
 export function layoutBlanks(layout) {
   return texts(layout).flatMap(t => [...String(t ?? '').matchAll(BLANK)].map(m => Number(m[1])));
 }
+// A short source-text excerpt for review cards when an inline completion
+// question has no standalone OCR prompt. Mark the requested blank when a
+// sentence contains more than one answer field.
+export function layoutPrompt(layout, number) {
+  if (!layout || !Number.isInteger(Number(number))) return null;
+  const token = `{{${Number(number)}}}`;
+  const source = texts(layout).map(value => String(value ?? '')).find(value => value.includes(token));
+  if (!source) return null;
+  const index = source.indexOf(token);
+  let start = 0, end = source.length;
+  if (source.length > 170) {
+    const before = source.slice(0, index);
+    const prior = [...before.matchAll(/[.!?]\s+/g)].at(-1);
+    if (prior) start = prior.index + prior[0].length;
+    const following = /[.!?](?:\s|$)/.exec(source.slice(index + token.length));
+    if (following) end = index + token.length + following.index + 1;
+    if (end - start > 170) {
+      start = Math.max(start, index - 70);
+      end = Math.min(end, index + token.length + 80);
+      if (start > 0) { const nextSpace = source.indexOf(' ', start); if (nextSpace >= 0) start = nextSpace + 1; }
+      if (end < source.length) { const priorSpace = source.lastIndexOf(' ', end); if (priorSpace >= start) end = priorSpace; }
+    }
+  }
+  const excerpt = source.slice(start, end).replace(new RegExp(`\\{\\{${Number(number)}\\}\\}`, 'g'), `【${number}】____`)
+    .replace(BLANK, '____').replace(/\s+/g, ' ').trim();
+  return `${start ? '…' : ''}${excerpt}${end < source.length ? '…' : ''}`;
+}
 // A layout is used only when its blanks are exactly its declared questions and each is a single text question
 // in this part; otherwise the questions fall back to the plain list so nothing becomes unanswerable.
 export function usableLayouts(layouts, part) {
