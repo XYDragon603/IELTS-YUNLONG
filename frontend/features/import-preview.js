@@ -7,6 +7,7 @@ import { renderSynonymNotes, saveSynonymWord } from '../lib/synonym-notes.js';
 import { addReviewItem, createListeningReviewItem } from '../lib/review-queue.js';
 import { listeningRunKey, requireMockStage } from '../lib/mock-run.js';
 import { assetURL } from '../lib/practice-model.js';
+import { usableLayouts, layoutHTML } from '../lib/listening-layouts.js';
 
 const params=new URLSearchParams(location.search);
 const book=/^\d+$/.test(params.get('book')||'')?Number(params.get('book')):18;
@@ -25,7 +26,7 @@ const content = document.querySelector('#preview-content');
 const historyKey = key + '-history';
 const attemptParam = params.get('attempt');
 const fresh = () => ({part:1, answers:{}, flags:[], audio:{}, submitted:false});
-let test, state = fresh(), viewOnly = false;
+let test, layouts = [], state = fresh(), viewOnly = false;
 function history() { try { const v = JSON.parse(localStorage.getItem(historyKey) || '[]'); return Array.isArray(v) ? v : []; } catch { return []; } }
 // Each submission is kept in the history so a new attempt never overwrites it.
 function archive() {
@@ -73,7 +74,7 @@ function render() {
     <audio controls preload="metadata" src="${esc(localResourceURL(test.audio[state.part].path))}"></audio>
     <a class="text-btn" target="_blank" rel="noopener" href="${esc(paper)}#page=${part.questions[0].source.pdfPage}">对照原卷 ↗</a>${state.submitted&&!viewOnly&&!mockRun?'<button class="btn primary" id="restart-preview" title="旧记录会保留在练习历史中">重新练习</button>':''}</div>
     <div class="listening-layout"><section class="listening-sheet"><h2>Part ${state.part} · ${esc(part.title)}</h2>${notes.map(t => `<p class="listening-instruction">${esc(t)}</p>`).join('')}
-    ${figures}${part.questions.map(q => questionRenderer(q, state.answers, state.flags)).join('')}</section><aside class="listening-progress" id="listening-progress" aria-label="答题进度">${progressPanel()}</aside></div>
+    ${figures}${questionsHTML(part)}</section><aside class="listening-progress" id="listening-progress" aria-label="答题进度">${progressPanel()}</aside></div>
     <div class="preview-actions">${viewOnly?`<a class="btn primary" href="/import-preview.html?book=${book}&test=${testNumber}">返回当前练习</a>`:state.submitted?'':'<button class="btn primary" id="submit-preview">提交并查看暂定结果</button>'}<button class="btn" id="export-preview">导出答题记录</button>${historyView()}</div>
     <section id="preview-results" aria-live="polite"></section>`;
   const audio = content.querySelector('audio');
@@ -90,6 +91,18 @@ function historyView() {
   if (mockRun) return '';
   const entries = history();
   return entries.length ? `<details class="listening-history"><summary>练习历史 · ${entries.length} 次</summary>${entries.map(e => `<a class="history-row" href="/import-preview.html?book=${book}&test=${testNumber}&attempt=${encodeURIComponent(e.id)}"><span>${esc(new Date(e.submitted).toLocaleString('zh-CN'))}</span><span>查看记录 ↗</span></a>`).join('')}</details>` : '';
+}
+// Questions covered by an original-paper layout are answered inside that table or notes block.
+function questionsHTML(part) {
+  const used = usableLayouts(layouts, part);
+  const owner = new Map(used.flatMap(l => l.questionNumbers.map(n => [n, l])));
+  const done = new Set();
+  return part.questions.map(q => {
+    const layout = owner.get(q.numbers?.[0] ?? q.number);
+    if (!layout) return questionRenderer(q, state.answers, state.flags);
+    if (done.has(layout)) return '';
+    done.add(layout); return layoutHTML(layout, part, state.answers);
+  }).join('');
 }
 function renderResults() {
   const score = questions().reduce((n,q) => n + (questionScore(q,state.answers[q.id]) || 0),0);
@@ -147,7 +160,8 @@ try {
   if(mockError)throw mockError;
   const base = `/resources/cambridge/c${book}/test-${testNumber}/`;
   const load = async file => { const r=await fetch(base+file); if(!r.ok) throw new Error(`${file}: HTTP ${r.status}`); return r.json(); };
-  const [data,transcript] = await Promise.all([load('listening.json'),load('audioscript.json')]);
+  const [data,transcript,layoutFile] = await Promise.all([load('listening.json'),load('audioscript.json'),fetch(base+'listening-layouts.json').then(r=>r.ok?r.json():null).catch(()=>null)]);
+  if(layoutFile?.book===book&&layoutFile?.test===testNumber&&layoutFile.source?.sha256===data.sources?.paper?.sha256&&Array.isArray(layoutFile.layouts))layouts=layoutFile.layouts;
   if(data.book!==book||data.test!==testNumber)throw new Error('Paper identity mismatch');
   test=adaptImportedListening(data,transcript);
   try { const saved=JSON.parse(localStorage.getItem(key)); if(saved && [1,2,3,4].includes(saved.part) && saved.answers && Array.isArray(saved.flags) && saved.audio) state=saved; } catch {}
