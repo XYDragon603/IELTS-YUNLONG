@@ -17,7 +17,7 @@
 
 1. **登录**：`npx wrangler login`（会打开浏览器授权 Cloudflare 账号）。
 2. **建 R2 存储桶**（不要开启公开访问）：`npx wrangler r2 bucket create ielts-media`
-3. **建 Pages 项目并先部署一次**：`npm run deploy:pages`（项目名取自 `wrangler.toml`，为 `ielts-studio`）。部署结果是 `https://ielts-studio.pages.dev`。
+3. **建 Pages 项目并先部署一次**：`npm run deploy:pages`（项目名取自 `wrangler.toml`，为 `ielts-studio`）。`ielts-studio.pages.dev` 已被占用，Cloudflare 分配的是 `https://ielts-studio-1sh.pages.dev`，并绑定了自定义域名 `https://ielts.xydragon.com`。Access 应用需覆盖这两个域名及 `*.ielts-studio-1sh.pages.dev` 预览地址。
 4. **立刻开启 Access**：Cloudflare 控制台 → Workers & Pages → `ielts-studio` → Settings → 开启 *Access policy*（保护 `*.pages.dev` 及预览地址）。然后在 Zero Trust → Access → Applications 里把策略设为 *Include: Emails = 你的邮箱*，登录方式用一次性邮箱验证码（One-time PIN，免费）。
 5. **验证 Access 生效**：用无痕窗口打开站点，应先出现 Cloudflare 登录页。
 6. **上传媒体**：

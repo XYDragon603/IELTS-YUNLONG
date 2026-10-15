@@ -47,7 +47,10 @@ let i = 0;
 for (const f of todo) {
   i++;
   process.stdout.write(`[${i}/${todo.length}] ${f.key} ... `);
-  const r = spawnSync('npx', ['wrangler', 'r2', 'object', 'put', `${BUCKET}/${f.key}`, '--file', f.file, '--remote'], { stdio: ['ignore', 'pipe', 'pipe'], shell: process.platform === 'win32', encoding: 'utf8' });
+  // On Windows npx is a .cmd and needs a shell, which splits unquoted arguments on the spaces in these paths.
+  const win = process.platform === 'win32';
+  const args = ['wrangler', 'r2', 'object', 'put', `${BUCKET}/${f.key}`, '--file', f.file, '--remote'].map(a => win ? `"${a}"` : a);
+  const r = spawnSync('npx', args, { stdio: ['ignore', 'pipe', 'pipe'], shell: win, encoding: 'utf8' });
   if (r.status !== 0) { console.log('failed'); console.error(r.stderr || r.stdout); process.exitCode = 1; break; }
   done[f.key] = f.size;
   await writeFile(logFile, JSON.stringify(done, null, 1));
