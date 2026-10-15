@@ -116,6 +116,8 @@ def main():
                                 (17,2,[37,40],49,[.09,.02,.63,.98]),
                                 (17,3,[36,40],71,[.09,.02,.66,.98])])
     reading_corrections.append((18,4,[31,36],98,[.44,.02,.96,.98]))
+    reading_corrections.extend([(16,1,[8,13],19,[.07,.05,.63,.94]),
+                                (17,4,[7,13],84,[.08,.08,.74,.93])])
     for book,test,question_range,page,bbox in reading_corrections:
         file=ROOT/f'resources/cambridge/c{book}/test-{test}/reading.json'
         data=json.loads(file.read_text(encoding='utf-8-sig'))
