@@ -678,6 +678,7 @@ OCR 把判断题与匹配题的题干分错了位置：有的题空着，有的�
 页面上的题卡显示的是原卷图片，但题卡文字和 Part 1/3 题目文字也会用于搜索、记录和导出，而其中 OCR 问题很多。本次逐套对照原卷（32 套）：
 
 - **Part 2 题卡文字 28 张**：混入了右侧 “You will have to talk…” 说明或识别错误（如 C19 T4 “pyecrive … ngcrul views”、C16 T4 “fete ea ange pins”）。已按题卡原图逐字转录为 “题目 / You should say: / 三个要点 / and explain…”。
+- **写作**：C20 T1 Task 2 原只剩一行说明，作文题本身缺失，已按原卷第 24 页补全。其余 63 道写作题完整。
 - **Part 1/3 题目 37 处**：去掉项目符号和页边字符，合并被拆行的题目，补回题组标题（如 C15 T3 的 Swimming、Famous people today）。另外补全漏题：
   - C20 T1 Part 3 原只有 1 题，补齐 6 题；
   - C20 T2 Part 3 原缺一题的前半句。
