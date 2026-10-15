@@ -51,7 +51,7 @@ export function mountExamWorkspace({skill,book,test,state,items,onNavigate}){
     dialog.querySelector('[data-answer-total]').textContent=answeredCount();
     dialog.showModal();
   };
-  dialog.addEventListener('click',async e=>{const b=e.target.closest('[data-question-jump]');if(!b)return;dialog.close();await onNavigate(Number(b.dataset.passageIndex));document.querySelector('[data-reading-panel="questions"]')?.click();const input=document.getElementById('answer-'+b.dataset.questionJump);input?.focus({preventScroll:true});input?.closest('.practice-q')?.scrollIntoView({block:'center'});});
+  dialog.addEventListener('click',async e=>{const b=e.target.closest('[data-question-jump]');if(!b)return;dialog.close();await onNavigate(Number(b.dataset.passageIndex));document.querySelector('[data-reading-panel="questions"]')?.click();const input=document.getElementById('answer-'+b.dataset.questionJump);input?.focus({preventScroll:true});(input?.closest('.practice-q')||input)?.scrollIntoView({block:'center'});});
   main.addEventListener('input',update,{signal:workspaceSignal(main)});
 }
 

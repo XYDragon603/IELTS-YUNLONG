@@ -31,13 +31,16 @@ export function layoutHTML(layout, part, answers = {}) {
     const q = byNumber.get(n), id = `study-${q.id}`;
     return `<span class="layout-blank" id="study-q-${esc(q.id)}"><label class="sr-only" for="${esc(id)}">第 ${n} 题</label><input id="${esc(id)}" type="text" data-response="${esc(q.id)}" value="${esc(answers[q.id] || '')}" placeholder="${n}" autocomplete="off" spellcheck="false"></span>`;
   };
+  // The range is shown only when the layout covers part of the section; the section heading already names a full one.
+  return renderLayout(layout, { blank, showRange: layout.questionNumbers.length !== part.questions.length });
+}
+// Shared renderer: `blank(n)` returns the answer control for question n (listening and reading bind answers differently).
+export function renderLayout(layout, { blank, showRange = false }) {
   const line = text => esc(String(text ?? '')).replace(BLANK, (_, n) => blank(Number(n)));
   const range = `Questions ${Math.min(...layout.questionNumbers)}–${Math.max(...layout.questionNumbers)}`;
-  // The range is shown only when the layout covers part of the section; the section heading already names a full one.
-  const whole = layout.questionNumbers.length === part.questions.length;
-  const head = `${whole ? '' : `<p class="layout-range">${range}</p>`}${layout.title ? `<h3 class="layout-title">${line(layout.title)}</h3>` : ''}`;
+  const head = `${showRange ? `<p class="layout-range">${range}</p>` : ''}${layout.title ? `<h3 class="layout-title">${line(layout.title)}</h3>` : ''}`;
   if (layout.kind === 'table') {
-    return `<section class="listening-layout-block">${head}<div class="layout-table-wrap"><table class="layout-table"><thead><tr>${layout.columns.map(c => `<th scope="col">${line(c)}</th>`).join('')}</tr></thead><tbody>${layout.rows.map(row => `<tr>${row.map(cell => `<td>${[cell].flat().map(l => `<div>${line(l)}</div>`).join('')}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
+    return `<section class="listening-layout-block">${head}<div class="layout-table-wrap"><table class="layout-table">${layout.columns.some(c => String(c).trim()) ? `<thead><tr>${layout.columns.map(c => `<th scope="col">${line(c)}</th>`).join('')}</tr></thead>` : ''}<tbody>${layout.rows.map(row => `<tr>${row.map(cell => `<td>${[cell].flat().map(l => `<div>${line(l)}</div>`).join('')}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
   }
   // A form is a two-column label/value grid; a plain string row is a section heading across both columns.
   if (layout.kind === 'form') {

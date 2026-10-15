@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { usableLayouts, layoutHTML, layoutBlanks } from '../frontend/lib/listening-layouts.js';
+import { usableLayouts, layoutHTML, layoutBlanks, renderLayout } from '../frontend/lib/listening-layouts.js';
 
 const part = { number: 1, questions: [1, 2, 3].map(n => ({ id: `q${n}`, number: n, numbers: [n], type: 'text' })) };
 const table = { part: 1, kind: 'table', questionNumbers: [1, 2], columns: ['Name', 'Note'], rows: [[['The {{1}}'], ['<b>£{{2}}</b> per person', 'Quite expensive']]] };
@@ -37,4 +37,10 @@ test('form layouts render label/value rows and section headings with their blank
   assert.ok(html.includes('class="form-heading"'));
   assert.ok(html.includes('<th scope="row"><div>Name:</div></th>'));
   assert.equal((html.match(/data-response=/g) || []).length, 2);
+});
+
+test('the shared renderer takes the caller\'s answer control and omits an empty table header', () => {
+  const html = renderLayout({ kind: 'table', questionNumbers: [8], columns: ['', ''], rows: [[['Middle Ages'], ['by the {{8}}']]] }, { blank: n => `<input data-answer="q${n}">` });
+  assert.ok(html.includes('<input data-answer="q8">'));
+  assert.ok(!html.includes('<thead>'));
 });

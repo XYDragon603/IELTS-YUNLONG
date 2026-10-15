@@ -11,6 +11,7 @@ import { recordingStore } from '../lib/practice-recordings.js';
 import { localResourceURL } from '../lib/imported-listening.js';
 import { exactReadingExcerpt, renderSynonymNotes, saveSynonymWord } from '../lib/synonym-notes.js';
 import { addReviewItem, createReadingReviewItem } from '../lib/review-queue.js';
+import { renderLayout, layoutBlanks } from '../lib/listening-layouts.js';
 
 const params=new URLSearchParams(location.search);
 const skill=['reading','writing','speaking'].includes(params.get('skill'))?params.get('skill'):'reading';
@@ -26,7 +27,7 @@ let archiveEntry=null, disposeReadingTools=()=>{};
 const names={reading:'阅读',writing:'写作',speaking:'口语'};
 const main=document.querySelector('#practice-main');
 const notice=document.querySelector('#practice-notice');
-let data,state=identifyPractice(loadPractice(key,skill),key),recorder,stream,pendingMic=false,finishingRecording=false,stopPromise,recordURL,recordBlob,renderToken=0;
+let readingLayouts=[],data,state=identifyPractice(loadPractice(key,skill),key),recorder,stream,pendingMic=false,finishingRecording=false,stopPromise,recordURL,recordBlob,renderToken=0;
 const message=text=>{notice.textContent=text;};
 function save(){if(historyId)return true;try{state.savedAt=Date.now();localStorage.setItem(key,JSON.stringify(state));document.querySelector('#save-status')?.replaceChildren(document.createTextNode('已保存至本机'));return true;}catch{message('本地保存失败，请导出记录并保持页面打开。');return false;}}
 function promptText(q){const text=String(q.prompt||'').replace(new RegExp(`^\\s*${Number(q.number)}[.)]?\\s+`),'');return text||'请对照上方题组或原图填写对应空格。';}
@@ -47,9 +48,22 @@ function input(q,group){
   return `<section class="practice-q" id="question-${esc(q.id)}">${flag}<label for="answer-${esc(q.id)}"><strong><span class="sr-only">第 </span>${q.number}<span class="sr-only"> 题</span></strong> ${esc(promptText(q))}</label>${options.length?`<select id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" ${state.submitted?'disabled':''}><option value="">选择答案</option>${options.map(o=>`<option value="${esc(o.value)}" ${state.answers[q.id]===o.value?'selected':''}>${esc(o.value)} · ${esc(o.label)}</option>`).join('')}</select>`:`<input id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${esc(state.answers[q.id]||'')}" ${state.submitted?'disabled':''} autocomplete="off" spellcheck="false">`}</section>`;
 }
 function groupAssets(group){return group.assets||(group.asset?[group.asset]:[]);}
+// A transcribed table is used only when its blanks are exactly this group's questions and all of them are typed answers.
+function groupLayout(group){
+  const qs=group.questions||[],numbers=qs.map(q=>Number(q.number));
+  if(!qs.length||JUDGEMENTS[group.type]||qs.some(q=>(q.options||group.options||[]).length))return null;
+  return readingLayouts.find(l=>{const blanks=layoutBlanks(l);return blanks.length===numbers.length&&new Set(blanks).size===blanks.length&&numbers.every(n=>blanks.includes(n));})||null;
+}
+function layoutGroup(group,layout){
+  const byNumber=new Map(group.questions.map(q=>[Number(q.number),q]));
+  const blank=n=>{const q=byNumber.get(n);return `<span class="layout-blank" id="question-${esc(q.id)}"><label class="sr-only" for="answer-${esc(q.id)}">第 ${n} 题</label><input id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${esc(state.answers[q.id]||'')}" placeholder="${n}" ${state.submitted?'disabled':''} autocomplete="off" spellcheck="false"></span>`;};
+  const assets=groupAssets(group);
+  return `${groupInstruction(group)}${renderLayout(layout,{blank})}${assets.length?`<details class="layout-source-image"><summary>原卷图片（对照）</summary><figure class="practice-group-asset">${assets.map(img).join('')}</figure></details>`:''}`;
+}
+function groupInstruction(group){const line=String(group.context||'').split('\n').find(l=>/^(Complete|Choose|Write)/.test(l.trim()));return line?`<p class="practice-muted layout-instruction">${esc(line.trim())}</p>`:'';}
 function questionRange(passage){const n=(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>Number(q.number)).filter(Number.isFinite);return n.length?`Questions ${Math.min(...n)}–${Math.max(...n)}`:'Questions';}
 function reading(passage){
-  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>${questionRange(passage)}</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>`<section><h3>Questions ${g.questionRange.join('–')}</h3>${groupAssets(g).length?`<figure class="practice-group-asset">${groupAssets(g).map(img).join('')}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
+  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>${questionRange(passage)}</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>groupLayout(g)?`<section><h3>Questions ${g.questionRange.join('–')}</h3>${layoutGroup(g,groupLayout(g))}</section>`:`<section><h3>Questions ${g.questionRange.join('–')}</h3>${groupAssets(g).length?`<figure class="practice-group-asset">${groupAssets(g).map(img).join('')}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
 }
 const SELF_CHECKS={
   task1:['概述了主要趋势或特征','选取了关键数据并做比较','没有加入个人观点或原因推测','达到至少 150 词'],
@@ -223,6 +237,7 @@ try{
     data=archiveEntry.paper;state=structuredClone(archiveEntry.session);
   }else{
     const response=await fetch(base+skill+'.json');if(!response.ok)throw new Error('本套资料尚未导入');data=await response.json();
+    if(skill==='reading'){try{const r=await fetch(base+'reading-layouts.json');const file=r.ok?await r.json():null;if(file?.book===book&&file?.test===test&&file.source?.sha256===data.sources?.paper?.sha256&&Array.isArray(file.layouts))readingLayouts=file.layouts;}catch{}}
     if(data.book!==book||data.test!==test||data.skill!==skill)throw new Error('试卷信息不匹配');
     if(state.submitted){archivePractice(key,state,data);if(params.get('new')==='1'&&!mockRun){state=newPractice(skill,key);}else{archiveEntry=historyEntries(key).find(e=>e.id===state.attemptId);data=archiveEntry.paper;}}
     if(params.has('new')){params.delete('new');history.replaceState(null,'',location.pathname+'?'+params);}
