@@ -329,3 +329,8 @@ dialog.exam-answer-card::backdrop{background:#1a1f2d33}
 .layout-blank input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .layout-blank input:disabled{opacity:.85}
 @media(max-width:700px){.layout-table{min-width:640px}.layout-blank input{width:7.5em}}
+.layout-form-table th[scope=row]{width:38%;padding:8px 12px;font-weight:500;text-align:left;vertical-align:top;color:var(--muted);background:none;border-bottom:0;border-top:1px solid var(--line)}
+.layout-form-table td{padding:8px 12px}
+.layout-form-table .form-heading th{padding:12px 12px 6px;text-align:left;font-weight:700;background:var(--soft);border-top:1px solid var(--line)}
+.layout-form-table tr:first-child>*{border-top:0}
+.layout-form-table th[scope=row]+td{border-left:1px solid var(--line)}

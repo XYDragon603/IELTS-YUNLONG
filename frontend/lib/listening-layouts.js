@@ -7,6 +7,7 @@ const numberOf = q => q.numbers?.[0] ?? q.number;
 
 function texts(layout) {
   if (layout.kind === 'table') return [...(layout.columns || []), ...(layout.rows || []).flat(2)];
+  if (layout.kind === 'form') return (layout.rows || []).flat(2);
   if (layout.kind === 'flow-chart') return (layout.steps || []).flat();
   return (layout.lines || []).map(l => typeof l === 'string' ? l : l.text);
 }
@@ -37,6 +38,10 @@ export function layoutHTML(layout, part, answers = {}) {
   const head = `${whole ? '' : `<p class="layout-range">${range}</p>`}${layout.title ? `<h3 class="layout-title">${line(layout.title)}</h3>` : ''}`;
   if (layout.kind === 'table') {
     return `<section class="listening-layout-block">${head}<div class="layout-table-wrap"><table class="layout-table"><thead><tr>${layout.columns.map(c => `<th scope="col">${line(c)}</th>`).join('')}</tr></thead><tbody>${layout.rows.map(row => `<tr>${row.map(cell => `<td>${[cell].flat().map(l => `<div>${line(l)}</div>`).join('')}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
+  }
+  // A form is a two-column label/value grid; a plain string row is a section heading across both columns.
+  if (layout.kind === 'form') {
+    return `<section class="listening-layout-block layout-form">${head}<div class="layout-table-wrap"><table class="layout-table layout-form-table"><tbody>${layout.rows.map(row => typeof row === 'string' ? `<tr class="form-heading"><th colspan="2" scope="colgroup">${line(row)}</th></tr>` : `<tr><th scope="row">${[row[0]].flat().map(l => `<div>${line(l)}</div>`).join('')}</th><td>${[row[1]].flat().map(l => `<div>${line(l)}</div>`).join('')}</td></tr>`).join('')}</tbody></table></div></section>`;
   }
   if (layout.kind === 'flow-chart') {
     return `<section class="listening-layout-block">${head}<ol class="layout-flow">${layout.steps.map(step => `<li>${[step].flat().map(l => `<div>${line(l)}</div>`).join('')}</li>`).join('')}</ol></section>`;

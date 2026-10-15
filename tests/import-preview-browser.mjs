@@ -55,7 +55,7 @@ try {
   await evaluate('localStorage.removeItem("ielts-c18-t1-import-preview-v1");localStorage.removeItem("ielts-c14-t1-import-preview-v1");localStorage.removeItem("ielts-review-v1")');
   await send('Page.navigate', {url:'http://127.0.0.1:4173/import-preview.html'});
   await waitFor('Boolean(document.querySelector("#submit-preview"))');
-  assert.equal(await evaluate('document.querySelectorAll(".study-question").length'),10);
+  assert.equal(await evaluate('document.querySelectorAll(".study-question, .layout-blank").length'),10);
   await waitFor('document.querySelector("audio").readyState >= 1');
   await evaluate('document.querySelector("audio").currentTime=12');
   await evaluate('const input=document.querySelector("[data-response=q1]"); input.value="example"; input.dispatchEvent(new Event("input",{bubbles:true}))');

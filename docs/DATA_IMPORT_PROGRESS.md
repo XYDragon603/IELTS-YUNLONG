@@ -616,3 +616,9 @@ python backend/scripts/apply_text_curations.py                                  
 **3. C12 原卷路径**：本地 C12 PDF 已被改名为 `剑桥雅思真题12.pdf`，SHA-256 与原记录（`0aeb26dc…`）一致；已同步更新 `resources/` 与 `generate_c12_curations.py` 中的路径。`IELTS/` 下文件未改动。
 
 **当前状态**：36 份听力通过校验器，Python 57/57 通过。
+
+### 十四、听力表格 / 表单题按原卷版式作答（2026-10-15）
+
+听力页支持可选的 `resources/cambridge/cNN/test-N/listening-layouts.json`：按原卷逐字转录表格（`table`）或两栏表单（`form`），`{{n}}` 为第 n 题空格，作答框直接嵌在表格中；空格与题号不完全对应时自动退回普通题目列表。每个版式都记录原卷页码与 `assistant-visual` 核对说明。
+
+已转录 15 套 19 组：C13 T1 1–10；C14 T1 1–10、T2 1–10；C15 T1 15–20、T2 1–4、T4 1–10；C17 T2 8–10；C18 T1 1–10、T2 6–10、T3 1–4 与 5–10；C19 T2 1–6 与 7–10、T3 7–10、T4 1–6 与 7–10；C20 T1 1–10、T3 1–10。C20 T2 Part 1 原卷虽写“Complete the table”，网页导出版实际为条目列表，保持列表。笔记（notes）与流程图暂未转录。版式文件属于题库资料，只保存在本地。
