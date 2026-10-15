@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {saveClip,loadClips,deleteClip,CLIPS_KEY} from '../lib/listening-clips.js';
+import {saveClip,loadClips,deleteClip,CLIPS_KEY} from '../frontend/lib/listening-clips.js';
 const memory=()=>{const map=new Map();return {getItem:k=>map.get(k)||null,setItem:(k,v)=>map.set(k,v)};};
 const input={testId:'c18-t1-listening',part:1,loop:{a:2,b:5},rate:.85,question:'2',note:'Listen for a contrast'};
 test('clips preserve part identity, deduplicate the same range and delete only selected clip',()=>{

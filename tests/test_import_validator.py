@@ -19,7 +19,7 @@ import unittest
 from unittest.mock import patch
 from pathlib import Path
 
-from scripts.validate_cambridge_import import (
+from backend.scripts.validate_cambridge_import import (
     validate_import,
     validate_listening,
     validate_reading,

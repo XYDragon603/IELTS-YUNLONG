@@ -23,9 +23,9 @@
 ## 二、项目现状
 
 - 项目根目录中有 `IELTS/` 原始资源目录。
-- PDF page map 工具：`scripts/cambridge_pdf_importer.py`
+- PDF page map 工具：`backend/scripts/cambridge_pdf_importer.py`
 - 已验证 page map：`resources/page-maps/cambridge-18.json`
-- 已有资源扫描器：`scripts/scan-resources.mjs`
+- 已有资源扫描器：`backend/scripts/scan-resources.mjs`
 - 已有资源清单：`resources/manifest.js`
 - 当前试题示例：`resources/c18-t1-listening.js`
 - 当前项目是原生 JavaScript 模块、CSS 和 Node.js 本地服务器。
@@ -91,7 +91,7 @@ canonical 文件选择规则：
 先复用或改进：
 
 ```text
-scripts/cambridge_pdf_importer.py
+backend/scripts/cambridge_pdf_importer.py
 ```
 
 对 Cambridge 4–20 逐册生成：
@@ -158,7 +158,7 @@ resources/page-maps/cambridge-20.json
 实现新的命令，例如：
 
 ```powershell
-python scripts/cambridge_pdf_importer.py extract-skill `
+python backend/scripts/cambridge_pdf_importer.py extract-skill `
   --book 18 `
   --test 1 `
   --skill listening `
@@ -510,7 +510,7 @@ Writing 和 Speaking 不生成虚构答案或分数。
 实现本地验证命令，例如：
 
 ```powershell
-python scripts/validate_cambridge_import.py resources/cambridge/c18/test-1/listening.json
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c18/test-1/listening.json
 ```
 
 至少检查：

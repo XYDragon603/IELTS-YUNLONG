@@ -60,10 +60,10 @@ C20 T1 顶层 transcriptPdfPages 为 2–5，但 Q1 证据页写成 72。应根�
 
 1. **C18 T3 阅读 Passage 2 正文缺失问题已修复**：
    - 根因：指示语行首包含波浪号（`~ You should spend about...`），未被旧正则识别，导致指示行误认作标题，将 Passage 2 内容误吸收到前置题组 context 中。
-   - 修复：更新 `scripts/skill_parsers.py` 中指示语过滤正则，重新生成 C18 T3 阅读数据，恢复 Passage 2 真实标题《The steam car》及完整 3 个正文段落（blocks）。
+   - 修复：更新 `backend/scripts/skill_parsers.py` 中指示语过滤正则，重新生成 C18 T3 阅读数据，恢复 Passage 2 真实标题《The steam car》及完整 3 个正文段落（blocks）。
 
 2. **听力 200 道题证据页码越界问题已修复**：
-   - 根因：`scripts/import_cambridge_listening.py` 曾硬编码 `src_page + 70` 估算听力录音稿页码，超出部分原卷总页数（C16/18/19 T4 及 C20 单测 PDF）。
+   - 根因：`backend/scripts/import_cambridge_listening.py` 曾硬编码 `src_page + 70` 估算听力录音稿页码，超出部分原卷总页数（C16/18/19 T4 及 C20 单测 PDF）。
    - 修复：重构为直接映射对应 audioscript segment 的真实 PDF 页码 `seg["sourcePdfPages"][0]`。16 套听力全部重新校准，经 PyMuPDF 真实页数核对，全量 640 题证据页码 100% 落在合法区间内。
 
 3. **C20 T3 听力补全与 C20 T4 四科录入完成**：
@@ -71,7 +71,7 @@ C20 T1 顶层 transcriptPdfPages 为 2–5，但 Q1 证据页写成 72。应根�
    - 完成 C20 T4 听、说、读、写全部四科结构化数据制作与切图对齐。
    - 目前 C16 (T1–T4)、C18 (T1–T4)、C19 (T1–T4)、C20 (T1–T4) 共 16 套测试、64 份四科数据全部齐备。
 
-4. **验证器（scripts/validate_cambridge_import.py）强化与通用化**：
+4. **验证器（backend/scripts/validate_cambridge_import.py）强化与通用化**：
    - **阅读正文完整度校验**：新增对 `passages[i].blocks` 必须非空、总字数 $\ge 100$、标题不得匹配考试指示语正则的严格校验。
    - **听力页码动态校验**：通过 PyMuPDF 获取底层原卷真实总页数，严密校验题目 `source.pdfPage` 与 `transcriptEvidence.sourcePdfPage` 必须在真实页数范围内。
    - **多选题组动态识别**：移除硬编码的 test 编号多选组合特判，改用题目 `numbers` / `orderMatters: false` 动态提取题组并校验评分点一致性，彻底消除 C16 T1/T2 的误报。

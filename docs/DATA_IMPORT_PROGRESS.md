@@ -244,10 +244,10 @@
 
 ## 四、验证系统与测试覆盖
 
-### 1. 统一验证器升级 (`scripts/validate_cambridge_import.py`)
+### 1. 统一验证器升级 (`backend/scripts/validate_cambridge_import.py`)
 现已支持：
-- 单科校验：`python scripts/validate_cambridge_import.py <path/to/skill.json>`
-- 单元整测校验：`python scripts/validate_cambridge_import.py <path/to/test-dir>`
+- 单科校验：`python backend/scripts/validate_cambridge_import.py <path/to/skill.json>`
+- 单元整测校验：`python backend/scripts/validate_cambridge_import.py <path/to/test-dir>`
 - 自动化核验项目：
   1. JSON Schema 规范与顶级键结构
   2. 评分点数（听力/阅读严格 40 题）与唯一 ID (`q1`–`q40`)
@@ -429,7 +429,7 @@
 - 全部记录严格标记 `reviewMethod: "assistant-visual"`，保留真题页码与精确 Bounding Box，绝无伪造人类审查。
 
 ### 6. 单元整测验证
-- 运行 `python scripts/validate_cambridge_import.py resources/cambridge/c19/test-1`：**39/40 项全绿通过**！
+- 运行 `python backend/scripts/validate_cambridge_import.py resources/cambridge/c19/test-1`：**39/40 项全绿通过**！
 - 自动化测试 `test_import_validator.py` 增补 C19 T1 全科测试，总计 37 项 Python 单元测试全部通过。
 
 ---
@@ -482,17 +482,17 @@ Cambridge 16（Academic）已于 2026-09-24 全面达成 **100% 全书四测四�
 ### 1. 验证校验命令
 ```bash
 # 校验 C18 单元整测
-python scripts/validate_cambridge_import.py resources/cambridge/c18/test-1
-python scripts/validate_cambridge_import.py resources/cambridge/c18/test-2
-python scripts/validate_cambridge_import.py resources/cambridge/c18/test-3
-python scripts/validate_cambridge_import.py resources/cambridge/c18/test-4
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c18/test-1
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c18/test-2
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c18/test-3
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c18/test-4
 
 # 校验 C19 Test 1 单元整测
-python scripts/validate_cambridge_import.py resources/cambridge/c19/test-1
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c19/test-1
 
 # 单科校验
-python scripts/validate_cambridge_import.py resources/cambridge/c19/test-1/reading.json
-python scripts/validate_cambridge_import.py resources/cambridge/c19/test-1/listening.json
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c19/test-1/reading.json
+python backend/scripts/validate_cambridge_import.py resources/cambridge/c19/test-1/listening.json
 
 # 运行全套自动化测试套件
 python -m unittest discover -s tests -p "test_*.py"
@@ -503,8 +503,8 @@ npm.cmd run check
 ### 2. 技能提取与重新生成命令
 ```bash
 # C19 Test 1 技能提取与生成
-python scripts/generate_c19_t1_curations.py
-python scripts/import_cambridge_skills.py --book 19 --test 1 --skill reading --answer-page 124
+python backend/scripts/generate_c19_t1_curations.py
+python backend/scripts/import_cambridge_skills.py --book 19 --test 1 --skill reading --answer-page 124
 
 ---
 
@@ -550,24 +550,24 @@ python scripts/import_cambridge_skills.py --book 19 --test 1 --skill reading --a
 
 **问题**：填空题印在原卷上的点状答题线（`........`）被 Tesseract 识别成字母噪声，并连带打乱同一行单词的大小写，例如 C18 T1 Q1 `Grow StrAWDEITIES, ......oeerenenenememennnee ANG herbs`。原卷图像本身清晰，提高 DPI 不能解决。
 
-**处理**：`scripts/reocr_leader_fields.py` 按每个字段自己的 `source.pdfPage` 与 `boundingBox` 重新渲染（300 DPI），先在图像中擦除点状答题线，再运行 Tesseract，并在答题线位置写入 `______`。只在新文本更好时替换（噪声命中更少、已知词比例更高），并拒绝以下情况：新文本比原文多出过多行（区域含整张表格）、丢失原有答题空位。
+**处理**：`backend/scripts/reocr_leader_fields.py` 按每个字段自己的 `source.pdfPage` 与 `boundingBox` 重新渲染（300 DPI），先在图像中擦除点状答题线，再运行 Tesseract，并在答题线位置写入 `______`。只在新文本更好时替换（噪声命中更少、已知词比例更高），并拒绝以下情况：新文本比原文多出过多行（区域含整张表格）、丢失原有答题空位。
 
-**结果**：213 个可疑字段中 165 个替换（26 套阅读），32 个保留原文，16 个因缺少 OCR 来源坐标跳过。`scripts/audit_ocr_text.py` 全库可疑字段 369 → 226；其中阅读题干 107 → 33、题组说明 110 → 41。
+**结果**：213 个可疑字段中 165 个替换（26 套阅读），32 个保留原文，16 个因缺少 OCR 来源坐标跳过。`backend/scripts/audit_ocr_text.py` 全库可疑字段 369 → 226；其中阅读题干 107 → 33、题组说明 110 → 41。
 
 **可追溯性**：每套试卷目录新增 `ocr-cleanup.json`，逐条记录原文、新文本、页码、坐标、DPI、Tesseract 版本、原卷 SHA-256 和评分。被替换字段的 `source.method` 改为 `ocr-leader-stripped`，`confidence` 更新为新 OCR 置信度。此为机器重识别，**不是人工或视觉复核**；`needsReview`、`verified`、`status` 均未改动。原文件备份于 `.cache/data-backup/`。
 
 **命令**：
 ```sh
-python scripts/audit_ocr_text.py                 # 只读审计，输出 artifacts/ocr-text-audit.json
-python scripts/reocr_leader_fields.py            # 试运行，可加 --book/--test、--report
-python scripts/reocr_leader_fields.py --write    # 应用并记录日志
+python backend/scripts/audit_ocr_text.py                 # 只读审计，输出 artifacts/ocr-text-audit.json
+python backend/scripts/reocr_leader_fields.py            # 试运行，可加 --book/--test、--report
+python backend/scripts/reocr_leader_fields.py --write    # 应用并记录日志
 ```
 
 **未解决**：剩余可疑项主要是表格边框残留的 `|`、口语与听力中的少量噪声、阅读正文 90 处（多为分栏符号），以及需对照原卷才能改正的真实误识别；这些需按 assistant-visual 流程逐项校订并写入 curations。
 
 ### 十二（续）符号残留清理（2026-10-14）
 
-`scripts/tidy_ocr_symbols.py` 只做符号级规则清理，不新增单词：列表行首误识别的项目符号（`¢ © ®`、`e —`）在口语问题中删除、在题组/题干中改为 `•`；被误识为 `|` 的代词 I 仅在下一个词属于常见搭配（became、have、think、at 等）时还原；其余独立的 `|`（分栏线、表格线残留）删除。覆盖阅读正文/题组/题干/选项、写作题目、口语问题与话题卡；听力题干为人工校订内容，不处理。
+`backend/scripts/tidy_ocr_symbols.py` 只做符号级规则清理，不新增单词：列表行首误识别的项目符号（`¢ © ®`、`e —`）在口语问题中删除、在题组/题干中改为 `•`；被误识为 `|` 的代词 I 仅在下一个词属于常见搭配（became、have、think、at 等）时还原；其余独立的 `|`（分栏线、表格线残留）删除。覆盖阅读正文/题组/题干/选项、写作题目、口语问题与话题卡；听力题干为人工校订内容，不处理。
 
 结果：154 个字段（规则命中：表格线残留 127、项目符号 20、代词 I 15），日志同样写入各试卷 `ocr-cleanup.json`（`method: rule`），备份于 `.cache/data-backup/`。审计脚本同时去掉误报：`£ € ¥` 为正常货币符号，听力人工校订题干中的 `...` 空位不再计入。
 
@@ -577,15 +577,15 @@ python scripts/reocr_leader_fields.py --write    # 应用并记录日志
 
 **1. 阅读文本视觉校订（assistant-visual）**：新增 `resources/cambridge/c*/test-*/text-curations.json`，与 `curations.json` 分开存放（后者会被 `generate_c*_curations.py` 整体重写）。每条记录：字段位置、原 OCR 文本、校订文本、页码、证据框、**证据截图 SHA-256**、原卷 SHA-256、`reviewMethod: assistant-visual`、理由。工具：
 ```sh
-python scripts/render_evidence.py --book 12 --test 1 --field "Q6 prompt"     # 渲染证据截图并打印哈希
-python scripts/apply_text_curations.py --add corrections.json                 # 记录并应用
-python scripts/apply_text_curations.py                                        # 重放全部校订（幂等）
+python backend/scripts/render_evidence.py --book 12 --test 1 --field "Q6 prompt"     # 渲染证据截图并打印哈希
+python backend/scripts/apply_text_curations.py --add corrections.json                 # 记录并应用
+python backend/scripts/apply_text_curations.py                                        # 重放全部校订（幂等）
 ```
 已校订 40 个字段：C12 T1 Q6–13（原题干为整块笔记或为空）及题组；C14 T2 Q36–37 与标题列表；C14 T4 Q34–39；C15 T2 题组 18–22；C15 T3 Q8–13 及题组；C16 T3 题组 6–13（OCR 漏掉第 8 空所在行）与 Q39；C16 T4 Q1–6 及题组；C13 T1、C18 T1 表格题组；C18 T2 Q23；C13 T2、C20 T4 正文各 1 处。校验器 `reading_curation_provenance` 同时检查 text-curations（审核方式、页码、证据框、截图哈希），新增单元测试覆盖伪造审核方式、无效哈希与无效坐标。
 
-**2. 选择题选项重读**：52 个选择题题组的选项不可用（为空，或把说明行 “Choose the correct letter” 误识为选项 C），题组上下文往往也缺少选项。`scripts/reparse_mcq_options.py` 从题组起点 OCR 至下一题组起点（可跨页），拆分题号行与 A/B/C… 选项行，仅在字母连续且数量与说明一致时写入：单选题写入每题 `options`，“Choose TWO letters” 写入题组共享 `options`。已修复 **35 组**；**17 组**未通过校验保持原样，待逐组处理：C12 T3 32–36、C15 T4 32–34、C16 T1 25–26、C16 T2 27–30、C16 T4 33–35、C17 T2 27–31、C17 T3 27–31、C18 T4 12–13 与 14–16、C19 T1 22–23 与 27–30、C19 T3 27–30、C20 T1 27–30、C20 T2 23–24 与 38–40、C20 T3 20–21 与 37–40。
+**2. 选择题选项重读**：52 个选择题题组的选项不可用（为空，或把说明行 “Choose the correct letter” 误识为选项 C），题组上下文往往也缺少选项。`backend/scripts/reparse_mcq_options.py` 从题组起点 OCR 至下一题组起点（可跨页），拆分题号行与 A/B/C… 选项行，仅在字母连续且数量与说明一致时写入：单选题写入每题 `options`，“Choose TWO letters” 写入题组共享 `options`。已修复 **35 组**；**17 组**未通过校验保持原样，待逐组处理：C12 T3 32–36、C15 T4 32–34、C16 T1 25–26、C16 T2 27–30、C16 T4 33–35、C17 T2 27–31、C17 T3 27–31、C18 T4 12–13 与 14–16、C19 T1 22–23 与 27–30、C19 T3 27–30、C20 T1 27–30、C20 T2 23–24 与 38–40、C20 T3 20–21 与 37–40。
 
-**3. 图示补充**：C16 T4 Q1–6 为“标注图示”题但原导入无图片，`scripts/attach_group_asset.py` 从原卷第 86 页直接裁剪图示（200 DPI，不重绘）挂到题组 `asset`。
+**3. 图示补充**：C16 T4 Q1–6 为“标注图示”题但原导入无图片，`backend/scripts/attach_group_asset.py` 从原卷第 86 页直接裁剪图示（200 DPI，不重绘）挂到题组 `asset`。
 
 **4. 符号规则补充**：`tidy_ocr_symbols.py` 新增页脚（如 `>/@ p.121| 19`）与选项字母下划线（`B__.`、`l|ts`）规则，再清理 123 个字段。
 
@@ -593,7 +593,7 @@ python scripts/apply_text_curations.py                                        # 
 
 ### 十二（续）阅读正文去污染、剩余选择题与题组图片（2026-10-14）
 
-**1. 正文重新分段**：`scripts/resegment_passages.py` 在每个正文块所在页找到其上方最近的 “Questions N–M” 标题（有文字层用文字层，扫描页用 Tesseract，结果缓存于 `.cache/page-lines/`），仅当标题题号属于本篇时才判定该块为题目页内容，因此“上一篇题目下方紧接下一篇正文”的情况不会误删。共移出 **88 个**正文块，内容不丢弃：
+**1. 正文重新分段**：`backend/scripts/resegment_passages.py` 在每个正文块所在页找到其上方最近的 “Questions N–M” 标题（有文字层用文字层，扫描页用 Tesseract，结果缓存于 `.cache/page-lines/`），仅当标题题号属于本篇时才判定该块为题目页内容，因此“上一篇题目下方紧接下一篇正文”的情况不会误删。共移出 **88 个**正文块，内容不丢弃：
 - 22 个为干净的字母列表（人名、句尾、词库），写入对应题组共享 `options`（`method: passage-resegment`，保留来源页与坐标）；
 - 15 个（题目说明、标题列表、笔记/摘要正文）把题组中缺少的行追加到题组 `context`；
 - 44 个内容已在题组中（含已按题拆分的选择题选项）或已在题组图片范围内，直接移出；

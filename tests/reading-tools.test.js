@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { highlightHTML } from '../lib/reading-tools.js';
+import { highlightHTML } from '../frontend/lib/reading-tools.js';
 test('highlights merge overlaps and always escape source text',()=>{
  const text='<script>abc</script>';
  assert.equal(highlightHTML(text,[{text,start:0,end:2},{text,start:1,end:8}]),'<mark>&lt;script&gt;</mark>abc&lt;/script&gt;');

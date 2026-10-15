@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {shell} from '../ui/layout.js';
+import {shell} from '../frontend/ui/layout.js';
 
 test('main navigation highlights the route being shown',()=>{
  const oldDocument=globalThis.document;

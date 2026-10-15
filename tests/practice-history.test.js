@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { identifyPractice, newPractice, archivePractice, historyEntries } from '../lib/practice-history.js';
+import { identifyPractice, newPractice, archivePractice, historyEntries } from '../frontend/lib/practice-history.js';
 const memory=()=>{const values=new Map();return {getItem:k=>values.get(k)||null,setItem:(k,v)=>values.set(k,v)};};
 test('redo isolates answers, flags and recordings while preserving a submitted snapshot',()=>{
  const store=memory(),key='test';const old=newPractice('reading',key);old.answers.q1='yes';old.submitted='2026-09-23T00:00:00Z';

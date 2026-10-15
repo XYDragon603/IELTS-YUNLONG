@@ -7,3 +7,19 @@ artifacts/
 .cache/
 __pycache__/
 *.pyc
+
+# Local-only materials. The repository is public: original papers, audio, OCR'd Cambridge
+# content and word-book data are copyrighted and stay on this machine.
+IELTS/
+WORD/
+resources/cambridge/
+resources/words/
+resources/synonyms/
+resources/page-maps/
+resources/import-manifest.json
+resources/import-report.json
+
+# Separate project kept locally, and local backups / personal scripts.
+IELTS-Studio/
+backups/
+cleanup-c-drive-safe.ps1

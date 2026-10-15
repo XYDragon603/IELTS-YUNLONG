@@ -4,7 +4,7 @@
 
 ## 修复
 
-1. C15 T1–T4 共 46 条听力答案校订坐标曾出现 xmax < xmin。`scripts/repair_c15_curation_boxes.py` 从四册对应原卷答案页以本地 Tesseract 240 DPI 定位题号与答案行，重新填写 `curations.json` 与听力题目的 answer.boundingBox。旧文件原样备份至忽略目录 `.cache/cambridge-importer/c15-curation-box-backup/`。仅修复来源区域；保留原来的答案和内容复核状态。
+1. C15 T1–T4 共 46 条听力答案校订坐标曾出现 xmax < xmin。`backend/scripts/repair_c15_curation_boxes.py` 从四册对应原卷答案页以本地 Tesseract 240 DPI 定位题号与答案行，重新填写 `curations.json` 与听力题目的 answer.boundingBox。旧文件原样备份至忽略目录 `.cache/cambridge-importer/c15-curation-box-backup/`。仅修复来源区域；保留原来的答案和内容复核状态。
 2. 听力验证器新增校订页码必须在真实 PDF 范围内、坐标必须是 0–1 内且有序的检查；题目的答案框也做相同校验。反例测试覆盖越界页码及倒置框。
 3. C13 T1 阅读 Q27–31 原先五道题没有题干、选项、题组说明。对照原卷 PDF 第 29 页文字层和页面图像，补充五题题干、各题四个独立选项、题组说明及来源题号坐标。保留 `verified:false` 和 assistant-visual 待复核标记。前端阅读控件现在支持题目层选项。
 4. 阅读验证器及题库入口拒绝没有题干且缺少题组说明/图片的题组，防止同类空题进入练习。

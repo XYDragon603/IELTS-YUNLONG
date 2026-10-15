@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { adaptImportedListening, localResourceURL } from '../lib/imported-listening.js';
-import { questionScore, questionWeight, answeredWeight } from '../lib/study-model.js';
+import { adaptImportedListening, localResourceURL } from '../frontend/lib/imported-listening.js';
+import { questionScore, questionWeight, answeredWeight } from '../frontend/lib/study-model.js';
 const load = name => JSON.parse(readFileSync(new URL(`../resources/cambridge/c18/test-1/${name}.json`,import.meta.url)));
 test('import adapter preserves 40 points without duplicate multiple-choice controls', () => {
   const adapted=adaptImportedListening(load('listening'),load('audioscript'));

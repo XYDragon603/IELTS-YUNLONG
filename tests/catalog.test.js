@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { buildCatalog } from '../lib/catalog-server.js';
+import { buildCatalog } from '../backend/lib/catalog-server.js';
 test('catalog discovers new imports and refuses missing assets and invalid JSON',async()=>{
  const root=await mkdtemp(path.join(tmpdir(),'ielts-catalog-'));
  try{

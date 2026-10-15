@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { byteRange } from '../lib/http-range.js';
-import { getListeningTest } from '../lib/cambridge.js';
-import { resultsFor } from '../lib/study-model.js';
+import { byteRange } from '../backend/lib/http-range.js';
+import { getListeningTest } from '../frontend/lib/cambridge.js';
+import { resultsFor } from '../frontend/lib/study-model.js';
 
 test('media ranges support seeking, open ends, suffixes and invalid bounds',()=>{
   assert.deepEqual(byteRange('bytes=20-39',100),{start:20,end:39});

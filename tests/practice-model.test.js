@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readingReport, practiceRemaining, pausePractice, loadPractice, assetURL } from '../lib/practice-model.js';
+import { readingReport, practiceRemaining, pausePractice, loadPractice, assetURL } from '../frontend/lib/practice-model.js';
 test('unknown reading answers are not marked incorrect and duplicates do not add points',()=>{
  const data={passages:[{groups:[{questions:[{id:'q1',number:1,answer:{accepted:['TRUE']}},{id:'q2',number:2,answer:{accepted:null}},{id:'q1',number:1,answer:{accepted:['TRUE']}}]}]}]};
  const results=readingReport(data,{q1:' true '});assert.equal(results.length,2);assert.equal(results[0].correct,true);assert.equal(results[1].correct,null);

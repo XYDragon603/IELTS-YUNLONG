@@ -25,7 +25,7 @@
 针对上述 4 项未闭环问题，已全部完成定向修复并纳入自动化测试校验：
 
 1. **听力验证器与校订模式区分（Point 1）**：
-   - 更新 [`scripts/validate_cambridge_import.py`](file:///e:/Desktop/IELTS%20Mock%20Exam/scripts/validate_cambridge_import.py) 第 14 项检查 `fully_parser_derived_import_mode`：
+   - 更新 [`backend/scripts/validate_cambridge_import.py`](file:///e:/Desktop/IELTS%20Mock%20Exam/backend/scripts/validate_cambridge_import.py) 第 14 项检查 `fully_parser_derived_import_mode`：
      - 若 `generationMode` 为 `ocr-parser` 或 `text-layer-parser`，直接通过；
      - 若为 `ocr-assisted-curation`，校验同目录下 [`curations.json`](file:///e:/Desktop/IELTS%20Mock%20Exam/resources/cambridge/c18/test-1/curations.json) 记录：验证 `reviewMethod` 为真实的 `assistant-visual` 或 `human`，且包含合法的 4 元坐标 `evidenceBoundingBox` 与有效 `sourcePdfPage`。
    - 严格区分结构/来源校验（`status: "PASSED"`）与内容核验状态（`verified: false`，待复核项与待人工审核原样保留）。
@@ -38,12 +38,12 @@
    - 在 [`tests/catalog.test.js`](file:///e:/Desktop/IELTS%20Mock%20Exam/tests/catalog.test.js) 中补充阅读空 blocks / 词数过短及听力证据页码越界的自动阻断单测，全部通过。
 
 3. **阅读正文阈值改为实际词数（Point 3）**：
-   - 更新 [`scripts/validate_cambridge_import.py`](file:///e:/Desktop/IELTS%20Mock%20Exam/scripts/validate_cambridge_import.py) 中的 `reading_three_passages` 检查：
+   - 更新 [`backend/scripts/validate_cambridge_import.py`](file:///e:/Desktop/IELTS%20Mock%20Exam/backend/scripts/validate_cambridge_import.py) 中的 `reading_three_passages` 检查：
      - 由原字符数 `len(text) < 100` 改为按单词正则统计词数 `len(re.findall(r'\b\w+\b', full_text)) < 100` 词。
    - 在 [`tests/test_import_validator.py`](file:///e:/Desktop/IELTS%20Mock%20Exam/tests/test_import_validator.py) 中增加 `test_rejects_reading_passage_under_100_words` 反向测试用例。
 
 4. **听力证据无页码兜底改为待复核记录（Point 4）**：
-   - 更新 [`scripts/import_cambridge_listening.py`](file:///e:/Desktop/IELTS%20Mock%20Exam/scripts/import_cambridge_listening.py)：
+   - 更新 [`backend/scripts/import_cambridge_listening.py`](file:///e:/Desktop/IELTS%20Mock%20Exam/backend/scripts/import_cambridge_listening.py)：
      - 当存在段落引用 `segs` 却无片段页码 `seg_pages` 时，不再兜底写入题目页 `src_page`，而是显式写入 `sourcePdfPage: None`，并在题目的 `needsReview` 中记录 `{"type": "missing-transcript-evidence-source-page", ...}`。
    - 同步更新验证器 Check 7（`valid_pdf_pages`），将 `sourcePdfPage is None` 视为缺失/待复核项并报告。
 

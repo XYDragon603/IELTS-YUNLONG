@@ -1,0 +1,5014 @@
+{
+  "generatedAt": "2026-10-14T10:02:05.476Z",
+  "scope": "Root HTML/JS project only; existing features preserved, including original-media shelf. Not a ready-to-upload build.",
+  "groups": {
+    "site": {
+      "count": 499,
+      "bytes": 71426305,
+      "over25MiB": 0
+    },
+    "media": {
+      "count": 332,
+      "bytes": 9225033800,
+      "over25MiB": 57
+    }
+  },
+  "catalogSummary": {
+    "total": 272,
+    "imported": 144,
+    "available": 144
+  },
+  "apiDependencies": [
+    "features/mock.js: /api/catalog",
+    "ui/import-catalog.js: /api/catalog"
+  ],
+  "missing": [],
+  "files": [
+    {
+      "path": "app.js",
+      "group": "site",
+      "bytes": 31145,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "core.js",
+      "group": "site",
+      "bytes": 1983,
+      "reason": "Referenced by app.js"
+    },
+    {
+      "path": "data.js",
+      "group": "site",
+      "bytes": 4158,
+      "reason": "Referenced by app.js"
+    },
+    {
+      "path": "exam-workspace.css",
+      "group": "site",
+      "bytes": 13171,
+      "reason": "Referenced by practice.html"
+    },
+    {
+      "path": "favicon.svg",
+      "group": "site",
+      "bytes": 191,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "features/import-preview.js",
+      "group": "site",
+      "bytes": 9814,
+      "reason": "Referenced by import-preview.html"
+    },
+    {
+      "path": "features/listening-clips.js",
+      "group": "site",
+      "bytes": 3276,
+      "reason": "Referenced by listening-clips.html"
+    },
+    {
+      "path": "features/mock.js",
+      "group": "site",
+      "bytes": 3275,
+      "reason": "Referenced by mock.html"
+    },
+    {
+      "path": "features/practice.js",
+      "group": "site",
+      "bytes": 22998,
+      "reason": "Referenced by practice.html"
+    },
+    {
+      "path": "features/review.js",
+      "group": "site",
+      "bytes": 9687,
+      "reason": "Referenced by review.html"
+    },
+    {
+      "path": "features/study.js",
+      "group": "site",
+      "bytes": 24870,
+      "reason": "Referenced by app.js"
+    },
+    {
+      "path": "features/words.js",
+      "group": "site",
+      "bytes": 13208,
+      "reason": "Referenced by words.html"
+    },
+    {
+      "path": "fonts.css",
+      "group": "site",
+      "bytes": 98784,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "fonts/inter-latin-ext-wght-normal.woff2",
+      "group": "site",
+      "bytes": 85068,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/inter-latin-wght-normal.woff2",
+      "group": "site",
+      "bytes": 48256,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-100-wght-normal.woff2",
+      "group": "site",
+      "bytes": 64376,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-101-wght-normal.woff2",
+      "group": "site",
+      "bytes": 58028,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-102-wght-normal.woff2",
+      "group": "site",
+      "bytes": 60516,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-103-wght-normal.woff2",
+      "group": "site",
+      "bytes": 63732,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-104-wght-normal.woff2",
+      "group": "site",
+      "bytes": 61404,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-105-wght-normal.woff2",
+      "group": "site",
+      "bytes": 61612,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-106-wght-normal.woff2",
+      "group": "site",
+      "bytes": 62444,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-107-wght-normal.woff2",
+      "group": "site",
+      "bytes": 60828,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-108-wght-normal.woff2",
+      "group": "site",
+      "bytes": 64340,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-109-wght-normal.woff2",
+      "group": "site",
+      "bytes": 60208,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-110-wght-normal.woff2",
+      "group": "site",
+      "bytes": 61188,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-111-wght-normal.woff2",
+      "group": "site",
+      "bytes": 62400,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-112-wght-normal.woff2",
+      "group": "site",
+      "bytes": 57460,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-113-wght-normal.woff2",
+      "group": "site",
+      "bytes": 58428,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-114-wght-normal.woff2",
+      "group": "site",
+      "bytes": 57740,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-115-wght-normal.woff2",
+      "group": "site",
+      "bytes": 56264,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-116-wght-normal.woff2",
+      "group": "site",
+      "bytes": 52796,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-117-wght-normal.woff2",
+      "group": "site",
+      "bytes": 52228,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-118-wght-normal.woff2",
+      "group": "site",
+      "bytes": 45992,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-119-wght-normal.woff2",
+      "group": "site",
+      "bytes": 76324,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-21-wght-normal.woff2",
+      "group": "site",
+      "bytes": 11276,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-22-wght-normal.woff2",
+      "group": "site",
+      "bytes": 65220,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-23-wght-normal.woff2",
+      "group": "site",
+      "bytes": 56700,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-24-wght-normal.woff2",
+      "group": "site",
+      "bytes": 62552,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-25-wght-normal.woff2",
+      "group": "site",
+      "bytes": 58224,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-26-wght-normal.woff2",
+      "group": "site",
+      "bytes": 50744,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-27-wght-normal.woff2",
+      "group": "site",
+      "bytes": 47324,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-28-wght-normal.woff2",
+      "group": "site",
+      "bytes": 50016,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-29-wght-normal.woff2",
+      "group": "site",
+      "bytes": 53848,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-30-wght-normal.woff2",
+      "group": "site",
+      "bytes": 54416,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-31-wght-normal.woff2",
+      "group": "site",
+      "bytes": 47084,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-32-wght-normal.woff2",
+      "group": "site",
+      "bytes": 52368,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-33-wght-normal.woff2",
+      "group": "site",
+      "bytes": 47332,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-34-wght-normal.woff2",
+      "group": "site",
+      "bytes": 46748,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-35-wght-normal.woff2",
+      "group": "site",
+      "bytes": 50464,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-36-wght-normal.woff2",
+      "group": "site",
+      "bytes": 41692,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-37-wght-normal.woff2",
+      "group": "site",
+      "bytes": 53356,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-38-wght-normal.woff2",
+      "group": "site",
+      "bytes": 54424,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-39-wght-normal.woff2",
+      "group": "site",
+      "bytes": 51616,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-4-wght-normal.woff2",
+      "group": "site",
+      "bytes": 3764,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-40-wght-normal.woff2",
+      "group": "site",
+      "bytes": 46432,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-41-wght-normal.woff2",
+      "group": "site",
+      "bytes": 36284,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-42-wght-normal.woff2",
+      "group": "site",
+      "bytes": 45432,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-43-wght-normal.woff2",
+      "group": "site",
+      "bytes": 46488,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-44-wght-normal.woff2",
+      "group": "site",
+      "bytes": 54096,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-45-wght-normal.woff2",
+      "group": "site",
+      "bytes": 67436,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-46-wght-normal.woff2",
+      "group": "site",
+      "bytes": 57520,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-47-wght-normal.woff2",
+      "group": "site",
+      "bytes": 55972,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-48-wght-normal.woff2",
+      "group": "site",
+      "bytes": 50616,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-49-wght-normal.woff2",
+      "group": "site",
+      "bytes": 52768,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-5-wght-normal.woff2",
+      "group": "site",
+      "bytes": 20044,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-50-wght-normal.woff2",
+      "group": "site",
+      "bytes": 45724,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-51-wght-normal.woff2",
+      "group": "site",
+      "bytes": 41476,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-52-wght-normal.woff2",
+      "group": "site",
+      "bytes": 51772,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-53-wght-normal.woff2",
+      "group": "site",
+      "bytes": 43284,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-54-wght-normal.woff2",
+      "group": "site",
+      "bytes": 51816,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-55-wght-normal.woff2",
+      "group": "site",
+      "bytes": 47948,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-56-wght-normal.woff2",
+      "group": "site",
+      "bytes": 53332,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-57-wght-normal.woff2",
+      "group": "site",
+      "bytes": 55348,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-58-wght-normal.woff2",
+      "group": "site",
+      "bytes": 57468,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-59-wght-normal.woff2",
+      "group": "site",
+      "bytes": 47504,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-6-wght-normal.woff2",
+      "group": "site",
+      "bytes": 11388,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-60-wght-normal.woff2",
+      "group": "site",
+      "bytes": 41300,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-61-wght-normal.woff2",
+      "group": "site",
+      "bytes": 45096,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-62-wght-normal.woff2",
+      "group": "site",
+      "bytes": 58956,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-63-wght-normal.woff2",
+      "group": "site",
+      "bytes": 49052,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-64-wght-normal.woff2",
+      "group": "site",
+      "bytes": 41408,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-65-wght-normal.woff2",
+      "group": "site",
+      "bytes": 41392,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-66-wght-normal.woff2",
+      "group": "site",
+      "bytes": 52620,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-67-wght-normal.woff2",
+      "group": "site",
+      "bytes": 52464,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-68-wght-normal.woff2",
+      "group": "site",
+      "bytes": 41380,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-69-wght-normal.woff2",
+      "group": "site",
+      "bytes": 55520,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-70-wght-normal.woff2",
+      "group": "site",
+      "bytes": 42080,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-71-wght-normal.woff2",
+      "group": "site",
+      "bytes": 47768,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-72-wght-normal.woff2",
+      "group": "site",
+      "bytes": 46916,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-73-wght-normal.woff2",
+      "group": "site",
+      "bytes": 39096,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-74-wght-normal.woff2",
+      "group": "site",
+      "bytes": 56260,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-75-wght-normal.woff2",
+      "group": "site",
+      "bytes": 43824,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-76-wght-normal.woff2",
+      "group": "site",
+      "bytes": 48240,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-77-wght-normal.woff2",
+      "group": "site",
+      "bytes": 36664,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-78-wght-normal.woff2",
+      "group": "site",
+      "bytes": 48916,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-79-wght-normal.woff2",
+      "group": "site",
+      "bytes": 41064,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-80-wght-normal.woff2",
+      "group": "site",
+      "bytes": 32448,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-81-wght-normal.woff2",
+      "group": "site",
+      "bytes": 47504,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-82-wght-normal.woff2",
+      "group": "site",
+      "bytes": 46008,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-83-wght-normal.woff2",
+      "group": "site",
+      "bytes": 43356,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-84-wght-normal.woff2",
+      "group": "site",
+      "bytes": 32516,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-85-wght-normal.woff2",
+      "group": "site",
+      "bytes": 26768,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-86-wght-normal.woff2",
+      "group": "site",
+      "bytes": 33428,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-87-wght-normal.woff2",
+      "group": "site",
+      "bytes": 7956,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-88-wght-normal.woff2",
+      "group": "site",
+      "bytes": 7228,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-89-wght-normal.woff2",
+      "group": "site",
+      "bytes": 10792,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-90-wght-normal.woff2",
+      "group": "site",
+      "bytes": 9224,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-91-wght-normal.woff2",
+      "group": "site",
+      "bytes": 8616,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-97-wght-normal.woff2",
+      "group": "site",
+      "bytes": 2072,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-98-wght-normal.woff2",
+      "group": "site",
+      "bytes": 3412,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-99-wght-normal.woff2",
+      "group": "site",
+      "bytes": 9696,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-cyrillic-wght-normal.woff2",
+      "group": "site",
+      "bytes": 9896,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-latin-ext-wght-normal.woff2",
+      "group": "site",
+      "bytes": 8128,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-latin-wght-normal.woff2",
+      "group": "site",
+      "bytes": 24880,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "fonts/noto-sans-sc-vietnamese-wght-normal.woff2",
+      "group": "site",
+      "bytes": 8976,
+      "reason": "Referenced by fonts.css"
+    },
+    {
+      "path": "IELTS/【10】剑桥雅思真题精讲10.pdf",
+      "group": "media",
+      "bytes": 55146839,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【11】剑桥雅思真题精讲11.pdf",
+      "group": "media",
+      "bytes": 123194804,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【12】剑桥雅思真题精讲12.pdf",
+      "group": "media",
+      "bytes": 175454490,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【13】剑桥雅思真题精讲13.pdf",
+      "group": "media",
+      "bytes": 130518129,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【14】剑桥雅思真题精讲14.pdf",
+      "group": "media",
+      "bytes": 116177238,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【456合辑】剑桥雅思真题精讲456合辑.pdf",
+      "group": "media",
+      "bytes": 258032196,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【7】剑桥雅思真题精讲7.pdf",
+      "group": "media",
+      "bytes": 49990918,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【8】剑桥雅思真题精讲8.pdf",
+      "group": "media",
+      "bytes": 53058499,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/【9】剑桥雅思真题精讲9.pdf",
+      "group": "media",
+      "bytes": 59738189,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频 T1S1-S4/T1S1.mp3",
+      "group": "media",
+      "bytes": 150122443,
+      "reason": "resources/cambridge/c20/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频 T1S1-S4/T1S2.mp3",
+      "group": "media",
+      "bytes": 142888819,
+      "reason": "resources/cambridge/c20/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频 T1S1-S4/T1S3.mp3",
+      "group": "media",
+      "bytes": 130091483,
+      "reason": "resources/cambridge/c20/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频 T1S1-S4/T1S4.mp3",
+      "group": "media",
+      "bytes": 143707937,
+      "reason": "resources/cambridge/c20/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T2/T2S1.mp3",
+      "group": "media",
+      "bytes": 108300481,
+      "reason": "resources/cambridge/c20/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T2/T2S2.mp3",
+      "group": "media",
+      "bytes": 143517576,
+      "reason": "resources/cambridge/c20/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T2/T2S3.mp3",
+      "group": "media",
+      "bytes": 124065649,
+      "reason": "resources/cambridge/c20/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T2/T2S4.mp3",
+      "group": "media",
+      "bytes": 177045906,
+      "reason": "resources/cambridge/c20/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T3/T3S1.mp3",
+      "group": "media",
+      "bytes": 135669365,
+      "reason": "resources/cambridge/c20/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T3/T3S2.mp3",
+      "group": "media",
+      "bytes": 179905099,
+      "reason": "resources/cambridge/c20/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T3/T3S3.mp3",
+      "group": "media",
+      "bytes": 135524921,
+      "reason": "resources/cambridge/c20/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T3/T3S4.mp3",
+      "group": "media",
+      "bytes": 177198072,
+      "reason": "resources/cambridge/c20/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T4/T4S1.mp3",
+      "group": "media",
+      "bytes": 120973981,
+      "reason": "resources/cambridge/c20/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T4/T4S2.mp3",
+      "group": "media",
+      "bytes": 126444157,
+      "reason": "resources/cambridge/c20/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T4/T4S3.mp3",
+      "group": "media",
+      "bytes": 114754006,
+      "reason": "resources/cambridge/c20/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20 听力音频T4/T4S4.mp3",
+      "group": "media",
+      "bytes": 130457109,
+      "reason": "resources/cambridge/c20/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20-Test1.pdf",
+      "group": "media",
+      "bytes": 5327081,
+      "reason": "resources/cambridge/c20/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20-Test2.pdf",
+      "group": "media",
+      "bytes": 5899155,
+      "reason": "resources/cambridge/c20/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20-Test4.pdf",
+      "group": "media",
+      "bytes": 5430078,
+      "reason": "resources/cambridge/c20/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑20完整/剑20Test3.pdf",
+      "group": "media",
+      "bytes": 5178244,
+      "reason": "resources/cambridge/c20/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑桥雅思17.pdf",
+      "group": "media",
+      "bytes": 0,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑桥雅思17（A类）.pdf",
+      "group": "media",
+      "bytes": 2950946,
+      "reason": "resources/cambridge/c17/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/听力C17T1.mp4",
+      "group": "media",
+      "bytes": 250437292,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/听力C17T2.mp4",
+      "group": "media",
+      "bytes": 164590494,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/听力C17T3.mp4",
+      "group": "media",
+      "bytes": 208081713,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/听力C17T4.mp4",
+      "group": "media",
+      "bytes": 147417703,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/阅读C17T1.mp4",
+      "group": "media",
+      "bytes": 172347684,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/阅读C17T2.mp4",
+      "group": "media",
+      "bytes": 121821698,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/阅读C17T3 .mp4",
+      "group": "media",
+      "bytes": 254172311,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/剑雅17 精讲视频解析/阅读C17T4.mp4",
+      "group": "media",
+      "bytes": 294885215,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T1-P1.mp3",
+      "group": "media",
+      "bytes": 6627381,
+      "reason": "resources/cambridge/c17/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T1-P2.mp3",
+      "group": "media",
+      "bytes": 6599859,
+      "reason": "resources/cambridge/c17/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T1-P3.mp3",
+      "group": "media",
+      "bytes": 7091919,
+      "reason": "resources/cambridge/c17/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T1-P4.mp3",
+      "group": "media",
+      "bytes": 7274565,
+      "reason": "resources/cambridge/c17/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T2-P1.mp3",
+      "group": "media",
+      "bytes": 7575639,
+      "reason": "resources/cambridge/c17/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T2-P2.mp3",
+      "group": "media",
+      "bytes": 7105263,
+      "reason": "resources/cambridge/c17/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T2-P3.mp3",
+      "group": "media",
+      "bytes": 6424302,
+      "reason": "resources/cambridge/c17/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T2-P4.mp3",
+      "group": "media",
+      "bytes": 6934293,
+      "reason": "resources/cambridge/c17/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T3-P1.mp3",
+      "group": "media",
+      "bytes": 6629883,
+      "reason": "resources/cambridge/c17/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T3-P2.mp3",
+      "group": "media",
+      "bytes": 7189497,
+      "reason": "resources/cambridge/c17/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T3-P3.mp3",
+      "group": "media",
+      "bytes": 7227444,
+      "reason": "resources/cambridge/c17/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T3-P4.mp3",
+      "group": "media",
+      "bytes": 7771212,
+      "reason": "resources/cambridge/c17/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T4-P1.mp3",
+      "group": "media",
+      "bytes": 6115722,
+      "reason": "resources/cambridge/c17/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T4-P2.mp3",
+      "group": "media",
+      "bytes": 7544781,
+      "reason": "resources/cambridge/c17/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T4-P3.mp3",
+      "group": "media",
+      "bytes": 6570669,
+      "reason": "resources/cambridge/c17/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅17/【剑雅17】真题+音频/听力音频/C17-T4-P4.mp3",
+      "group": "media",
+      "bytes": 8235333,
+      "reason": "resources/cambridge/c17/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑18-雅思真题精讲/剑18-雅思真题精讲.pdf",
+      "group": "media",
+      "bytes": 172525715,
+      "reason": "resources/cambridge/c18/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-1-1.mp3",
+      "group": "media",
+      "bytes": 6900820,
+      "reason": "resources/cambridge/c18/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-1-2.mp3",
+      "group": "media",
+      "bytes": 6369593,
+      "reason": "resources/cambridge/c18/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-1-3.mp3",
+      "group": "media",
+      "bytes": 6414733,
+      "reason": "resources/cambridge/c18/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-1-4.mp3",
+      "group": "media",
+      "bytes": 8441835,
+      "reason": "resources/cambridge/c18/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-2-1.mp3",
+      "group": "media",
+      "bytes": 7501009,
+      "reason": "resources/cambridge/c18/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-2-2.mp3",
+      "group": "media",
+      "bytes": 6995696,
+      "reason": "resources/cambridge/c18/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-2-3.mp3",
+      "group": "media",
+      "bytes": 6848575,
+      "reason": "resources/cambridge/c18/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-2-4.mp3",
+      "group": "media",
+      "bytes": 6815556,
+      "reason": "resources/cambridge/c18/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-3-1.mp3",
+      "group": "media",
+      "bytes": 7529430,
+      "reason": "resources/cambridge/c18/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-3-2.mp3",
+      "group": "media",
+      "bytes": 7478857,
+      "reason": "resources/cambridge/c18/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-3-3.mp3",
+      "group": "media",
+      "bytes": 5684268,
+      "reason": "resources/cambridge/c18/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-3-4.mp3",
+      "group": "media",
+      "bytes": 7355559,
+      "reason": "resources/cambridge/c18/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-4-1.mp3",
+      "group": "media",
+      "bytes": 7086393,
+      "reason": "resources/cambridge/c18/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-4-2.mp3",
+      "group": "media",
+      "bytes": 6978142,
+      "reason": "resources/cambridge/c18/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-4-3.mp3",
+      "group": "media",
+      "bytes": 6689750,
+      "reason": "resources/cambridge/c18/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思18音频/18-4-4.mp3",
+      "group": "media",
+      "bytes": 7959092,
+      "reason": "resources/cambridge/c18/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅18/【剑雅18】真题+音频/剑桥雅思真题18.pdf",
+      "group": "media",
+      "bytes": 52050679,
+      "reason": "resources/cambridge/c18/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19（A类）.pdf",
+      "group": "media",
+      "bytes": 105566228,
+      "reason": "resources/cambridge/c19/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test1 Part1.mp3",
+      "group": "media",
+      "bytes": 7565274,
+      "reason": "resources/cambridge/c19/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test1 Part2.mp3",
+      "group": "media",
+      "bytes": 6998521,
+      "reason": "resources/cambridge/c19/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test1 Part3.mp3",
+      "group": "media",
+      "bytes": 6726848,
+      "reason": "resources/cambridge/c19/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test1 Part4.mp3",
+      "group": "media",
+      "bytes": 6639494,
+      "reason": "resources/cambridge/c19/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test2 Part1.mp3",
+      "group": "media",
+      "bytes": 7713232,
+      "reason": "resources/cambridge/c19/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test2 Part2.mp3",
+      "group": "media",
+      "bytes": 6149228,
+      "reason": "resources/cambridge/c19/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test2 Part3.mp3",
+      "group": "media",
+      "bytes": 6575547,
+      "reason": "resources/cambridge/c19/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test2 Part4.mp3",
+      "group": "media",
+      "bytes": 6834263,
+      "reason": "resources/cambridge/c19/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test3 Part1.mp3",
+      "group": "media",
+      "bytes": 6341907,
+      "reason": "resources/cambridge/c19/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test3 Part2.mp3",
+      "group": "media",
+      "bytes": 5951952,
+      "reason": "resources/cambridge/c19/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test3 Part3.mp3",
+      "group": "media",
+      "bytes": 6757359,
+      "reason": "resources/cambridge/c19/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test3 Part4.mp3",
+      "group": "media",
+      "bytes": 6569695,
+      "reason": "resources/cambridge/c19/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test4 Part1.mp3",
+      "group": "media",
+      "bytes": 6485267,
+      "reason": "resources/cambridge/c19/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test4 Part2.mp3",
+      "group": "media",
+      "bytes": 6228641,
+      "reason": "resources/cambridge/c19/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test4 Part3.mp3",
+      "group": "media",
+      "bytes": 6873134,
+      "reason": "resources/cambridge/c19/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/剑雅19/【剑雅19】真题+音频/剑19A类音频/Test4 Part4.mp3",
+      "group": "media",
+      "bytes": 8305480,
+      "reason": "resources/cambridge/c19/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test1/Test1.Section1.mp3",
+      "group": "media",
+      "bytes": 7279152,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test1/Test1.Section2.mp3",
+      "group": "media",
+      "bytes": 6070686,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test1/Test1.Section3.mp3",
+      "group": "media",
+      "bytes": 6227478,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test1/Test1.Section4.mp3",
+      "group": "media",
+      "bytes": 6381351,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test2/Test2.Section1.mp3",
+      "group": "media",
+      "bytes": 6317967,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test2/Test2.Section2.mp3",
+      "group": "media",
+      "bytes": 5778369,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test2/Test2.Section3.mp3",
+      "group": "media",
+      "bytes": 7166562,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test2/Test2.Section4.mp3",
+      "group": "media",
+      "bytes": 6562329,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test3/Test3.Section1.mp3",
+      "group": "media",
+      "bytes": 8051436,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test3/Test3.Section2.mp3",
+      "group": "media",
+      "bytes": 6360918,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test3/Test3.Section3.mp3",
+      "group": "media",
+      "bytes": 6760821,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test3/Test3.Section4.mp3",
+      "group": "media",
+      "bytes": 7812495,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test4/Test4.Section1.mp3",
+      "group": "media",
+      "bytes": 6877998,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test4/Test4.Section2.mp3",
+      "group": "media",
+      "bytes": 6246243,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test4/Test4.Section3.mp3",
+      "group": "media",
+      "bytes": 6913026,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑10/Test4/Test4.Section4.mp3",
+      "group": "media",
+      "bytes": 7128198,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test1_Section1.mp3",
+      "group": "media",
+      "bytes": 9246093,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test1_Section2.mp3",
+      "group": "media",
+      "bytes": 6394358,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test1_Section3.mp3",
+      "group": "media",
+      "bytes": 7875187,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test1_Section4.mp3",
+      "group": "media",
+      "bytes": 8163997,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test2_Section1.mp3",
+      "group": "media",
+      "bytes": 8058253,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test2_Section2.mp3",
+      "group": "media",
+      "bytes": 6898416,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test2_Section3.mp3",
+      "group": "media",
+      "bytes": 7313032,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test2_Section4.mp3",
+      "group": "media",
+      "bytes": 7151700,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test3_Section1.mp3",
+      "group": "media",
+      "bytes": 7728065,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test3_Section2.mp3",
+      "group": "media",
+      "bytes": 6837812,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test3_Section3.mp3",
+      "group": "media",
+      "bytes": 6365518,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test3_Section4.mp3",
+      "group": "media",
+      "bytes": 8196598,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test4_Section1.mp3",
+      "group": "media",
+      "bytes": 7848438,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test4_Section2.mp3",
+      "group": "media",
+      "bytes": 5801691,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test4_Section3.mp3",
+      "group": "media",
+      "bytes": 6988696,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑11/IELTS11_Test4_Section4.mp3",
+      "group": "media",
+      "bytes": 8026070,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 5_S1.mp3",
+      "group": "media",
+      "bytes": 12015918,
+      "reason": "resources/cambridge/c12/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 5_S2.mp3",
+      "group": "media",
+      "bytes": 9802235,
+      "reason": "resources/cambridge/c12/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 5_S3.mp3",
+      "group": "media",
+      "bytes": 9558356,
+      "reason": "resources/cambridge/c12/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 5_S4.mp3",
+      "group": "media",
+      "bytes": 12678661,
+      "reason": "resources/cambridge/c12/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 6_S1.mp3",
+      "group": "media",
+      "bytes": 12986450,
+      "reason": "resources/cambridge/c12/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 6_S2.mp3",
+      "group": "media",
+      "bytes": 11268645,
+      "reason": "resources/cambridge/c12/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 6_S3.mp3",
+      "group": "media",
+      "bytes": 10340775,
+      "reason": "resources/cambridge/c12/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 6_S4.mp3",
+      "group": "media",
+      "bytes": 12413435,
+      "reason": "resources/cambridge/c12/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 7_S1.mp3",
+      "group": "media",
+      "bytes": 13131900,
+      "reason": "resources/cambridge/c12/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 7_S2.mp3",
+      "group": "media",
+      "bytes": 10449863,
+      "reason": "resources/cambridge/c12/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 7_S3.mp3",
+      "group": "media",
+      "bytes": 12234757,
+      "reason": "resources/cambridge/c12/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 7_S4.mp3",
+      "group": "media",
+      "bytes": 11786496,
+      "reason": "resources/cambridge/c12/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 8_S1.mp3",
+      "group": "media",
+      "bytes": 11488693,
+      "reason": "resources/cambridge/c12/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 8_S2.mp3",
+      "group": "media",
+      "bytes": 8868723,
+      "reason": "resources/cambridge/c12/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 8_S3.mp3",
+      "group": "media",
+      "bytes": 11165827,
+      "reason": "resources/cambridge/c12/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑12/IELTS 12 Test 8_S4.mp3",
+      "group": "media",
+      "bytes": 11386509,
+      "reason": "resources/cambridge/c12/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test1.Section1.mp3",
+      "group": "media",
+      "bytes": 5379531,
+      "reason": "resources/cambridge/c13/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test1.Section2.mp3",
+      "group": "media",
+      "bytes": 4867150,
+      "reason": "resources/cambridge/c13/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test1.Section3.mp3",
+      "group": "media",
+      "bytes": 5119741,
+      "reason": "resources/cambridge/c13/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test1.Section4.mp3",
+      "group": "media",
+      "bytes": 5029284,
+      "reason": "resources/cambridge/c13/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test2.Section1.mp3",
+      "group": "media",
+      "bytes": 6251236,
+      "reason": "resources/cambridge/c13/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test2.Section2.mp3",
+      "group": "media",
+      "bytes": 5278119,
+      "reason": "resources/cambridge/c13/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test2.Section3.mp3",
+      "group": "media",
+      "bytes": 5141338,
+      "reason": "resources/cambridge/c13/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test2.Section4.mp3",
+      "group": "media",
+      "bytes": 6520729,
+      "reason": "resources/cambridge/c13/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test3.Section1.mp3",
+      "group": "media",
+      "bytes": 6580199,
+      "reason": "resources/cambridge/c13/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test3.Section2.mp3",
+      "group": "media",
+      "bytes": 4569800,
+      "reason": "resources/cambridge/c13/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test3.Section3.mp3",
+      "group": "media",
+      "bytes": 4775441,
+      "reason": "resources/cambridge/c13/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test3.Section4.mp3",
+      "group": "media",
+      "bytes": 4787961,
+      "reason": "resources/cambridge/c13/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test4.Section1.mp3",
+      "group": "media",
+      "bytes": 5593936,
+      "reason": "resources/cambridge/c13/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test4.Section2.mp3",
+      "group": "media",
+      "bytes": 4944774,
+      "reason": "resources/cambridge/c13/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test4.Section3.mp3",
+      "group": "media",
+      "bytes": 5402380,
+      "reason": "resources/cambridge/c13/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑13/Test4.Section4.mp3",
+      "group": "media",
+      "bytes": 5732908,
+      "reason": "resources/cambridge/c13/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T1S1.mp3",
+      "group": "media",
+      "bytes": 4188253,
+      "reason": "resources/cambridge/c14/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T1S2.mp3",
+      "group": "media",
+      "bytes": 3239903,
+      "reason": "resources/cambridge/c14/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T1S3.mp3",
+      "group": "media",
+      "bytes": 3452227,
+      "reason": "resources/cambridge/c14/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T1S4.mp3",
+      "group": "media",
+      "bytes": 3905503,
+      "reason": "resources/cambridge/c14/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T2S1.mp3",
+      "group": "media",
+      "bytes": 3699032,
+      "reason": "resources/cambridge/c14/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T2S2.mp3",
+      "group": "media",
+      "bytes": 3547521,
+      "reason": "resources/cambridge/c14/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T2S3.mp3",
+      "group": "media",
+      "bytes": 3698196,
+      "reason": "resources/cambridge/c14/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T2S4.mp3",
+      "group": "media",
+      "bytes": 8329183,
+      "reason": "resources/cambridge/c14/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T3S1.mp3",
+      "group": "media",
+      "bytes": 4206016,
+      "reason": "resources/cambridge/c14/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T3S2.mp3",
+      "group": "media",
+      "bytes": 3183688,
+      "reason": "resources/cambridge/c14/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T3S3.mp3",
+      "group": "media",
+      "bytes": 3054120,
+      "reason": "resources/cambridge/c14/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T3S4.mp3",
+      "group": "media",
+      "bytes": 3909265,
+      "reason": "resources/cambridge/c14/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T4S1.mp3",
+      "group": "media",
+      "bytes": 3936432,
+      "reason": "resources/cambridge/c14/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T4S2.mp3",
+      "group": "media",
+      "bytes": 3462885,
+      "reason": "resources/cambridge/c14/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T4S3.mp3",
+      "group": "media",
+      "bytes": 3708227,
+      "reason": "resources/cambridge/c14/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑14/T4S4.mp3",
+      "group": "media",
+      "bytes": 4469957,
+      "reason": "resources/cambridge/c14/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test1_audio1.mp3",
+      "group": "media",
+      "bytes": 7344621,
+      "reason": "resources/cambridge/c15/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test1_audio2.mp3",
+      "group": "media",
+      "bytes": 6677421,
+      "reason": "resources/cambridge/c15/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test1_audio3.mp3",
+      "group": "media",
+      "bytes": 6907188,
+      "reason": "resources/cambridge/c15/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test1_audio4.mp3",
+      "group": "media",
+      "bytes": 8723640,
+      "reason": "resources/cambridge/c15/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test2_audio1.mp3",
+      "group": "media",
+      "bytes": 7791379,
+      "reason": "resources/cambridge/c15/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test2_audio2.mp3",
+      "group": "media",
+      "bytes": 6776992,
+      "reason": "resources/cambridge/c15/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test2_audio3.mp3",
+      "group": "media",
+      "bytes": 6840939,
+      "reason": "resources/cambridge/c15/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test2_audio4.mp3",
+      "group": "media",
+      "bytes": 8395330,
+      "reason": "resources/cambridge/c15/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test3_audio1.mp3",
+      "group": "media",
+      "bytes": 7527646,
+      "reason": "resources/cambridge/c15/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test3_audio2(1).mp3",
+      "group": "media",
+      "bytes": 6790367,
+      "reason": "resources/cambridge/c15/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test3_audio3.mp3",
+      "group": "media",
+      "bytes": 6558818,
+      "reason": "resources/cambridge/c15/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test3_audio4.mp3",
+      "group": "media",
+      "bytes": 7470805,
+      "reason": "resources/cambridge/c15/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test4_audio1.mp3",
+      "group": "media",
+      "bytes": 7592849,
+      "reason": "resources/cambridge/c15/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test4_audio2.mp3",
+      "group": "media",
+      "bytes": 6096555,
+      "reason": "resources/cambridge/c15/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test4_audio3.mp3",
+      "group": "media",
+      "bytes": 6699670,
+      "reason": "resources/cambridge/c15/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑15/IELTS15_test4_audio4.mp3",
+      "group": "media",
+      "bytes": 7482926,
+      "reason": "resources/cambridge/c15/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 1 Part 1.mp3",
+      "group": "media",
+      "bytes": 13505290,
+      "reason": "resources/cambridge/c16/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 1 Part 2.mp3",
+      "group": "media",
+      "bytes": 13340795,
+      "reason": "resources/cambridge/c16/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 1 Part 3.mp3",
+      "group": "media",
+      "bytes": 12844805,
+      "reason": "resources/cambridge/c16/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 1 Part 4.mp3",
+      "group": "media",
+      "bytes": 16161425,
+      "reason": "resources/cambridge/c16/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 2 Part 1.mp3",
+      "group": "media",
+      "bytes": 12721225,
+      "reason": "resources/cambridge/c16/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 2 Part 2.mp3",
+      "group": "media",
+      "bytes": 14837950,
+      "reason": "resources/cambridge/c16/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 2 Part 3.mp3",
+      "group": "media",
+      "bytes": 13319085,
+      "reason": "resources/cambridge/c16/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 2 Part 4.mp3",
+      "group": "media",
+      "bytes": 16822745,
+      "reason": "resources/cambridge/c16/test-2/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 3 Part 1.mp3",
+      "group": "media",
+      "bytes": 15776490,
+      "reason": "resources/cambridge/c16/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 3 Part 2.mp3",
+      "group": "media",
+      "bytes": 13056060,
+      "reason": "resources/cambridge/c16/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 3 Part 3.mp3",
+      "group": "media",
+      "bytes": 13149580,
+      "reason": "resources/cambridge/c16/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 3 Part 4.mp3",
+      "group": "media",
+      "bytes": 16464530,
+      "reason": "resources/cambridge/c16/test-3/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 4 Part 1.mp3",
+      "group": "media",
+      "bytes": 13626365,
+      "reason": "resources/cambridge/c16/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 4 Part 2.mp3",
+      "group": "media",
+      "bytes": 12309570,
+      "reason": "resources/cambridge/c16/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 4 Part 3.mp3",
+      "group": "media",
+      "bytes": 13052720,
+      "reason": "resources/cambridge/c16/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑16/Test 4 Part 4.mp3",
+      "group": "media",
+      "bytes": 17707010,
+      "reason": "resources/cambridge/c16/test-4/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T1S1.mp3",
+      "group": "media",
+      "bytes": 7239673,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T1S2.mp3",
+      "group": "media",
+      "bytes": 5790190,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T1S3.mp3",
+      "group": "media",
+      "bytes": 6486928,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T1S4.mp3",
+      "group": "media",
+      "bytes": 5681103,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T2S1.mp3",
+      "group": "media",
+      "bytes": 6980956,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T2S2.mp3",
+      "group": "media",
+      "bytes": 5586226,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T2S3.mp3",
+      "group": "media",
+      "bytes": 4838497,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T2S4.mp3",
+      "group": "media",
+      "bytes": 7843624,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T3S1.mp3",
+      "group": "media",
+      "bytes": 7009808,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T3S2.mp3",
+      "group": "media",
+      "bytes": 5773903,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T3S3.mp3",
+      "group": "media",
+      "bytes": 6508675,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T3S4.mp3",
+      "group": "media",
+      "bytes": 5691983,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T4S1.mp3",
+      "group": "media",
+      "bytes": 8043839,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T4S2.mp3",
+      "group": "media",
+      "bytes": 5359705,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T4S3.mp3",
+      "group": "media",
+      "bytes": 7343340,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑4/C4T4S4.mp3",
+      "group": "media",
+      "bytes": 5771395,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T1S1.mp3",
+      "group": "media",
+      "bytes": 2074172,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T1S2.mp3",
+      "group": "media",
+      "bytes": 1227091,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T1S3.mp3",
+      "group": "media",
+      "bytes": 1619340,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T1S4.mp3",
+      "group": "media",
+      "bytes": 1667430,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T2S1.mp3",
+      "group": "media",
+      "bytes": 2001710,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T2S2.mp3",
+      "group": "media",
+      "bytes": 1741732,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T2S3.mp3",
+      "group": "media",
+      "bytes": 1595048,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T2S4.mp3",
+      "group": "media",
+      "bytes": 1982258,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T3S1.mp3",
+      "group": "media",
+      "bytes": 1992355,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T3S2.mp3",
+      "group": "media",
+      "bytes": 2110286,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T3S3.mp3",
+      "group": "media",
+      "bytes": 1666422,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T3S4.mp3",
+      "group": "media",
+      "bytes": 1809942,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T4S1.mp3",
+      "group": "media",
+      "bytes": 1901493,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T4S2.mp3",
+      "group": "media",
+      "bytes": 1329606,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T4S3.mp3",
+      "group": "media",
+      "bytes": 1754481,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑5/C5T4S4.mp3",
+      "group": "media",
+      "bytes": 1502116,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test1-s1.mp3",
+      "group": "media",
+      "bytes": 1763342,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test1-s2.mp3",
+      "group": "media",
+      "bytes": 1145966,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test1-s3.mp3",
+      "group": "media",
+      "bytes": 1359470,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test1-s4.mp3",
+      "group": "media",
+      "bytes": 1340750,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test2-s1.mp3",
+      "group": "media",
+      "bytes": 1625486,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test2-s2.mp3",
+      "group": "media",
+      "bytes": 1325070,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test2-s3.mp3",
+      "group": "media",
+      "bytes": 1474830,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test2-s4.mp3",
+      "group": "media",
+      "bytes": 1641518,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test3-s1.mp3",
+      "group": "media",
+      "bytes": 1620206,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test3-s2.mp3",
+      "group": "media",
+      "bytes": 1614926,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test3-s3.mp3",
+      "group": "media",
+      "bytes": 1360206,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test3-s4.mp3",
+      "group": "media",
+      "bytes": 1828814,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test4-s1.mp3",
+      "group": "media",
+      "bytes": 1373678,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test4-s2.mp3",
+      "group": "media",
+      "bytes": 1543406,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test4-s3.mp3",
+      "group": "media",
+      "bytes": 1477646,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑6/Test4-s4.mp3",
+      "group": "media",
+      "bytes": 1455758,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test1.Section1.mp3",
+      "group": "media",
+      "bytes": 8839296,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test1.Section2.mp3",
+      "group": "media",
+      "bytes": 6467712,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test1.Section3.mp3",
+      "group": "media",
+      "bytes": 7278720,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test1.Section4.mp3",
+      "group": "media",
+      "bytes": 6514816,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test2.Section1.mp3",
+      "group": "media",
+      "bytes": 6635648,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test2.Section2.mp3",
+      "group": "media",
+      "bytes": 5036160,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test2.Section3.mp3",
+      "group": "media",
+      "bytes": 6848640,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test2.Section4.mp3",
+      "group": "media",
+      "bytes": 7055488,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test3.Section1.mp3",
+      "group": "media",
+      "bytes": 7297152,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test3.Section2.mp3",
+      "group": "media",
+      "bytes": 2316096,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test3.Section3.mp3",
+      "group": "media",
+      "bytes": 6135936,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test3.Section4.mp3",
+      "group": "media",
+      "bytes": 6338688,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test4.Section1.mp3",
+      "group": "media",
+      "bytes": 6744192,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test4.Section2.mp3",
+      "group": "media",
+      "bytes": 6133888,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test4.Section3.mp3",
+      "group": "media",
+      "bytes": 4937856,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑7/Test4.Section4.mp3",
+      "group": "media",
+      "bytes": 5544064,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 1 Section 1.mp3",
+      "group": "media",
+      "bytes": 3392831,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 1 Section 2.mp3",
+      "group": "media",
+      "bytes": 2888981,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 1 Section 3.mp3",
+      "group": "media",
+      "bytes": 3976929,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 1 Section 4.mp3",
+      "group": "media",
+      "bytes": 3552910,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 2 Section 1.mp3",
+      "group": "media",
+      "bytes": 3832942,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 2 Section 2.mp3",
+      "group": "media",
+      "bytes": 3096916,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 2 Section 3.mp3",
+      "group": "media",
+      "bytes": 3256786,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 2 Section 4.mp3",
+      "group": "media",
+      "bytes": 3336825,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 3 Section1.mp3",
+      "group": "media",
+      "bytes": 3665533,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 3 Section2.mp3",
+      "group": "media",
+      "bytes": 2797766,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 3 Section3 .mp3",
+      "group": "media",
+      "bytes": 3226683,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 3 Section4 .mp3",
+      "group": "media",
+      "bytes": 3798736,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 4 Section1.mp3",
+      "group": "media",
+      "bytes": 3171835,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 4 Section2.mp3",
+      "group": "media",
+      "bytes": 2748377,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 4 Section3.mp3",
+      "group": "media",
+      "bytes": 3206680,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑8/Test 4 Section4.mp3",
+      "group": "media",
+      "bytes": 3234714,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test1/Test1.Section1.mp3",
+      "group": "media",
+      "bytes": 7358165,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test1/Test1.Section2.mp3",
+      "group": "media",
+      "bytes": 5450175,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test1/Test1.Section3.mp3",
+      "group": "media",
+      "bytes": 7404138,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test1/Test1.Section4.mp3",
+      "group": "media",
+      "bytes": 6357572,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test2/Test2.Section1.mp3",
+      "group": "media",
+      "bytes": 7102368,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test2/Test2.Section2.mp3",
+      "group": "media",
+      "bytes": 6057058,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test2/Test2.Section3.mp3",
+      "group": "media",
+      "bytes": 6746278,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test2/Test2.Section4.mp3",
+      "group": "media",
+      "bytes": 6031442,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test3/Test3.Section1.mp3",
+      "group": "media",
+      "bytes": 9869688,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test3/Test3.Section2.mp3",
+      "group": "media",
+      "bytes": 5801671,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test3/Test3.Section3.mp3",
+      "group": "media",
+      "bytes": 5790816,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test3/Test3.Section4.mp3",
+      "group": "media",
+      "bytes": 6592046,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test4/Test4.Section1.mp3",
+      "group": "media",
+      "bytes": 6992862,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test4/Test4.Section2.mp3",
+      "group": "media",
+      "bytes": 6544816,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/音频/【音频】4-19/剑9/Test4/Test4.Section4.mp3",
+      "group": "media",
+      "bytes": 5603451,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【10】剑桥雅思真题10.pdf",
+      "group": "media",
+      "bytes": 48143565,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【11】剑桥雅思真题11.pdf",
+      "group": "media",
+      "bytes": 13130883,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【12】剑桥雅思真题12.pdf",
+      "group": "media",
+      "bytes": 0,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【13】剑桥雅思真题13.pdf",
+      "group": "media",
+      "bytes": 3100628,
+      "reason": "resources/cambridge/c13/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【14】剑桥雅思真题14.pdf",
+      "group": "media",
+      "bytes": 10931954,
+      "reason": "resources/cambridge/c14/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【15】剑桥雅思真题15.pdf",
+      "group": "media",
+      "bytes": 29170751,
+      "reason": "resources/cambridge/c15/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【16】剑桥雅思真题16.pdf",
+      "group": "media",
+      "bytes": 60304684,
+      "reason": "resources/cambridge/c16/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【18】剑桥雅思真题18.pdf",
+      "group": "media",
+      "bytes": 52116000,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【19】剑桥雅思真题19.pdf",
+      "group": "media",
+      "bytes": 105566228,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【4】剑桥雅思真题4.pdf",
+      "group": "media",
+      "bytes": 51555939,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【5】剑桥雅思真题5.pdf",
+      "group": "media",
+      "bytes": 47891544,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【6】剑桥雅思真题6.pdf",
+      "group": "media",
+      "bytes": 48141887,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【7】剑桥雅思真题7.pdf",
+      "group": "media",
+      "bytes": 52496837,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【8】剑桥雅思真题8.pdf",
+      "group": "media",
+      "bytes": 9821179,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/【9】剑桥雅思真题9.pdf",
+      "group": "media",
+      "bytes": 22276296,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/【真题】4-19/剑桥雅思真题12【网课免费提供+微信：kaoy789，公众号：研路考研】.pdf",
+      "group": "media",
+      "bytes": 71411952,
+      "reason": "resources/cambridge/c12/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/剑1-剑16同义词替换PDF/剑10同义替换PDF/剑10同义词替换.pdf",
+      "group": "media",
+      "bytes": 267055,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/剑1-剑16同义词替换PDF/剑11同义替换PDF/剑11同义词替换.pdf",
+      "group": "media",
+      "bytes": 265607,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/剑1-剑16同义词替换PDF/剑12同义替换PDF/剑12同义词替换.pdf",
+      "group": "media",
+      "bytes": 343242,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/剑1-剑16同义词替换PDF/剑13同义替换PDF/剑13同义词替换合集.pdf",
+      "group": "media",
+      "bytes": 218148,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/剑1-剑16同义词替换PDF/剑14同义替换PDF/剑 14 替换词.pdf",
+      "group": "media",
+      "bytes": 505639,
+      "reason": "resources/cambridge/c14/test-1/listening.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/剑1-剑16同义词替换PDF/剑15同义替换PDF/剑15同义词转换.pdf",
+      "group": "media",
+      "bytes": 331116,
+      "reason": "resources/cambridge/c15/test-1/reading.json"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/剑1-剑16同义词替换PDF/剑16同义替换PDF/剑16替换词合集.pdf",
+      "group": "media",
+      "bytes": 332224,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑10真题精讲.pdf",
+      "group": "media",
+      "bytes": 55206143,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑11真题精讲.pdf",
+      "group": "media",
+      "bytes": 123198735,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑12真题精讲.pdf",
+      "group": "media",
+      "bytes": 175549599,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑13真题精讲.pdf",
+      "group": "media",
+      "bytes": 130621062,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑14真题精讲.pdf",
+      "group": "media",
+      "bytes": 495499328,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑15真题精讲.pdf",
+      "group": "media",
+      "bytes": 3774437,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑16真题精讲.pdf",
+      "group": "media",
+      "bytes": 174786206,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑456真题精讲.pdf",
+      "group": "media",
+      "bytes": 258150444,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑7真题精讲.pdf",
+      "group": "media",
+      "bytes": 50035478,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑8真题精讲.pdf",
+      "group": "media",
+      "bytes": 53153579,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "IELTS/剑雅真题【4-19】/真题/真题精讲（剑4-剑16）/剑9真题精讲.pdf",
+      "group": "media",
+      "bytes": 59863814,
+      "reason": "Original paper/audio/video shelf"
+    },
+    {
+      "path": "import-preview.html",
+      "group": "site",
+      "bytes": 1769,
+      "reason": "Public page"
+    },
+    {
+      "path": "index.html",
+      "group": "site",
+      "bytes": 1416,
+      "reason": "Public page"
+    },
+    {
+      "path": "lib/cambridge.js",
+      "group": "site",
+      "bytes": 1969,
+      "reason": "Referenced by features/review.js"
+    },
+    {
+      "path": "lib/exam-workspace.js",
+      "group": "site",
+      "bytes": 4872,
+      "reason": "Referenced by features/practice.js"
+    },
+    {
+      "path": "lib/imported-listening.js",
+      "group": "site",
+      "bytes": 1586,
+      "reason": "Referenced by features/review.js"
+    },
+    {
+      "path": "lib/listening-clips.js",
+      "group": "site",
+      "bytes": 1613,
+      "reason": "Referenced by features/listening-clips.js"
+    },
+    {
+      "path": "lib/listening-summary.js",
+      "group": "site",
+      "bytes": 575,
+      "reason": "Referenced by features/study.js"
+    },
+    {
+      "path": "lib/listening-tools.js",
+      "group": "site",
+      "bytes": 2739,
+      "reason": "Referenced by lib/listening-clips.js"
+    },
+    {
+      "path": "lib/mock-run.js",
+      "group": "site",
+      "bytes": 2674,
+      "reason": "Referenced by features/mock.js"
+    },
+    {
+      "path": "lib/personal-words.js",
+      "group": "site",
+      "bytes": 1124,
+      "reason": "Referenced by features/words.js"
+    },
+    {
+      "path": "lib/practice-history.js",
+      "group": "site",
+      "bytes": 1450,
+      "reason": "Referenced by features/practice.js"
+    },
+    {
+      "path": "lib/practice-model.js",
+      "group": "site",
+      "bytes": 1542,
+      "reason": "Referenced by features/practice.js"
+    },
+    {
+      "path": "lib/practice-recordings.js",
+      "group": "site",
+      "bytes": 775,
+      "reason": "Referenced by features/practice.js"
+    },
+    {
+      "path": "lib/practice-submit.js",
+      "group": "site",
+      "bytes": 2813,
+      "reason": "Referenced by features/practice.js"
+    },
+    {
+      "path": "lib/reading-tools.js",
+      "group": "site",
+      "bytes": 6806,
+      "reason": "Referenced by features/practice.js"
+    },
+    {
+      "path": "lib/resource-parser.js",
+      "group": "site",
+      "bytes": 1162,
+      "reason": "Referenced by lib/cambridge.js"
+    },
+    {
+      "path": "lib/review-queue.js",
+      "group": "site",
+      "bytes": 4847,
+      "reason": "Referenced by features/review.js"
+    },
+    {
+      "path": "lib/study-model.js",
+      "group": "site",
+      "bytes": 3280,
+      "reason": "Referenced by features/review.js"
+    },
+    {
+      "path": "lib/synonym-notes.js",
+      "group": "site",
+      "bytes": 2617,
+      "reason": "Referenced by features/review.js"
+    },
+    {
+      "path": "lib/word-audio.js",
+      "group": "site",
+      "bytes": 943,
+      "reason": "Referenced by features/words.js"
+    },
+    {
+      "path": "lib/word-backup.js",
+      "group": "site",
+      "bytes": 4691,
+      "reason": "Referenced by features/words.js"
+    },
+    {
+      "path": "lib/word-card.js",
+      "group": "site",
+      "bytes": 2548,
+      "reason": "Referenced by features/words.js"
+    },
+    {
+      "path": "lib/word-extras.js",
+      "group": "site",
+      "bytes": 2080,
+      "reason": "Referenced by features/words.js"
+    },
+    {
+      "path": "lib/word-model.js",
+      "group": "site",
+      "bytes": 1483,
+      "reason": "Referenced by features/words.js"
+    },
+    {
+      "path": "listening-clips.css",
+      "group": "site",
+      "bytes": 1058,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "listening-clips.html",
+      "group": "site",
+      "bytes": 1367,
+      "reason": "Public page"
+    },
+    {
+      "path": "listening-workspace.css",
+      "group": "site",
+      "bytes": 2331,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "mock.html",
+      "group": "site",
+      "bytes": 1331,
+      "reason": "Public page"
+    },
+    {
+      "path": "practice.css",
+      "group": "site",
+      "bytes": 6461,
+      "reason": "Referenced by practice.html"
+    },
+    {
+      "path": "practice.html",
+      "group": "site",
+      "bytes": 1614,
+      "reason": "Public page"
+    },
+    {
+      "path": "resources/c18-t1-listening.js",
+      "group": "site",
+      "bytes": 14988,
+      "reason": "Referenced by lib/cambridge.js"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/assets/reading-group-33-36.png",
+      "group": "site",
+      "bytes": 319623,
+      "reason": "resources/cambridge/c12/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 454286,
+      "reason": "resources/cambridge/c12/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 691108,
+      "reason": "resources/cambridge/c12/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 40093,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/listening.json",
+      "group": "site",
+      "bytes": 90631,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/reading.json",
+      "group": "site",
+      "bytes": 162496,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/speaking.json",
+      "group": "site",
+      "bytes": 10895,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-1/writing.json",
+      "group": "site",
+      "bytes": 3977,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/assets/listening-p39-map.png",
+      "group": "site",
+      "bytes": 68615,
+      "reason": "resources/cambridge/c12/test-2/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/assets/reading-group-27-31.png",
+      "group": "site",
+      "bytes": 676871,
+      "reason": "resources/cambridge/c12/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 273494,
+      "reason": "resources/cambridge/c12/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 424173,
+      "reason": "resources/cambridge/c12/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 43244,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/listening.json",
+      "group": "site",
+      "bytes": 95688,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/reading.json",
+      "group": "site",
+      "bytes": 172083,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/speaking.json",
+      "group": "site",
+      "bytes": 10823,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-2/writing.json",
+      "group": "site",
+      "bytes": 3834,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/assets/reading-group-27-31.png",
+      "group": "site",
+      "bytes": 487232,
+      "reason": "resources/cambridge/c12/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 386927,
+      "reason": "resources/cambridge/c12/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 571709,
+      "reason": "resources/cambridge/c12/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 40659,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/listening.json",
+      "group": "site",
+      "bytes": 94537,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/reading.json",
+      "group": "site",
+      "bytes": 168219,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/speaking.json",
+      "group": "site",
+      "bytes": 11021,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-3/writing.json",
+      "group": "site",
+      "bytes": 3965,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/assets/listening-p76-map.png",
+      "group": "site",
+      "bytes": 159613,
+      "reason": "resources/cambridge/c12/test-4/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/assets/reading-group-19-22.png",
+      "group": "site",
+      "bytes": 414192,
+      "reason": "resources/cambridge/c12/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 354368,
+      "reason": "resources/cambridge/c12/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 862004,
+      "reason": "resources/cambridge/c12/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 37626,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/listening.json",
+      "group": "site",
+      "bytes": 96163,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/reading.json",
+      "group": "site",
+      "bytes": 165322,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/speaking.json",
+      "group": "site",
+      "bytes": 10860,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c12/test-4/writing.json",
+      "group": "site",
+      "bytes": 4064,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/assets/listening-p13-map.png",
+      "group": "site",
+      "bytes": 87022,
+      "reason": "resources/cambridge/c13/test-1/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/assets/reading-group-1-7.png",
+      "group": "site",
+      "bytes": 200649,
+      "reason": "resources/cambridge/c13/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/assets/reading-group-24-26.png",
+      "group": "site",
+      "bytes": 134251,
+      "reason": "resources/cambridge/c13/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 37892,
+      "reason": "resources/cambridge/c13/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 117465,
+      "reason": "resources/cambridge/c13/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 34894,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/listening.json",
+      "group": "site",
+      "bytes": 96911,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/reading.json",
+      "group": "site",
+      "bytes": 198162,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/speaking.json",
+      "group": "site",
+      "bytes": 12807,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-1/writing.json",
+      "group": "site",
+      "bytes": 3750,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/assets/reading-group-21-26.png",
+      "group": "site",
+      "bytes": 235907,
+      "reason": "resources/cambridge/c13/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 61327,
+      "reason": "resources/cambridge/c13/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 188651,
+      "reason": "resources/cambridge/c13/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 39188,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/listening.json",
+      "group": "site",
+      "bytes": 93980,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/reading.json",
+      "group": "site",
+      "bytes": 196372,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/speaking.json",
+      "group": "site",
+      "bytes": 10569,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-2/writing.json",
+      "group": "site",
+      "bytes": 3733,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/assets/reading-group-1-8.png",
+      "group": "site",
+      "bytes": 181513,
+      "reason": "resources/cambridge/c13/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/assets/reading-group-18-23.png",
+      "group": "site",
+      "bytes": 268898,
+      "reason": "resources/cambridge/c13/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/assets/reading-group-32-36.png",
+      "group": "site",
+      "bytes": 222671,
+      "reason": "resources/cambridge/c13/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 58484,
+      "reason": "resources/cambridge/c13/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 130070,
+      "reason": "resources/cambridge/c13/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 35389,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/listening.json",
+      "group": "site",
+      "bytes": 97828,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/reading.json",
+      "group": "site",
+      "bytes": 194992,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/speaking.json",
+      "group": "site",
+      "bytes": 12247,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-3/writing.json",
+      "group": "site",
+      "bytes": 3868,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/assets/reading-group-14-17.png",
+      "group": "site",
+      "bytes": 154046,
+      "reason": "resources/cambridge/c13/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/assets/reading-group-27-29.png",
+      "group": "site",
+      "bytes": 48542,
+      "reason": "resources/cambridge/c13/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 56063,
+      "reason": "resources/cambridge/c13/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 186552,
+      "reason": "resources/cambridge/c13/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 43598,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/listening.json",
+      "group": "site",
+      "bytes": 94846,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/reading.json",
+      "group": "site",
+      "bytes": 191150,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/speaking.json",
+      "group": "site",
+      "bytes": 12223,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c13/test-4/writing.json",
+      "group": "site",
+      "bytes": 3789,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/assets/reading-group-23-26.png",
+      "group": "site",
+      "bytes": 250207,
+      "reason": "resources/cambridge/c14/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/assets/reading-group-36-40.png",
+      "group": "site",
+      "bytes": 182411,
+      "reason": "resources/cambridge/c14/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 118993,
+      "reason": "resources/cambridge/c14/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 283348,
+      "reason": "resources/cambridge/c14/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 45628,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/listening.json",
+      "group": "site",
+      "bytes": 112145,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/reading.json",
+      "group": "site",
+      "bytes": 184139,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/speaking.json",
+      "group": "site",
+      "bytes": 11351,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-1/writing.json",
+      "group": "site",
+      "bytes": 3853,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/assets/listening-p37-map.png",
+      "group": "site",
+      "bytes": 218832,
+      "reason": "resources/cambridge/c14/test-2/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/assets/reading-group-19-26.png",
+      "group": "site",
+      "bytes": 288193,
+      "reason": "resources/cambridge/c14/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 113928,
+      "reason": "resources/cambridge/c14/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 230530,
+      "reason": "resources/cambridge/c14/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 45307,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/listening.json",
+      "group": "site",
+      "bytes": 114587,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/reading.json",
+      "group": "site",
+      "bytes": 180273,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/speaking.json",
+      "group": "site",
+      "bytes": 11261,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-2/writing.json",
+      "group": "site",
+      "bytes": 3848,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/assets/reading-group-23-26.png",
+      "group": "site",
+      "bytes": 207970,
+      "reason": "resources/cambridge/c14/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/assets/reading-group-37-40.png",
+      "group": "site",
+      "bytes": 222754,
+      "reason": "resources/cambridge/c14/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 129643,
+      "reason": "resources/cambridge/c14/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 351406,
+      "reason": "resources/cambridge/c14/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 40509,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/listening.json",
+      "group": "site",
+      "bytes": 113580,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/reading.json",
+      "group": "site",
+      "bytes": 176079,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/speaking.json",
+      "group": "site",
+      "bytes": 11270,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-3/writing.json",
+      "group": "site",
+      "bytes": 3695,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 122198,
+      "reason": "resources/cambridge/c14/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 258758,
+      "reason": "resources/cambridge/c14/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c14/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 44850,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-4/listening.json",
+      "group": "site",
+      "bytes": 120554,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-4/reading.json",
+      "group": "site",
+      "bytes": 182707,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-4/speaking.json",
+      "group": "site",
+      "bytes": 11527,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c14/test-4/writing.json",
+      "group": "site",
+      "bytes": 3661,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/assets/reading-group-19-22.png",
+      "group": "site",
+      "bytes": 1033551,
+      "reason": "resources/cambridge/c15/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/assets/reading-group-38-40.png",
+      "group": "site",
+      "bytes": 440033,
+      "reason": "resources/cambridge/c15/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/assets/reading-group-8-13.png",
+      "group": "site",
+      "bytes": 424666,
+      "reason": "resources/cambridge/c15/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 245768,
+      "reason": "resources/cambridge/c15/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 949104,
+      "reason": "resources/cambridge/c15/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 37056,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/listening.json",
+      "group": "site",
+      "bytes": 92709,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/reading.json",
+      "group": "site",
+      "bytes": 188071,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/speaking.json",
+      "group": "site",
+      "bytes": 11088,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-1/writing.json",
+      "group": "site",
+      "bytes": 3819,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/assets/listening-p39-map.png",
+      "group": "site",
+      "bytes": 202916,
+      "reason": "resources/cambridge/c15/test-2/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/assets/reading-group-18-22.png",
+      "group": "site",
+      "bytes": 981757,
+      "reason": "resources/cambridge/c15/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/assets/reading-group-32-36.png",
+      "group": "site",
+      "bytes": 856812,
+      "reason": "resources/cambridge/c15/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/assets/reading-group-7-13.png",
+      "group": "site",
+      "bytes": 669014,
+      "reason": "resources/cambridge/c15/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 395128,
+      "reason": "resources/cambridge/c15/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 565844,
+      "reason": "resources/cambridge/c15/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 44766,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/listening.json",
+      "group": "site",
+      "bytes": 98404,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/reading.json",
+      "group": "site",
+      "bytes": 177387,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/speaking.json",
+      "group": "site",
+      "bytes": 11506,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-2/writing.json",
+      "group": "site",
+      "bytes": 3754,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/assets/reading-group-21-26.png",
+      "group": "site",
+      "bytes": 299215,
+      "reason": "resources/cambridge/c15/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/assets/reading-group-32-36.png",
+      "group": "site",
+      "bytes": 780359,
+      "reason": "resources/cambridge/c15/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 398683,
+      "reason": "resources/cambridge/c15/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 696547,
+      "reason": "resources/cambridge/c15/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 47682,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/listening.json",
+      "group": "site",
+      "bytes": 91583,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/reading.json",
+      "group": "site",
+      "bytes": 173294,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/speaking.json",
+      "group": "site",
+      "bytes": 11427,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-3/writing.json",
+      "group": "site",
+      "bytes": 3738,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/assets/listening-p79-map.png",
+      "group": "site",
+      "bytes": 293961,
+      "reason": "resources/cambridge/c15/test-4/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/assets/reading-group-27-31.png",
+      "group": "site",
+      "bytes": 276839,
+      "reason": "resources/cambridge/c15/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/assets/reading-group-6-8.png",
+      "group": "site",
+      "bytes": 631258,
+      "reason": "resources/cambridge/c15/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 458301,
+      "reason": "resources/cambridge/c15/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 758106,
+      "reason": "resources/cambridge/c15/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 49353,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/listening.json",
+      "group": "site",
+      "bytes": 95743,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/reading.json",
+      "group": "site",
+      "bytes": 165645,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/speaking.json",
+      "group": "site",
+      "bytes": 11567,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c15/test-4/writing.json",
+      "group": "site",
+      "bytes": 3923,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/assets/listening-p12-map.png",
+      "group": "site",
+      "bytes": 194663,
+      "reason": "resources/cambridge/c16/test-1/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/assets/reading-group-31-34.png",
+      "group": "site",
+      "bytes": 518553,
+      "reason": "resources/cambridge/c16/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/assets/reading-group-8-13.png",
+      "group": "site",
+      "bytes": 453539,
+      "reason": "resources/cambridge/c16/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 127801,
+      "reason": "resources/cambridge/c16/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 381103,
+      "reason": "resources/cambridge/c16/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 44037,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/listening.json",
+      "group": "site",
+      "bytes": 101616,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/reading.json",
+      "group": "site",
+      "bytes": 157162,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/speaking.json",
+      "group": "site",
+      "bytes": 11125,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-1/writing.json",
+      "group": "site",
+      "bytes": 3852,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/assets/reading-group-17-20.png",
+      "group": "site",
+      "bytes": 488311,
+      "reason": "resources/cambridge/c16/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/assets/reading-group-31-35.png",
+      "group": "site",
+      "bytes": 450177,
+      "reason": "resources/cambridge/c16/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 154426,
+      "reason": "resources/cambridge/c16/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 433364,
+      "reason": "resources/cambridge/c16/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 41079,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/listening.json",
+      "group": "site",
+      "bytes": 92121,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/reading.json",
+      "group": "site",
+      "bytes": 153106,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/speaking.json",
+      "group": "site",
+      "bytes": 11023,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-2/writing.json",
+      "group": "site",
+      "bytes": 3701,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/assets/reading-group-20-22.png",
+      "group": "site",
+      "bytes": 563441,
+      "reason": "resources/cambridge/c16/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/assets/reading-group-6-13.png",
+      "group": "site",
+      "bytes": 704565,
+      "reason": "resources/cambridge/c16/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 150445,
+      "reason": "resources/cambridge/c16/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 348167,
+      "reason": "resources/cambridge/c16/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 36936,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/listening.json",
+      "group": "site",
+      "bytes": 100216,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/reading.json",
+      "group": "site",
+      "bytes": 149556,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/speaking.json",
+      "group": "site",
+      "bytes": 10901,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-3/writing.json",
+      "group": "site",
+      "bytes": 3692,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/assets/listening-p80-map.png",
+      "group": "site",
+      "bytes": 195990,
+      "reason": "resources/cambridge/c16/test-4/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/assets/reading-group-1-6.png",
+      "group": "site",
+      "bytes": 672614,
+      "reason": "resources/cambridge/c16/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/assets/reading-group-18-22.png",
+      "group": "site",
+      "bytes": 497371,
+      "reason": "resources/cambridge/c16/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 174478,
+      "reason": "resources/cambridge/c16/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 706563,
+      "reason": "resources/cambridge/c16/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 47091,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/listening.json",
+      "group": "site",
+      "bytes": 101417,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/reading.json",
+      "group": "site",
+      "bytes": 157279,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/speaking.json",
+      "group": "site",
+      "bytes": 10857,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c16/test-4/writing.json",
+      "group": "site",
+      "bytes": 3727,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/assets/reading-group-18-22.png",
+      "group": "site",
+      "bytes": 116137,
+      "reason": "resources/cambridge/c17/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/assets/reading-group-27-31.png",
+      "group": "site",
+      "bytes": 109404,
+      "reason": "resources/cambridge/c17/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 78917,
+      "reason": "resources/cambridge/c17/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 121222,
+      "reason": "resources/cambridge/c17/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 35673,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/listening.json",
+      "group": "site",
+      "bytes": 94449,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/reading.json",
+      "group": "site",
+      "bytes": 207127,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/speaking.json",
+      "group": "site",
+      "bytes": 12512,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-1/writing.json",
+      "group": "site",
+      "bytes": 3795,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/assets/listening-p39-map.png",
+      "group": "site",
+      "bytes": 69687,
+      "reason": "resources/cambridge/c17/test-2/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/assets/reading-group-37-40.png",
+      "group": "site",
+      "bytes": 128389,
+      "reason": "resources/cambridge/c17/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 68979,
+      "reason": "resources/cambridge/c17/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 174943,
+      "reason": "resources/cambridge/c17/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 40482,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/listening.json",
+      "group": "site",
+      "bytes": 97495,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/reading.json",
+      "group": "site",
+      "bytes": 188381,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/speaking.json",
+      "group": "site",
+      "bytes": 12233,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-2/writing.json",
+      "group": "site",
+      "bytes": 3869,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/assets/reading-group-36-40.png",
+      "group": "site",
+      "bytes": 73438,
+      "reason": "resources/cambridge/c17/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 66435,
+      "reason": "resources/cambridge/c17/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 75325,
+      "reason": "resources/cambridge/c17/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 49547,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/listening.json",
+      "group": "site",
+      "bytes": 96708,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/reading.json",
+      "group": "site",
+      "bytes": 191007,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/speaking.json",
+      "group": "site",
+      "bytes": 12735,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-3/writing.json",
+      "group": "site",
+      "bytes": 3922,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/assets/reading-group-19-22.png",
+      "group": "site",
+      "bytes": 123136,
+      "reason": "resources/cambridge/c17/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/assets/reading-group-37-40.png",
+      "group": "site",
+      "bytes": 105766,
+      "reason": "resources/cambridge/c17/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/assets/reading-group-7-13.png",
+      "group": "site",
+      "bytes": 151521,
+      "reason": "resources/cambridge/c17/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 71424,
+      "reason": "resources/cambridge/c17/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 79554,
+      "reason": "resources/cambridge/c17/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 48998,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/listening.json",
+      "group": "site",
+      "bytes": 95626,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/reading.json",
+      "group": "site",
+      "bytes": 194862,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/speaking.json",
+      "group": "site",
+      "bytes": 12892,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c17/test-4/writing.json",
+      "group": "site",
+      "bytes": 3852,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/assets/reading-group-32-35.png",
+      "group": "site",
+      "bytes": 418450,
+      "reason": "resources/cambridge/c18/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/assets/reading-group-4-7.png",
+      "group": "site",
+      "bytes": 430011,
+      "reason": "resources/cambridge/c18/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 166414,
+      "reason": "resources/cambridge/c18/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 257743,
+      "reason": "resources/cambridge/c18/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 38293,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/listening.json",
+      "group": "site",
+      "bytes": 111101,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/reading.json",
+      "group": "site",
+      "bytes": 172185,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/speaking.json",
+      "group": "site",
+      "bytes": 11009,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-1/writing.json",
+      "group": "site",
+      "bytes": 3772,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/assets/listening-p39-map.png",
+      "group": "site",
+      "bytes": 234489,
+      "reason": "resources/cambridge/c18/test-2/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/assets/reading-group-24-26.png",
+      "group": "site",
+      "bytes": 414853,
+      "reason": "resources/cambridge/c18/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/assets/reading-group-34-40.png",
+      "group": "site",
+      "bytes": 718543,
+      "reason": "resources/cambridge/c18/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 186844,
+      "reason": "resources/cambridge/c18/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 463166,
+      "reason": "resources/cambridge/c18/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 44293,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/listening.json",
+      "group": "site",
+      "bytes": 97057,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/reading.json",
+      "group": "site",
+      "bytes": 182868,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/speaking.json",
+      "group": "site",
+      "bytes": 11323,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-2/writing.json",
+      "group": "site",
+      "bytes": 3841,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/assets/reading-group-24-26.png",
+      "group": "site",
+      "bytes": 465492,
+      "reason": "resources/cambridge/c18/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/assets/reading-group-31-35.png",
+      "group": "site",
+      "bytes": 453348,
+      "reason": "resources/cambridge/c18/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/assets/reading-group-5-8.png",
+      "group": "site",
+      "bytes": 533615,
+      "reason": "resources/cambridge/c18/test-3/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 159620,
+      "reason": "resources/cambridge/c18/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 350286,
+      "reason": "resources/cambridge/c18/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 48572,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/listening.json",
+      "group": "site",
+      "bytes": 100020,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/reading.json",
+      "group": "site",
+      "bytes": 198686,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/speaking.json",
+      "group": "site",
+      "bytes": 11693,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-3/writing.json",
+      "group": "site",
+      "bytes": 3648,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/assets/reading-group-31-36.png",
+      "group": "site",
+      "bytes": 541680,
+      "reason": "resources/cambridge/c18/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/assets/reading-group-6-9.png",
+      "group": "site",
+      "bytes": 401029,
+      "reason": "resources/cambridge/c18/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 176745,
+      "reason": "resources/cambridge/c18/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 279467,
+      "reason": "resources/cambridge/c18/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 37097,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/listening.json",
+      "group": "site",
+      "bytes": 98146,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/reading.json",
+      "group": "site",
+      "bytes": 200555,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/speaking.json",
+      "group": "site",
+      "bytes": 11273,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c18/test-4/writing.json",
+      "group": "site",
+      "bytes": 3924,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/assets/listening-p13-map.png",
+      "group": "site",
+      "bytes": 290296,
+      "reason": "resources/cambridge/c19/test-1/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/assets/reading-group-24-26.png",
+      "group": "site",
+      "bytes": 589607,
+      "reason": "resources/cambridge/c19/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/assets/reading-group-31-36.png",
+      "group": "site",
+      "bytes": 1136446,
+      "reason": "resources/cambridge/c19/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 209678,
+      "reason": "resources/cambridge/c19/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 389849,
+      "reason": "resources/cambridge/c19/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 40800,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/listening.json",
+      "group": "site",
+      "bytes": 100674,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/reading.json",
+      "group": "site",
+      "bytes": 194753,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/speaking.json",
+      "group": "site",
+      "bytes": 11493,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-1/writing.json",
+      "group": "site",
+      "bytes": 3912,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/assets/listening-p39-map.png",
+      "group": "site",
+      "bytes": 241513,
+      "reason": "resources/cambridge/c19/test-2/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/assets/reading-group-27-32.png",
+      "group": "site",
+      "bytes": 816653,
+      "reason": "resources/cambridge/c19/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 230373,
+      "reason": "resources/cambridge/c19/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 703806,
+      "reason": "resources/cambridge/c19/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 52740,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/listening.json",
+      "group": "site",
+      "bytes": 96613,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/reading.json",
+      "group": "site",
+      "bytes": 188740,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/speaking.json",
+      "group": "site",
+      "bytes": 11195,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-2/writing.json",
+      "group": "site",
+      "bytes": 3598,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 217866,
+      "reason": "resources/cambridge/c19/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 1135181,
+      "reason": "resources/cambridge/c19/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 57139,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-3/listening.json",
+      "group": "site",
+      "bytes": 99877,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-3/reading.json",
+      "group": "site",
+      "bytes": 184299,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-3/speaking.json",
+      "group": "site",
+      "bytes": 10807,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-3/writing.json",
+      "group": "site",
+      "bytes": 3656,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/assets/reading-group-24-26.png",
+      "group": "site",
+      "bytes": 698325,
+      "reason": "resources/cambridge/c19/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/assets/reading-group-31-35.png",
+      "group": "site",
+      "bytes": 716248,
+      "reason": "resources/cambridge/c19/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 188989,
+      "reason": "resources/cambridge/c19/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 516151,
+      "reason": "resources/cambridge/c19/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 58104,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/listening.json",
+      "group": "site",
+      "bytes": 95090,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/reading.json",
+      "group": "site",
+      "bytes": 188761,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/speaking.json",
+      "group": "site",
+      "bytes": 10784,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c19/test-4/writing.json",
+      "group": "site",
+      "bytes": 3675,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/assets/reading-group-24-26.png",
+      "group": "site",
+      "bytes": 208550,
+      "reason": "resources/cambridge/c20/test-1/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 81989,
+      "reason": "resources/cambridge/c20/test-1/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 26459,
+      "reason": "resources/cambridge/c20/test-1/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/audioscript.json",
+      "group": "site",
+      "bytes": 13276,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/listening.json",
+      "group": "site",
+      "bytes": 95211,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/reading.json",
+      "group": "site",
+      "bytes": 130245,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/speaking.json",
+      "group": "site",
+      "bytes": 7032,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-1/writing.json",
+      "group": "site",
+      "bytes": 3228,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/assets/reading-group-17-22.png",
+      "group": "site",
+      "bytes": 201662,
+      "reason": "resources/cambridge/c20/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/assets/reading-group-33-37.png",
+      "group": "site",
+      "bytes": 317540,
+      "reason": "resources/cambridge/c20/test-2/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 61654,
+      "reason": "resources/cambridge/c20/test-2/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 253112,
+      "reason": "resources/cambridge/c20/test-2/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/audioscript.json",
+      "group": "site",
+      "bytes": 14502,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/listening.json",
+      "group": "site",
+      "bytes": 98175,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/reading.json",
+      "group": "site",
+      "bytes": 161203,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/speaking.json",
+      "group": "site",
+      "bytes": 10225,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-2/writing.json",
+      "group": "site",
+      "bytes": 3661,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/assets/listening-p3-map.png",
+      "group": "site",
+      "bytes": 132872,
+      "reason": "resources/cambridge/c20/test-3/listening.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 72355,
+      "reason": "resources/cambridge/c20/test-3/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 224108,
+      "reason": "resources/cambridge/c20/test-3/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/audioscript.json",
+      "group": "site",
+      "bytes": 15067,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/listening.json",
+      "group": "site",
+      "bytes": 95476,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/reading.json",
+      "group": "site",
+      "bytes": 148340,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/speaking.json",
+      "group": "site",
+      "bytes": 10710,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-3/writing.json",
+      "group": "site",
+      "bytes": 3651,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/assets/reading-group-37-40.png",
+      "group": "site",
+      "bytes": 199645,
+      "reason": "resources/cambridge/c20/test-4/reading.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/assets/speaking-part-2-cue-card.png",
+      "group": "site",
+      "bytes": 65847,
+      "reason": "resources/cambridge/c20/test-4/speaking.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/assets/writing-task-1-chart.png",
+      "group": "site",
+      "bytes": 180515,
+      "reason": "resources/cambridge/c20/test-4/writing.json"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/audioscript.json",
+      "group": "site",
+      "bytes": 16442,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/listening.json",
+      "group": "site",
+      "bytes": 97983,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/reading.json",
+      "group": "site",
+      "bytes": 140041,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/speaking.json",
+      "group": "site",
+      "bytes": 10750,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/cambridge/c20/test-4/writing.json",
+      "group": "site",
+      "bytes": 3679,
+      "reason": "Dynamically loaded paper/transcript"
+    },
+    {
+      "path": "resources/manifest.js",
+      "group": "site",
+      "bytes": 126573,
+      "reason": "Referenced by lib/cambridge.js"
+    },
+    {
+      "path": "resources/words/ielts-1.json",
+      "group": "site",
+      "bytes": 934549,
+      "reason": "Vocabulary book"
+    },
+    {
+      "path": "resources/words/ielts-2.json",
+      "group": "site",
+      "bytes": 1115778,
+      "reason": "Vocabulary book"
+    },
+    {
+      "path": "resources/words/ielts-listening.json",
+      "group": "site",
+      "bytes": 652138,
+      "reason": "Vocabulary book"
+    },
+    {
+      "path": "resources/words/ielts-reading.json",
+      "group": "site",
+      "bytes": 1661913,
+      "reason": "Vocabulary book"
+    },
+    {
+      "path": "resources/words/ielts-synonyms.json",
+      "group": "site",
+      "bytes": 1497747,
+      "reason": "Vocabulary book"
+    },
+    {
+      "path": "resources/words/manifest.json",
+      "group": "site",
+      "bytes": 1108,
+      "reason": "Referenced by features/words.js"
+    },
+    {
+      "path": "review.css",
+      "group": "site",
+      "bytes": 3344,
+      "reason": "Referenced by review.html"
+    },
+    {
+      "path": "review.html",
+      "group": "site",
+      "bytes": 1069,
+      "reason": "Public page"
+    },
+    {
+      "path": "site-nav.css",
+      "group": "site",
+      "bytes": 2211,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "studio.css",
+      "group": "site",
+      "bytes": 11141,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "study.css",
+      "group": "site",
+      "bytes": 31543,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "styles.css",
+      "group": "site",
+      "bytes": 21039,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "theme.css",
+      "group": "site",
+      "bytes": 3243,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "ui/audio-player.js",
+      "group": "site",
+      "bytes": 5178,
+      "reason": "Referenced by features/listening-clips.js"
+    },
+    {
+      "path": "ui/clip-controls.js",
+      "group": "site",
+      "bytes": 1706,
+      "reason": "Referenced by ui/audio-player.js"
+    },
+    {
+      "path": "ui/components.js",
+      "group": "site",
+      "bytes": 7640,
+      "reason": "Referenced by features/import-preview.js"
+    },
+    {
+      "path": "ui/icons.js",
+      "group": "site",
+      "bytes": 1603,
+      "reason": "Referenced by app.js"
+    },
+    {
+      "path": "ui/import-catalog.js",
+      "group": "site",
+      "bytes": 10247,
+      "reason": "Referenced by app.js"
+    },
+    {
+      "path": "ui/layout.js",
+      "group": "site",
+      "bytes": 402,
+      "reason": "Referenced by app.js"
+    },
+    {
+      "path": "ui/library.js",
+      "group": "site",
+      "bytes": 4621,
+      "reason": "Referenced by features/study.js"
+    },
+    {
+      "path": "ui/mount-site-nav.js",
+      "group": "site",
+      "bytes": 60,
+      "reason": "Referenced by mock.html"
+    },
+    {
+      "path": "ui/site-nav.js",
+      "group": "site",
+      "bytes": 1106,
+      "reason": "Referenced by ui/mount-site-nav.js"
+    },
+    {
+      "path": "ui/studio-home.js",
+      "group": "site",
+      "bytes": 4183,
+      "reason": "Referenced by app.js"
+    },
+    {
+      "path": "ui/theme.js",
+      "group": "site",
+      "bytes": 2360,
+      "reason": "Referenced by index.html"
+    },
+    {
+      "path": "WORD/雅思记忆法.pdf",
+      "group": "media",
+      "bytes": 141895500,
+      "reason": "Optional vocabulary PDF reader"
+    },
+    {
+      "path": "words.css",
+      "group": "site",
+      "bytes": 4171,
+      "reason": "Referenced by mock.html"
+    },
+    {
+      "path": "words.html",
+      "group": "site",
+      "bytes": 1040,
+      "reason": "Public page"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {REVIEW_KEY,addReviewItem,createReadingReviewItem,createListeningReviewItem,loadReviewQueue,retryReviewItem,setReviewStatus} from '../lib/review-queue.js';
+import {REVIEW_KEY,addReviewItem,createReadingReviewItem,createListeningReviewItem,loadReviewQueue,retryReviewItem,setReviewStatus} from '../frontend/lib/review-queue.js';
 
 const memory=()=>{const data=new Map();return {getItem:key=>data.get(key)||null,setItem:(key,value)=>data.set(key,value),raw:()=>data.get(REVIEW_KEY)};};
 

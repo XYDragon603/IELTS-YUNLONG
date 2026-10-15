@@ -3,7 +3,7 @@ import sys
 import unittest
 from pathlib import Path
 
-MODULE_PATH = Path(__file__).parents[1] / "scripts" / "cambridge_pdf_importer.py"
+MODULE_PATH = Path(__file__).parents[1] / "backend" / "scripts" / "cambridge_pdf_importer.py"
 SPEC = importlib.util.spec_from_file_location("cambridge_pdf_importer", MODULE_PATH)
 IMPORTER = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = IMPORTER

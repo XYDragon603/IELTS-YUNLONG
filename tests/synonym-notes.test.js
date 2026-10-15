@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {exactReadingExcerpt,renderSynonymNotes,saveSynonymWord} from '../lib/synonym-notes.js';
+import {exactReadingExcerpt,renderSynonymNotes,saveSynonymWord} from '../frontend/lib/synonym-notes.js';
 
 test('reading excerpt is shown only when a phrase uniquely matches source text',()=>{
   const blocks=[{text:'The shell surrounds the fruit and protects it.',source:{pdfPage:10}}];

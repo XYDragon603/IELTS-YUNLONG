@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createMockRun,mockProgress,mockPaperOptions,practiceRunKey,listeningRunKey,requireMockStage,MOCK_KEY} from '../lib/mock-run.js';
+import {createMockRun,mockProgress,mockPaperOptions,practiceRunKey,listeningRunKey,requireMockStage,MOCK_KEY} from '../frontend/lib/mock-run.js';
 
 function memoryStorage(){const map=new Map();return {getItem:key=>map.get(key)||null,setItem:(key,value)=>map.set(key,value)};}
 

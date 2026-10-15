@@ -22,7 +22,7 @@ def compute_sha256(path: Path) -> str:
 
 class TestCambridge18Test1Listening(unittest.TestCase):
     def test_unknown_low_confidence_item_is_not_auto_confirmed(self):
-        from scripts.import_c18_t1_listening import build_low_confidence_audit
+        from backend.scripts.import_c18_t1_listening import build_low_confidence_audit
         question = {
             'number': 999, 'prompt': 'Unreviewed extraction',
             'source': {'confidence': 0.1, 'pdfPage': 12, 'boundingBox': [0.1, 0.1, 0.2, 0.2]},

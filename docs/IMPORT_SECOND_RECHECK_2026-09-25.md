@@ -11,7 +11,7 @@
 
 ## 仍存在的验证器漏洞
 
-`scripts/validate_cambridge_import.py` 对 ocr-assisted-curation 的校订记录只检查 reviewMethod 枚举、坐标数组长度为 4、sourcePdfPage 非空；没有校验页码真实范围和坐标值/顺序。
+`backend/scripts/validate_cambridge_import.py` 对 ocr-assisted-curation 的校订记录只检查 reviewMethod 枚举、坐标数组长度为 4、sourcePdfPage 非空；没有校验页码真实范围和坐标值/顺序。
 
 本次只在内存中替换 C18 T1 的 curations.json 读取结果，将其中 60 条听力校订记录改为 sourcePdfPage=999999、evidenceBoundingBox=[-5,2,9,-1]。原文件没有写入或修改。验证器仍返回整体 PASSED，fully_parser_derived_import_mode 也通过。
 

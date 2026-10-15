@@ -10,9 +10,9 @@
 
 | 文件路径 | 类型 | 职责与技术特性 |
 | :--- | :--- | :--- |
-| `scripts/build_import_manifest.py` | 新增 | 递归扫描 `IELTS/` 全部 375 个文件，计算每个文件的 SHA-256 与文件大小，自动分类（Academic原卷、G类、精讲、同义替换、音频、视频、0字节/损坏文件），识别完全一致的重复文件，确立 Canonical 决策依据，输出 `resources/import-manifest.json` |
-| `scripts/cambridge_pdf_importer.py` | 增强 | 1. 自动适配 Windows 本地 Tesseract 路径（`C:/Program Files/Tesseract-OCR/tesseract.exe`）；<br>2. 增强对 letter-spaced 艺术排版（如 `S P E A K I N G`）、连字符前缀（如 `Test1-listening-part1`）、以及 Section 1、考官引导语的模糊/精确混合匹配；<br>3. 增加对 Cambridge 20 per-test 4 独立卷的整合提取；<br>4. 增加对 0 字节损坏卷的 `missing-resource` 规范占位生成 |
-| `scripts/generate_all_page_maps.py` | 新增 | 统一流水线，按序为 Cambridge 4–20 生成标准化 page map，支持单卷/多卷提取，自动汇总统计并在 `resources/import-report.json` 输出总报告 |
+| `backend/scripts/build_import_manifest.py` | 新增 | 递归扫描 `IELTS/` 全部 375 个文件，计算每个文件的 SHA-256 与文件大小，自动分类（Academic原卷、G类、精讲、同义替换、音频、视频、0字节/损坏文件），识别完全一致的重复文件，确立 Canonical 决策依据，输出 `resources/import-manifest.json` |
+| `backend/scripts/cambridge_pdf_importer.py` | 增强 | 1. 自动适配 Windows 本地 Tesseract 路径（`C:/Program Files/Tesseract-OCR/tesseract.exe`）；<br>2. 增强对 letter-spaced 艺术排版（如 `S P E A K I N G`）、连字符前缀（如 `Test1-listening-part1`）、以及 Section 1、考官引导语的模糊/精确混合匹配；<br>3. 增加对 Cambridge 20 per-test 4 独立卷的整合提取；<br>4. 增加对 0 字节损坏卷的 `missing-resource` 规范占位生成 |
+| `backend/scripts/generate_all_page_maps.py` | 新增 | 统一流水线，按序为 Cambridge 4–20 生成标准化 page map，支持单卷/多卷提取，自动汇总统计并在 `resources/import-report.json` 输出总报告 |
 | `tests/test_page_maps.py` | 新增 | 包含 11 个自动化测试用例，覆盖 manifest 结构、音频 272 条映射验证、17 卷 page map 存在性、16 个区间合法性、per-test 映射与 missing-resource 行为断言 |
 | `tests/test_pdf_importer.py` | 增强 | 扩充单测用例，验证文字层检测、模糊 OCR 容错、老版 tapescript 识别、破折号标题识别及 missing map 生成 |
 | `package.json` | 修改 | 更新 `test` 运行所有 JS 及 Python 测试；提供 `scan:manifest`、`import:page-maps` 等便捷入口 |
@@ -72,9 +72,9 @@
 
 | 脚本路径 | 职责说明 |
 | :--- | :--- |
-| `scripts/cambridge_pdf_importer.py` | 增加 `extract-skill` 子命令，支持按书、Test、Skill 仅提取对应页段，复用已缓存页面，输出中间技能缓存至 `.cache/cambridge-importer/<fp>/skills/` |
-| `scripts/import_c18_t1_listening.py` | 核心导入脚本，读取 page map 与中间缓存，输出 5 个目标数据文件，完成 40 个得分点提取、多选无序处理、音频映射、听力稿分段与解析索引 |
-| `scripts/validate_cambridge_import.py` | 本地验证器命令行工具，执行 10 项严密校验并输出 `validation-report.json` |
+| `backend/scripts/cambridge_pdf_importer.py` | 增加 `extract-skill` 子命令，支持按书、Test、Skill 仅提取对应页段，复用已缓存页面，输出中间技能缓存至 `.cache/cambridge-importer/<fp>/skills/` |
+| `backend/scripts/import_c18_t1_listening.py` | 核心导入脚本，读取 page map 与中间缓存，输出 5 个目标数据文件，完成 40 个得分点提取、多选无序处理、音频映射、听力稿分段与解析索引 |
+| `backend/scripts/validate_cambridge_import.py` | 本地验证器命令行工具，执行 10 项严密校验并输出 `validation-report.json` |
 | `tests/test_c18_t1_listening.py` | 单元测试套件，包含 7 组端到端断言，验证所有生成交付物格式与内容完整性 |
 | `package.json` | 补充 `import:c18-t1-listening` 与 `validate:c18-t1-listening` 脚本快捷入口，并将新增脚本与测试纳入 `npm test` 和 `npm run check` |
 
@@ -156,7 +156,7 @@
 
 ## 四、OCR 缓存与机器可验证溯源（importProvenance）
 
-所有题目、选项、答案、听力稿均由 `scripts/ocr_extractor.py` 从原卷 PDF 直接提取并写入 3 个机器可溯源的 OCR 缓存文件：
+所有题目、选项、答案、听力稿均由 `backend/scripts/ocr_extractor.py` 从原卷 PDF 直接提取并写入 3 个机器可溯源的 OCR 缓存文件：
 
 | 缓存类别 | 缓存文件路径 | 包含页码 | 词数 | 平均置信度 | 文件 SHA-256 |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -247,7 +247,7 @@
 
 ## 八、自动化测试与校验结果
 
-- `scripts/validate_cambridge_import.py`（**16 / 16 项规则全部通过**）：
+- `backend/scripts/validate_cambridge_import.py`（**16 / 16 项规则全部通过**）：
   1. `schema_top_level_keys` (通过)
   2. `scoring_points_count_40` (通过)
   3. `unique_question_ids` (通过)

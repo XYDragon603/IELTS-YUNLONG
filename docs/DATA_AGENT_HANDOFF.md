@@ -10,7 +10,7 @@
 
 ## 当前接手点
 
-已有 scripts/import_cambridge_skills.py、scripts/skill_parsers.py，C18 T1 reading.json / writing.json / speaking.json 及 assets/ 已首次生成，均待复核。此前导入被中断，不能把已生成文件视为完整交付。
+已有 backend/scripts/import_cambridge_skills.py、backend/scripts/skill_parsers.py，C18 T1 reading.json / writing.json / speaking.json 及 assets/ 已首次生成，均待复核。此前导入被中断，不能把已生成文件视为完整交付。
 
 特别注意：reading.json 上一次生成时把“Reading Passage 2 has seven paragraphs”误判为文章标题，造成重复 passage 和题组缺失。skill_parsers.py 已将文章标题正则改为整行匹配，但 reading.json 尚需重新生成、确认三篇文章与全部40题。
 

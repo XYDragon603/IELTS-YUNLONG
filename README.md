@@ -10,9 +10,25 @@
 npm start
 ```
 
-Windows PowerShell 若禁止运行 npm.ps1，使用 `npm.cmd start`，也可直接运行 `node server.js`。
+Windows PowerShell 若禁止运行 npm.ps1，使用 `npm.cmd start`，也可直接运行 `node backend/server.js`。
 
 浏览器打开 http://localhost:4173 。不要直接双击 HTML；模块加载与麦克风需要本地服务器。手机远程访问时需要另行部署到 HTTPS 网站；当前开发服务器仅监听本机。
+
+## 目录结构
+
+```
+frontend/   网页根目录：页面 HTML、样式、字体，features/（各页面逻辑）、ui/（界面组件）、lib/（浏览器端模块）、data/（资源索引）
+backend/    server.js（本地服务器与题库接口）、lib/（服务端模块）、scripts/（PDF 导入、OCR 清理、校验等 Python / Node 数据脚本）
+resources/  前后端共用的题库与词书数据（只在本机，不上传）
+tests/      Node 与 Python 单元测试、浏览器端到端测试
+docs/       设计、数据导入与修复记录
+```
+
+浏览器访问的路径不变（如 `/practice.html`、`/lib/...`、`/resources/...`）：服务器默认从 `frontend/` 取文件，`/resources/` 与 `/IELTS/` 从项目根目录取。
+
+### 不在仓库中的本地资料
+
+仓库公开，以下内容受版权保护，只保存在本机（见 `.gitignore`）：`IELTS/`（原版 PDF 与音频）、`WORD/`（词书原始资料）、`resources/cambridge/`（由真题整理的题目数据）、`resources/words/`、`resources/synonyms/`、`resources/page-maps/`。新克隆的仓库需自行放入原始资料，再用 `backend/scripts/` 中的导入脚本生成数据；缺少这些资料时，依赖题库数据的测试会失败。
 
 ## 已实现
 
@@ -52,7 +68,7 @@ npm run import:page-map:c18
 任意一本：
 
 ```sh
-python scripts/cambridge_pdf_importer.py page-map --book 19 --pdf "IELTS/你的文件.pdf" --output "resources/page-maps/cambridge-19.json"
+python backend/scripts/cambridge_pdf_importer.py page-map --book 19 --pdf "IELTS/你的文件.pdf" --output "resources/page-maps/cambridge-19.json"
 ```
 
 处理规则：

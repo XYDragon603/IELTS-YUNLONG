@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createAttempt, secondsLeft, grade, wordCount, escapeHTML, formatTime } from '../core.js';
-import { listeningQuestions, readingQuestions } from '../data.js';
+import { createAttempt, secondsLeft, grade, wordCount, escapeHTML, formatTime } from '../frontend/core.js';
+import { listeningQuestions, readingQuestions } from '../frontend/data.js';
 
 test('full and single practice allocate the correct countdown', () => {
   const full = createAttempt(null, 1000);
