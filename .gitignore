@@ -40,3 +40,4 @@ backend/scripts/repair_reading_matching_options.py
 # Static build output (contains paper content) and Cloudflare local state
 dist/
 .wrangler/
+backend/scripts/repair_reading_residual_ocr.py
