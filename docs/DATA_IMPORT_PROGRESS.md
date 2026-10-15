@@ -606,3 +606,13 @@ python backend/scripts/apply_text_curations.py                                  
 **3. 选择题**：解析器支持题号单独成行、题号十位误识（`45` → 15）、选项字母粘连（`DA few`、`Eto collect`）与句点分隔（`38.What`、`A.lt`），并只读取本题组自己的说明（不受下一题组说明影响）；候选范围扩大到被误分类为 unclassified / summary-completion 的选择题组。原 17 组及新发现的 C12 T4 14–18、C13 T2 27–31、C13 T4 27–29、C18 T2 14–19、C19 T2 25–26、C20 T3 22–23 全部通过校验写入。C13 T2 38–40 为句尾匹配题，选项由第 1 步写入。另修正两组导入器错误选项：C13 T3 37–40（导入器把题干首字母拆成 `F: inding`，改为文字层的研究者 A–D）、C18 T1 19–21（漏掉 B，assistant-visual 校订）。
 
 **当前状态**：阅读正文中已无题目/选项文字；全库可疑字段 **9**（7 项为连字符误报）；36 份阅读通过校验器，Node 44/44、Python 57/57 与练习页、导入预览浏览器测试通过；所有试卷仍为“待核对”。
+
+### 十三、目录拆分与听力 OCR 缓存重建（2026-10-15）
+
+**1. 目录拆分**：前端（页面、样式、浏览器模块、`data/`）移入 `frontend/`，服务端与导入/校验脚本移入 `backend/`；URL 不变，`/resources`、`/IELTS` 仍从项目根目录提供。版权材料（`IELTS/`、`resources/cambridge/` 等）只留本地，不进入 Git。
+
+**2. 听力 OCR 缓存重建**：清理 `.cache` 时误删了 `.cache/cambridge-importer/`，原缓存无法恢复。已用 `backend/scripts/ocr_extractor.py` 为 C12–C20 共 36 套重建缓存。108 个缓存文件中 95 个与原哈希一致，13 个不一致（OCR 结果有细微差异）。不一致的已在对应 `listening.json` 的 `importProvenance.artifacts` 中更新为新哈希，旧值记录在 `importProvenance.cacheRegeneration.previousSha256`。题目、答案与原文内容未改动，`curations.json` 未改动。
+
+**3. C12 原卷路径**：本地 C12 PDF 已被改名为 `剑桥雅思真题12.pdf`，SHA-256 与原记录（`0aeb26dc…`）一致；已同步更新 `resources/` 与 `generate_c12_curations.py` 中的路径。`IELTS/` 下文件未改动。
+
+**当前状态**：36 份听力通过校验器，Python 57/57 通过。

@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from ocr_extractor import compute_sha256
 
 def generate_curations_for_test(test: int) -> dict:
-    pdf_path = ROOT / "IELTS/剑雅真题【4-19】/真题/【真题】4-19/剑桥雅思真题12【网课免费提供+微信：kaoy789，公众号：研路考研】.pdf"
+    pdf_path = ROOT / "IELTS/剑雅真题【4-19】/真题/【真题】4-19/剑桥雅思真题12.pdf"
     pdf_sha = compute_sha256(pdf_path) if pdf_path.exists() else "0aeb26dc1c996c0c6306c85bb45f6492fee08c2391195aaef3c915ef9a0274db"
 
     reading_ans_pages = {1: 117, 2: 119, 3: 121, 4: 123}
