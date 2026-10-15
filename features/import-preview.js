@@ -1,4 +1,5 @@
 import { escapeHTML as esc } from '../core.js';
+import { mountExamHeader } from '../ui/exam-header.js';
 import { adaptImportedListening, localResourceURL } from '../lib/imported-listening.js';
 import { questionRenderer } from '../ui/components.js';
 import { questionScore, questionWeight, answeredWeight } from '../lib/study-model.js';
@@ -14,13 +15,9 @@ let mockRun=null;
 let mockError=null;
 try {if(mockRunId){mockRun=requireMockStage(mockRunId,'listening');if(mockRun.book!==book||mockRun.test!==testNumber)throw Error('整套练习与试卷不匹配');}} catch(error){mockError=error;}
 const key = mockRun?listeningRunKey(mockRun):`ielts-c${book}-t${testNumber}-import-preview-v1`;
-document.querySelector('h1').textContent=`Cambridge ${book} · Test ${testNumber}`;
+document.querySelector('h1').textContent=`Cambridge ${book} · Test ${testNumber} · Listening`;
 document.title=`IELTS Studio · Cambridge ${book} Test ${testNumber} 听力`;
-const backLink=document.querySelector('#back-link');
-backLink.href=mockRun?'/mock.html':`/#library/${book}/${testNumber}`;
-if(mockRun)backLink.textContent='← 返回整套进度';
-const skillNames={listening:'听力',reading:'阅读',writing:'写作',speaking:'口语'};
-document.querySelector('#skill-links').innerHTML=mockRun?'':Object.entries(skillNames).map(([id,label])=>id==='listening'?`<a href="${esc(location.pathname+location.search)}" aria-current="page">${label}</a>`:`<a href="/practice.html?book=${book}&test=${testNumber}&skill=${id}">${label}</a>`).join('');
+mountExamHeader({book,test:testNumber,skill:'listening',mockRunId:mockRun?.id,showSkills:!mockRun});
 if(mockRun)document.querySelector('.note-box').textContent='整套练习 · 本科进度与单科练习分别保存。提交后可查看参考答案，返回整套进度可继续阅读。';
 const status = document.querySelector('#preview-status');
 const content = document.querySelector('#preview-content');
