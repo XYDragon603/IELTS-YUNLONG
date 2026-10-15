@@ -29,7 +29,8 @@ export function localPracticeEntries(){
 export function localPracticeLinks({hideEmpty=false}={}){
   const {drafts,history}=localPracticeEntries();
   if(hideEmpty&&!drafts.length&&!history.length)return '';
-  const links=(items,action)=>items.map(v=>`<a class="catalog-row" href="${esc(v.href)}"><span>${esc(v.title)}${v.date?`<small>${esc(new Date(v.date).toLocaleString('zh-CN'))}</small>`:''}</span><strong>${action} ↗</strong></a>`).join('');
+  const skillIcon={listening:'headphones',reading:'book',writing:'pen',speaking:'mic'};
+  const links=(items,action)=>items.map(v=>`<a class="catalog-row practice-row" href="${esc(v.href)}"><span class="recent-icon">${icon(skillIcon[v.skill]||'book')}</span><span>${esc(v.title)}${v.date?`<small>${esc(new Date(v.date).toLocaleString('zh-CN'))}</small>`:v.answered?`<small>已作答 ${v.answered} 项</small>`:''}</span><strong>${action} ${icon('arrow')}</strong></a>`).join('');
   return `<section class="import-catalog"><h2>继续四科练习</h2>${links(drafts,'继续练习')||'<p class="hint">暂无阅读、写作或口语草稿。</p>'}<a class="text-btn" href="#library">选择题库 ↗</a></section><section class="import-catalog"><h2>三科练习历史</h2>${links(history,'查看记录')||'<p class="hint">提交后的练习记录会显示在这里。</p>'}</section>`;
 }
 export async function mountCatalog(){

@@ -256,3 +256,17 @@ body{background:var(--bg);font-family:var(--sans)}.studio-local{font-size:12px;c
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .mock-pill.is-done{background:#24392e;color:#9fd3b4}}
 @media(max-width:1180px){.mock-stages{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.mock-stage::after{display:none}.mock-grid{grid-template-columns:1fr}.mock-picker-meta{margin-left:0;border:0;padding:0}.mock-records li{grid-template-columns:auto 1fr auto;row-gap:4px;padding:10px 0}.mock-records time,.mock-record-count{grid-column:2;border:0;padding:0}.mock-record-bar{grid-column:2}.mock-records li>.btn,.mock-record-hint{grid-column:3;grid-row:1/5}.mock-records .recent-icon{grid-row:1/5}.mock-pill{grid-column:3;grid-row:1;justify-self:end}}
 @media(max-width:640px){#mock-main{padding:16px 16px 32px}.mock-picker{padding:12px}.mock-picker #mock-book{flex:1}.mock-tests{width:100%;padding:0;border:0;overflow-x:auto}.mock-tests button{padding:0 12px}.mock-picker #new-mock{width:100%}.mock-stages{grid-template-columns:1fr}.mock-current{grid-template-columns:1fr;padding:16px}.mock-current .studio-cover{aspect-ratio:auto;padding:18px 20px}.mock-current-actions .btn{flex:1}.mock-records{padding:14px}.mock-records li>.btn,.mock-record-hint{grid-row:auto;grid-column:2}.mock-pill{grid-row:auto;grid-column:2;justify-self:start}}
+/* Practice history (redesign 2026-10-14). */
+.page-intro{display:block;margin:4px 0 22px;padding:0;border:0}
+.page-intro .eyebrow{font-size:13px;letter-spacing:.24em;color:var(--green)}
+.page-intro h1{font-size:clamp(34px,4.4vw,60px);line-height:1.15;margin:12px 0 10px;font-weight:800}
+.page-intro h1 em{font-style:normal;color:var(--green)}
+.page-intro p{margin:0;font-family:var(--serif);font-size:clamp(15px,1.4vw,19px);color:color-mix(in srgb,var(--ink) 78%,var(--bg))}
+.import-catalog{border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.import-catalog h2{font-size:22px}
+.practice-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;min-height:64px;color:var(--ink)}
+.practice-row>span:nth-child(2){font-size:15px;font-weight:600}
+.practice-row small{display:block;margin-top:3px;font-size:13px;font-weight:400;color:var(--muted);font-variant-numeric:tabular-nums}
+.practice-row strong{display:inline-flex;align-items:center;gap:6px;font-size:14px}
+.practice-row strong .icon{width:16px;height:16px;color:var(--green)}
+.practice-row:hover{background:var(--surface-2)}

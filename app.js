@@ -56,7 +56,7 @@ function practice() {
   shell(`<div class="intro"><div><div class="eyebrow">BUILD YOUR SKILLS</div><h1>把专注，留给这一科。</h1><p>选择你想练习的科目，按自己的节奏开始。</p></div></div>${resumeBanner()}${subjectCards()}<section class="panel practice-info"><h2>关于这套示例练习</h2><p class="hint">当前提供一套原创学术类缩减题目，用于体验四科流程，题量与时长均不等同于正式考试。听力使用浏览器合成英文语音，可重复播放；阅读支持标记待检查题目。</p><p class="hint">写作与口语提供字数统计、录音及自查清单，暂未接入人工或 AI 评分。听读结果仅展示正确率，不换算雅思分数。</p><button class="btn primary" data-start="all">体验完整流程 ${icon('arrow')}</button></section>`, 'practice');
 }
 function historyPage() {
-  shell(`<div class="intro"><div><div class="eyebrow">YOUR LEARNING JOURNEY</div><h1>每一次投入，都有回响。</h1><p>已完成 ${history.length} 次练习 · 累计 ${history.reduce((sum,a)=>sum+elapsed(a),0)} 分钟。记录仅保存在当前浏览器。</p></div></div>${localPracticeLinks()}${study.historyView()}${resumeBanner()}<section class="panel">${historyRows(history)}</section>`, 'history');
+  shell(`<div class="intro page-intro"><div><div class="eyebrow">YOUR LEARNING JOURNEY</div><h1>每一次投入，<em>都有回响。</em></h1><p>已完成 ${history.length} 次练习 · 累计 ${history.reduce((sum,a)=>sum+elapsed(a),0)} 分钟。记录仅保存在当前浏览器。</p></div></div>${localPracticeLinks()}${study.historyView()}${resumeBanner()}<section class="panel">${historyRows(history)}</section>`, 'history');
 }
 function start(id) {
   const begin = () => { attempt = createAttempt(id==='all'?null:id); saveAttempt(); if(location.hash==='#exam') render(); else location.hash='exam'; };
