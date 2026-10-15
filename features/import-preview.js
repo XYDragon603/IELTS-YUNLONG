@@ -33,6 +33,13 @@ function updateStatus() {
   const count = questions().reduce((n,q) => n + answeredWeight(q, state.answers[q.id]), 0);
   status.textContent = `已作答 ${count} / 40 · ${mockRun?'整套练习':'预览'}进度自动保存`;
 }
+// Right-hand answer progress: question numbers grouped by part; answered and flagged states.
+function progressPanel() {
+  const done = q => answeredWeight(q, state.answers[q.id]) > 0;
+  const total = questions().reduce((n,q) => n + answeredWeight(q, state.answers[q.id]), 0);
+  return `<h2>答题进度 <strong>${total} / 40</strong></h2>${test.parts.map(p => `<section class="progress-part${p.number===state.part?' is-current':''}"><h3>Part ${p.number}<span>${p.questions.filter(done).length} / ${p.questions.length}</span></h3><div class="progress-grid">${p.questions.map(q => { const label = q.numbers?.join('–') || q.number; return `<button type="button" class="${done(q)?'answered':''}${state.flags.includes(q.id)?' flagged':''}" data-jump-q="${esc(q.id)}" data-jump-part="${p.number}" aria-label="第 ${label} 题，${done(q)?'已作答':'未作答'}${state.flags.includes(q.id)?'，已标记':''}">${label}</button>`; }).join('')}</div></section>`).join('')}<p class="progress-legend"><span><i class="is-answered"></i>已作答</span><span><i></i>未作答</span><span><i class="is-flagged"></i>标记</span></p>`;
+}
+function updateProgress() { const panel = document.querySelector('#listening-progress'); if (panel) panel.innerHTML = progressPanel(); }
 function saveAudio() {
   const audio = content.querySelector('audio');
   if (audio && Number.isFinite(audio.currentTime)) { state.audio[state.part] = audio.currentTime; save(); }
@@ -45,8 +52,8 @@ function render() {
   content.innerHTML = `<div class="listening-bar"><nav class="practice-tabs listening-parts" aria-label="听力分段">${navigation}</nav>
     <audio controls preload="metadata" src="${esc(localResourceURL(test.audio[state.part].path))}"></audio>
     <a class="text-btn" target="_blank" rel="noopener" href="${esc(paper)}#page=${part.questions[0].source.pdfPage}">对照原卷 ↗</a></div>
-    <section class="listening-sheet"><h2>Part ${state.part} · ${esc(part.title)}</h2>${notes.map(t => `<p class="listening-instruction">${esc(t)}</p>`).join('')}
-    ${part.questions.map(q => questionRenderer(q, state.answers, state.flags)).join('')}</section>
+    <div class="listening-layout"><section class="listening-sheet"><h2>Part ${state.part} · ${esc(part.title)}</h2>${notes.map(t => `<p class="listening-instruction">${esc(t)}</p>`).join('')}
+    ${part.questions.map(q => questionRenderer(q, state.answers, state.flags)).join('')}</section><aside class="listening-progress" id="listening-progress" aria-label="答题进度">${progressPanel()}</aside></div>
     <div class="preview-actions"><button class="btn primary" id="submit-preview">提交并查看暂定结果</button><button class="btn" id="export-preview">导出答题记录</button></div>
     <section id="preview-results" aria-live="polite"></section>`;
   const audio = content.querySelector('audio');
@@ -79,18 +86,26 @@ content.addEventListener('input', e => {
   } else state.answers[id] = e.target.value;
   state.submitted = false;
   document.querySelector('#preview-results').innerHTML = '';
-  save(); updateStatus();
+  save(); updateStatus(); updateProgress();
 });
 content.addEventListener('click', e => {
   const el = e.target.closest('button');
   if (!el) return;
   if (el.dataset.saveSynonym) { try { saveSynonymWord(el.dataset.saveSynonym); el.textContent='已收藏到词书'; el.disabled=true; status.textContent='已加入词书收藏，可在记单词页面复习。'; } catch (error) { status.textContent=error.message; } return; }
   if (el.dataset.addReview) { try { if(!state.submitted)throw Error('交卷后才能加入复盘'); const q=questions().find(item=>item.id===el.dataset.addReview),part=test.parts.find(item=>item.questions.some(question=>question.id===q?.id));if(!q||!part)throw Error('未找到原题');const result=addReviewItem(createListeningReviewItem(test,q,part,state.answers[q.id]));el.textContent='已在复盘清单';el.disabled=true;status.textContent=result.added?'已加入复盘清单，可随时复做。':'这道题已在复盘清单。'; } catch(error){status.textContent=error.message;} return; }
+  if (el.dataset.jumpQ) {
+    const target = Number(el.dataset.jumpPart);
+    if (target !== state.part) { saveAudio(); content.querySelector('audio')?.pause(); state.part = target; save(); render(); }
+    const question = document.getElementById(`study-q-${el.dataset.jumpQ}`);
+    question?.scrollIntoView({block:'center'});
+    question?.querySelector('input,select,textarea')?.focus({preventScroll:true});
+    return;
+  }
   if (el.dataset.part) { saveAudio(); content.querySelector('audio')?.pause(); state.part = Number(el.dataset.part); save(); render(); }
   if (el.dataset.study === 'flag') {
     const id = el.dataset.q;
     state.flags = state.flags.includes(id) ? state.flags.filter(v=>v!==id) : [...state.flags,id];
-    el.setAttribute('aria-pressed', String(state.flags.includes(id))); el.classList.toggle('selected',state.flags.includes(id)); save();
+    el.setAttribute('aria-pressed', String(state.flags.includes(id))); el.classList.toggle('selected',state.flags.includes(id)); save(); updateProgress();
   }
   if (el.id === 'submit-preview') { state.submitted = true; save(); renderResults(); document.querySelector('#preview-results').scrollIntoView(); }
   if (el.id === 'export-preview') {

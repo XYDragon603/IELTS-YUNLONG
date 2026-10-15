@@ -35,15 +35,33 @@ function flowText(text){return String(text||'').replace(/([^.!?:\n])\n(?=[a-z0-9
 function groups(){return skill==='reading'?data.passages:skill==='writing'?data.tasks:data.parts;}
 function img(asset){return asset?`<img class="practice-asset" src="${esc(assetURL(base,asset.asset))}" alt="${esc(asset.alt||'原卷图片')}" loading="lazy">`:'';}
 function sourceLink(source){return source?.pdfPage&&data.sources?.paper?.path?`<a class="text-btn" href="${esc(localResourceURL(data.sources.paper.path))}#page=${source.pdfPage}" target="_blank" rel="noopener">原卷第 ${source.pdfPage} 页 ↗</a>`:'';}
+const JUDGEMENTS={'true-false-not-given':['TRUE','FALSE','NOT GIVEN'],'yes-no-not-given':['YES','NO','NOT GIVEN']};
 function input(q,group){
-  const options=group.type==='true-false-not-given'?['TRUE','FALSE','NOT GIVEN'].map(value=>({value,label:value})):q.options||group.options||[];
-  return `<section class="practice-q" id="question-${esc(q.id)}"><button class="btn flag" data-flag="${esc(q.id)}" aria-label="标记第 ${q.number} 题" aria-pressed="${state.flags.includes(q.id)}">☆</button><label for="answer-${esc(q.id)}"><strong><span class="sr-only">第 </span>${q.number}<span class="sr-only"> 题</span></strong> ${esc(promptText(q))}</label>${options.length?`<select id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" ${state.submitted?'disabled':''}><option value="">选择答案</option>${options.map(o=>`<option value="${esc(o.value)}" ${state.answers[q.id]===o.value?'selected':''}>${esc(o.value)} · ${esc(o.label)}</option>`).join('')}</select>`:`<input id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${esc(state.answers[q.id]||'')}" ${state.submitted?'disabled':''} autocomplete="off" spellcheck="false">`}</section>`;
+  const flag=`<button class="btn flag" data-flag="${esc(q.id)}" aria-label="标记第 ${q.number} 题" aria-pressed="${state.flags.includes(q.id)}">☆</button>`;
+  const number=`<strong><span class="sr-only">第 </span>${q.number}<span class="sr-only"> 题</span></strong>`;
+  const judgement=JUDGEMENTS[group.type];
+  if(judgement){ // one-tap segmented choice; radios fire the same input event as other answer fields
+    return `<section class="practice-q" id="question-${esc(q.id)}">${flag}<label id="prompt-${esc(q.id)}">${number} ${esc(promptText(q))}</label><div class="choice-segment" role="radiogroup" aria-labelledby="prompt-${esc(q.id)}">${judgement.map((value,i)=>`<label class="choice-segment-item"><input type="radio" ${i===0?`id="answer-${esc(q.id)}"`:''} name="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${value}" ${String(state.answers[q.id]||'').trim().toUpperCase()===value?'checked':''} ${state.submitted?'disabled':''}><span>${value}</span></label>`).join('')}</div></section>`;
+  }
+  const options=q.options||group.options||[];
+  return `<section class="practice-q" id="question-${esc(q.id)}">${flag}<label for="answer-${esc(q.id)}"><strong><span class="sr-only">第 </span>${q.number}<span class="sr-only"> 题</span></strong> ${esc(promptText(q))}</label>${options.length?`<select id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" ${state.submitted?'disabled':''}><option value="">选择答案</option>${options.map(o=>`<option value="${esc(o.value)}" ${state.answers[q.id]===o.value?'selected':''}>${esc(o.value)} · ${esc(o.label)}</option>`).join('')}</select>`:`<input id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${esc(state.answers[q.id]||'')}" ${state.submitted?'disabled':''} autocomplete="off" spellcheck="false">`}</section>`;
 }
+function questionRange(passage){const n=(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>Number(q.number)).filter(Number.isFinite);return n.length?`Questions ${Math.min(...n)}–${Math.max(...n)}`:'Questions';}
 function reading(passage){
-  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>Questions</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>`<section><h3>Questions ${g.questionRange.join('–')}</h3>${g.asset?`<figure class="practice-group-asset">${img(g.asset)}${sourceLink(g.source)}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
+  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>${questionRange(passage)}</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>`<section><h3>Questions ${g.questionRange.join('–')}</h3>${g.asset?`<figure class="practice-group-asset">${img(g.asset)}${sourceLink(g.source)}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
+}
+const SELF_CHECKS={
+  task1:['概述了主要趋势或特征','选取了关键数据并做比较','没有加入个人观点或原因推测','达到至少 150 词'],
+  task2:['回应了题目的每一个部分','每段有清晰的中心句','用具体例子或理由支撑观点','达到至少 250 词'],
+  speaking:['回答完整，并有展开','用了具体的例子或经历','表达连贯，用了衔接词']
+};
+// Optional self-check, saved per task/part in state.selfCheck (kept out of state.answers, so it never looks like an answer).
+function selfCheck(id,kind,title){
+  const done=(state.selfCheck||{})[id]||[];
+  return `<fieldset class="self-check"><legend>${title} <small>（可选）</small></legend>${SELF_CHECKS[kind].map((label,i)=>`<label><input type="checkbox" data-self-check="${esc(id)}" value="${i}" ${done.includes(i)?'checked':''} ${historyId?'disabled':''}> ${label}</label>`).join('')}</fieldset>`;
 }
 function writing(task){
-  return `<div class="practice-grid"><article class="practice-paper"><h2>Writing Task ${task.number}</h2><p class="practice-prose">${esc(flowText(task.prompt))}</p>${(task.assets||[]).map(img).join('')}${sourceLink(task.source)}</article><section class="practice-editor"><label for="essay"><h2>Your response</h2></label><div class="practice-metrics"><span>建议至少 ${task.minimumWords||'—'} 词</span><output id="word-count">0 词</output></div><textarea id="essay" data-answer="${esc(task.id)}" ${state.submitted?'readonly':''} placeholder="Write your response here…">${esc(state.answers[task.id]||'')}</textarea><p class="practice-muted">草稿自动保存。提交后保留全文，不生成虚构评分。</p></section></div>`;
+  return `<div class="practice-grid"><article class="practice-paper"><h2>Writing Task ${task.number}</h2><p class="practice-prose">${esc(flowText(task.prompt))}</p>${(task.assets||[]).map(img).join('')}${sourceLink(task.source)}</article><section class="practice-editor"><label for="essay"><h2>Your response</h2></label><div class="practice-metrics"><span>建议至少 ${task.minimumWords||'—'} 词</span><output id="word-count">0 词</output></div><textarea id="essay" data-answer="${esc(task.id)}" ${state.submitted?'readonly':''} placeholder="Write your response here…">${esc(state.answers[task.id]||'')}</textarea>${selfCheck(task.id,Number(task.number)===1?'task1':'task2','写作自查')}<div class="essay-foot"><p class="practice-muted">草稿自动保存。提交后保留全文，不生成虚构评分。</p><button class="btn" type="button" id="export-essay">${icon('download')} 导出作文</button></div></section></div>`;
 }
 function cueCard(card){
   if(card.asset)return img(card.asset);
@@ -54,7 +72,7 @@ function cueCard(card){
 }
 function speaking(part){
   const disabled=state.submitted?'disabled':'';
-  return `<div class="practice-grid practice-speaking"><article class="practice-paper"><span class="eyebrow">SPEAKING · PART ${part.part}</span>${part.cueCard?`${cueCard(part.cueCard)}<div class="speaking-tip">${icon('clock')}<p><strong>准备 1 分钟 · 作答 1–2 分钟</strong>练习建议：准备 1 分钟，再尝试连续表达 1–2 分钟。</p></div>`:`<h2>Let’s talk.</h2>${(part.topics||[]).map(t=>`<section class="practice-topic"><h3>${esc(t.title||'Discussion')}</h3><ol>${t.questions.map(q=>`<li>${esc(q.text)}</li>`).join('')}</ol></section>`).join('')}`}${sourceLink(part.source)}</article><section class="practice-editor"><div class="speaking-head"><h2>录音与作答</h2><span class="practice-muted">录音保存在当前浏览器</span></div><div class="practice-recording"><p id="record-status" role="status">录音仅保存在本机浏览器，可下载备份。</p><div class="practice-actions"><button class="btn primary" id="record" ${disabled}>${icon('mic')} 开始录音</button><button class="btn" id="stop-record" disabled>停止录音</button></div><div id="record-player"></div></div><div class="speaking-timers"><button class="speaking-timer" data-duration="60" ${disabled}>${icon('clock')}<span>准备计时<strong>01:00</strong></span></button><button class="speaking-timer" data-duration="120" ${disabled}>${icon('play')}<span>作答计时<strong>02:00</strong></span></button></div><label for="speaking-notes" class="speaking-notes-label">关键词与复盘笔记</label><textarea id="speaking-notes" style="min-height:180px" data-answer="notes-${part.part}" ${state.submitted?'readonly':''} placeholder="记下关键词，避免写完整稿件…">${esc(state.answers[`notes-${part.part}`]||'')}</textarea></section></div>`;
+  return `<div class="practice-grid practice-speaking"><article class="practice-paper"><span class="eyebrow">SPEAKING · PART ${part.part}</span>${part.cueCard?`${cueCard(part.cueCard)}<div class="speaking-tip">${icon('clock')}<p><strong>准备 1 分钟 · 作答 1–2 分钟</strong>练习建议：准备 1 分钟，再尝试连续表达 1–2 分钟。</p></div>`:`<h2>Let’s talk.</h2>${(part.topics||[]).map(t=>`<section class="practice-topic"><h3>${esc(t.title||'Discussion')}</h3><ol>${t.questions.map(q=>`<li>${esc(q.text)}</li>`).join('')}</ol></section>`).join('')}`}${sourceLink(part.source)}</article><section class="practice-editor"><div class="speaking-head"><h2>录音与作答</h2><span class="practice-muted">录音保存在当前浏览器</span></div><div class="practice-recording"><p id="record-status" role="status">录音仅保存在本机浏览器，可下载备份。</p><div class="practice-actions"><button class="btn primary" id="record" ${disabled}>${icon('mic')} 开始录音</button><button class="btn" id="stop-record" disabled>停止录音</button></div><div class="record-meter" aria-hidden="true"><span>音量</span><div id="record-meter"><i></i></div></div><div id="record-player"></div></div><div class="speaking-timers"><button class="speaking-timer" data-duration="60" ${disabled}>${icon('clock')}<span>准备计时<strong>01:00</strong></span></button><button class="speaking-timer" data-duration="120" ${disabled}>${icon('play')}<span>作答计时<strong>02:00</strong></span></button></div><label for="speaking-notes" class="speaking-notes-label">关键词与复盘笔记</label><textarea id="speaking-notes" style="min-height:180px" data-answer="notes-${part.part}" ${state.submitted?'readonly':''} placeholder="记下关键词，避免写完整稿件…">${esc(state.answers[`notes-${part.part}`]||'')}</textarea>${selfCheck(`speaking-${part.part}`,'speaking','回听自查')}</section></div>`;
 }
 function refreshCounters(){
   for(const a of document.querySelectorAll('[data-map]')){a.classList.toggle('answered',Boolean(state.answers[a.dataset.map]?.trim()));a.classList.toggle('flagged',state.flags.includes(a.dataset.map));}
@@ -106,6 +124,22 @@ function showRecording(blob){
   const download=document.createElement('a');download.href=recordURL;download.download=`c${book}-t${test}-speaking-part-${groups()[state.index].part}.${blob.type.includes('mp4')?'m4a':'webm'}`;download.textContent='下载本段录音';download.className='text-btn';
   target.append(audio,download);
 }
+// Live input level while recording, so it is clear the microphone is picking up sound.
+let meter=null;
+function startMeter(source){
+  try{
+    const ctx=new AudioContext(),analyser=ctx.createAnalyser();analyser.fftSize=512;
+    ctx.createMediaStreamSource(source).connect(analyser);
+    const data=new Uint8Array(analyser.fftSize),bar=document.querySelector('#record-meter i');
+    meter={ctx,raf:0};document.querySelector('#record-meter')?.classList.add('is-live');
+    const tick=()=>{analyser.getByteTimeDomainData(data);let peak=0;for(const v of data)peak=Math.max(peak,Math.abs(v-128));if(bar)bar.style.width=`${Math.min(100,peak/128*180)}%`;meter.raf=requestAnimationFrame(tick);};
+    tick();
+  }catch{meter=null;}
+}
+function stopMeter(){
+  if(!meter)return;cancelAnimationFrame(meter.raf);meter.ctx.close().catch(()=>{});meter=null;
+  const wrap=document.querySelector('#record-meter');wrap?.classList.remove('is-live');const bar=wrap?.querySelector('i');if(bar)bar.style.width='0';
+}
 async function startRecording(){
   if(pendingMic||finishingRecording||recorder?.state==='recording'||state.submitted)return;
   if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){message('当前浏览器不支持录音，请使用本机 Chrome 或 Edge。');return;}
@@ -118,7 +152,7 @@ async function startRecording(){
       recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
       recorder.onstop=async()=>{
         finishingRecording=true;
-        stream?.getTracks().forEach(t=>t.stop());
+        stopMeter();stream?.getTracks().forEach(t=>t.stop());
         const blob=new Blob(chunks,{type:recorder.mimeType||'audio/webm'});
         recordBlob=blob;showRecording(blob);
         try{await recordingStore(`${state.recordingNamespace}-part-${part}`,blob);message('录音已保存至本机，可回听或下载。');}catch{message('录音保存失败，请立即点击下载本段录音。');}
@@ -127,11 +161,16 @@ async function startRecording(){
       };
     });
     recorder.onerror=()=>{message('录音中断，请检查麦克风。');if(recorder.state==='recording')recorder.stop();};
-    recorder.start(1000);document.querySelector('#stop-record').disabled=false;document.querySelector('#record-status').textContent='正在录音 · 请完成后停止并保存';
-  }catch{stream?.getTracks().forEach(t=>t.stop());message('未获得麦克风权限，仍可填写笔记。请在浏览器设置中允许麦克风后重试。');document.querySelector('#record').disabled=false;}
+    recorder.start(1000);startMeter(stream);document.querySelector('#stop-record').disabled=false;document.querySelector('#record-status').textContent='正在录音 · 请完成后停止并保存';
+  }catch{stopMeter();stream?.getTracks().forEach(t=>t.stop());message('未获得麦克风权限，仍可填写笔记。请在浏览器设置中允许麦克风后重试。');document.querySelector('#record').disabled=false;}
   finally{pendingMic=false;}
 }
 async function stopRecording(){if(recorder?.state==='recording'){finishingRecording=true;recorder.stop();await stopPromise;}else if(finishingRecording)await stopPromise;}
+main.addEventListener('change',e=>{
+  const id=e.target.dataset.selfCheck;if(!id||historyId)return;
+  const value=Number(e.target.value),list=new Set((state.selfCheck||={})[id]||[]);
+  e.target.checked?list.add(value):list.delete(value);state.selfCheck[id]=[...list].sort();save();
+});
 main.addEventListener('input',e=>{if(!e.target.dataset.answer||state.submitted)return;state.answers[e.target.dataset.answer]=e.target.value;save();refreshCounters();});
 main.addEventListener('click',async e=>{
   const el=e.target.closest('button');if(!el||el.disabled)return;
@@ -146,6 +185,18 @@ main.addEventListener('click',async e=>{
   if(el.id==='submit-practice'){if(pendingMic){message('请先完成麦克风授权。');return;}el.disabled=true;try{await stopRecording();await openSubmissionCheck({skill,paper:data,state,recordingStore,onNavigate:async(index,target)=>{state.index=index;save();await render();if(skill==='reading')document.querySelector('[data-reading-panel="questions"]')?.click();const input=target?document.getElementById('answer-'+target):document.querySelector(skill==='writing'?'#essay':'#record');input?.focus({preventScroll:true});input?.scrollIntoView({block:'center'});}});}finally{el.disabled=Boolean(state.submitted);}}
   if(el.id==='restart-practice'&&!historyId&&state.submitted){
     try{archivePractice(key,state,data);const response=await fetch(base+skill+'.json');if(!response.ok)throw new Error('Unable to load current paper');const latest=await response.json();if(latest.skill!==skill||latest.book!==book||latest.test!==test)throw new Error('Paper identity mismatch');const next=newPractice(skill,key);localStorage.setItem(key,JSON.stringify(next));state=next;data=latest;archiveEntry=null;await render();message('已开始新练习，旧记录已保留。');}catch(error){message('无法保存新练习，旧记录未替换。'+error.message);}return;
+  }
+  if(el.id==='export-essay'){
+    const task=groups()[state.index],text=String(state.answers[task.id]||'');
+    if(!text.trim()){message('这篇还没有内容，写一点再导出。');return;}
+    const body=`Cambridge ${book} · Test ${test} · Writing Task ${task.number}
+${wordCount(text)} words · ${new Date().toLocaleString('zh-CN')}
+
+${text}
+`;
+    const url=URL.createObjectURL(new Blob([body],{type:'text/plain;charset=utf-8'}));
+    const a=document.createElement('a');a.href=url;a.download=`c${book}-t${test}-writing-task${task.number}.txt`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    message('作文已导出为文本文件。');return;
   }
   if(el.id==='export-practice'){
     const url=URL.createObjectURL(new Blob([JSON.stringify({book,test,skill,sourceVerified:data.verified,session:state,readingResults:skill==='reading'?(archiveEntry?.readingResults||readingReport(data,state.answers)):undefined},null,2)],{type:'application/json'}));
