@@ -37,10 +37,22 @@ function groups(){return skill==='reading'?data.passages:skill==='writing'?data.
 function img(asset){return asset?`<img class="practice-asset" src="${esc(assetURL(base,asset.asset))}" alt="${esc(asset.alt||'原卷图片')}" loading="lazy">${asset.sourcePdfPage?sourceLink({pdfPage:asset.sourcePdfPage}):''}`:'';}
 function sourceLink(source){return source?.pdfPage&&data.sources?.paper?.path?`<a class="text-btn" href="${esc(localResourceURL(data.sources.paper.path))}#page=${source.pdfPage}" target="_blank" rel="noopener">原卷第 ${source.pdfPage} 页 ↗</a>`:'';}
 const JUDGEMENTS={'true-false-not-given':['TRUE','FALSE','NOT GIVEN'],'yes-no-not-given':['YES','NO','NOT GIVEN']};
+// Some imported groups are typed "unclassified"; recognise judgement groups by their instructions or, failing that, their answer keys.
+function judgementOf(group){
+  if(JUDGEMENTS[group.type])return JUDGEMENTS[group.type];
+  if(group.options?.length||(group.questions||[]).some(q=>q.options?.length))return null;
+  const text=`${group.instruction||''} ${group.context||''}`;
+  if(/\bYES\b[\s\S]*\bNO\b[\s\S]*NOT GIVEN/.test(text))return JUDGEMENTS['yes-no-not-given'];
+  if(/\bTRUE\b[\s\S]*\bFALSE\b[\s\S]*NOT GIVEN/.test(text))return JUDGEMENTS['true-false-not-given'];
+  const keys=(group.questions||[]).flatMap(q=>q.answer?.accepted||[]).map(a=>String(a).trim().toUpperCase());
+  if(keys.length&&keys.every(k=>['TRUE','FALSE','NOT GIVEN'].includes(k)))return JUDGEMENTS['true-false-not-given'];
+  if(keys.length&&keys.every(k=>['YES','NO','NOT GIVEN'].includes(k))&&keys.some(k=>k!=='NOT GIVEN'))return JUDGEMENTS['yes-no-not-given'];
+  return null;
+}
 function input(q,group){
   const flag=`<button class="btn flag" data-flag="${esc(q.id)}" aria-label="标记第 ${q.number} 题" aria-pressed="${state.flags.includes(q.id)}">☆</button>`;
   const number=`<strong><span class="sr-only">第 </span>${q.number}<span class="sr-only"> 题</span></strong>`;
-  const judgement=JUDGEMENTS[group.type];
+  const judgement=judgementOf(group);
   if(judgement){ // one-tap segmented choice; radios fire the same input event as other answer fields
     return `<section class="practice-q" id="question-${esc(q.id)}">${flag}<label id="prompt-${esc(q.id)}">${number} ${esc(promptText(q))}</label><div class="choice-segment" role="radiogroup" aria-labelledby="prompt-${esc(q.id)}">${judgement.map((value,i)=>`<label class="choice-segment-item"><input type="radio" ${i===0?`id="answer-${esc(q.id)}"`:''} name="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${value}" ${String(state.answers[q.id]||'').trim().toUpperCase()===value?'checked':''} ${state.submitted?'disabled':''}><span>${value}</span></label>`).join('')}</div></section>`;
   }
@@ -51,7 +63,7 @@ function groupAssets(group){return group.assets||(group.asset?[group.asset]:[]);
 // A transcribed table is used only when its blanks are exactly this group's questions and all of them are typed answers.
 function groupLayout(group){
   const qs=group.questions||[],numbers=qs.map(q=>Number(q.number));
-  if(!qs.length||JUDGEMENTS[group.type]||qs.some(q=>(q.options||group.options||[]).length))return null;
+  if(!qs.length||judgementOf(group)||qs.some(q=>(q.options||group.options||[]).length))return null;
   return readingLayouts.find(l=>{const blanks=layoutBlanks(l);return blanks.length===numbers.length&&new Set(blanks).size===blanks.length&&numbers.every(n=>blanks.includes(n));})||null;
 }
 function layoutGroup(group,layout){

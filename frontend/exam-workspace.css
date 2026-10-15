@@ -335,3 +335,16 @@ dialog.exam-answer-card::backdrop{background:#1a1f2d33}
 .layout-form-table tr:first-child>*{border-top:0}
 .layout-form-table th[scope=row]+td{border-left:1px solid var(--line)}
 .layout-source-image{margin:0 0 12px}.layout-source-image>summary{cursor:pointer;color:var(--accent-ink);font-size:13px;padding:4px 0}
+
+/* Choice feedback: the chosen option is filled and ticked; a press gives a brief squeeze. */
+.choice-segment-item span{transition:background-color .15s,color .15s,transform .08s}
+.choice-segment-item input:checked+span::before{content:"✓";margin-right:6px;font-weight:700}
+.choice-segment-item input:checked+span{display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px var(--accent)}
+.choice-segment-item:active span{transform:scale(.96)}
+.choice-segment:has(input:checked){border-color:var(--accent)}
+.answer-options>label{transition:background-color .15s,border-color .15s,transform .08s}
+.answer-options>label:active{transform:scale(.99)}
+.answer-options>label:has(input:checked){background:var(--accent);border-color:var(--accent);color:var(--on-accent);box-shadow:0 2px 8px #c35d3b33}
+.answer-options>label:has(input:checked) .option-letter,.answer-options>label:has(input:checked) *{color:inherit}
+.answer-options>label:has(input:checked) input{accent-color:var(--on-accent)}
+.btn:active{transform:translateY(1px)}
