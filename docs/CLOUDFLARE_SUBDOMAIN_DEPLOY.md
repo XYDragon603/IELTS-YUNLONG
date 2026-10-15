@@ -1,5 +1,7 @@
 # IELTS Studio 部署到 ielts.xydragon.com
 
+> **已停用。** 本文是早期用 Tunnel 公开发布本机服务器的方案。现在 `ielts.xydragon.com` 指向 Cloudflare Pages 上的私有静态站点，由 Access 限制登录，见 [CLOUDFLARE_DEPLOY.md](CLOUDFLARE_DEPLOY.md)。不要再按本文公开发布题库。
+
 目标是让所有人通过 `https://ielts.xydragon.com` 访问。当前项目由 Node 服务提供网页、题库 JSON、原卷 PDF 与音频；发布后，这些 PDF 与音频也会公开可访问。上线前需确认你拥有相应的公开分发权限。用户的练习记录仍只存在各自浏览器中。
 
 ## 部署前

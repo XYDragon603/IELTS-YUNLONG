@@ -1,83 +1,104 @@
 # IELTS Studio · 雅思模考
 
-响应式网页原型，无框架和第三方运行时依赖。使用原创学术类缩减示例卷，跑通听力、阅读、写作、口语及复盘流程。
+剑桥雅思 4–20 真题的网页练习站：单项练习、整套模考、错题复盘、记单词和精听收藏。纯前端，无框架和第三方运行时依赖；本地用一个 Node 服务器运行，线上部署为 Cloudflare 上的私有静态网站。
 
-## 启动
+> **仓库公开，题库不公开。** 原卷、音频和由真题整理的题目数据受版权保护，只保存在本机，不进入 Git；线上站点必须由 Cloudflare Access 保护，只允许名单里的邮箱登录。
 
-需要 Node.js 20 或更新版本。在项目目录运行：
+## 页面
+
+| 页面 | 内容 |
+|---|---|
+| `index.html` 首页 | 题库书架、学习概览、目标设置 |
+| `practice.html` 单项练习 | 听力、阅读、写作、口语按 Test 练习；可重做 |
+| `mock.html` 整套练习 | 按书和 Test 进行完整模考 |
+| `review.html` 错题复盘 | 已做题目的对错与解析 |
+| `words.html` 记单词 | 词书与同义替换 |
+| `listening-clips.html` 精听收藏 | 收藏的听力片段 |
+| `import-preview.html` 导入预览 | 检查导入后的题目数据 |
+
+练习功能：
+- 听力和阅读自动判分。表格、笔记、流程图、摘要题按原卷版式排成可直接填写的结构。
+- 阅读时文章固定，题目区单独滚动；可以高亮文本、记笔记。
+- 写作统计词数；口语可以录音、回放和下载。
+
+## 本地运行
+
+需要 Node.js 20 或更新版本，以及本地资料（见下文）。在项目目录运行：
 
 ```sh
 npm start
 ```
 
-Windows PowerShell 若禁止运行 npm.ps1，使用 `npm.cmd start`，也可直接运行 `node backend/server.js`。
-
-浏览器打开 http://localhost:4173 。不要直接双击 HTML；模块加载与麦克风需要本地服务器。手机远程访问时需要另行部署到 HTTPS 网站；当前开发服务器仅监听本机。
+然后打开 http://localhost:4173 。Windows PowerShell 若禁止运行 `npm.ps1`，改用 `npm.cmd start`。不要直接双击 HTML，模块加载和麦克风都需要通过服务器访问。
 
 ## 目录结构
 
 ```
-frontend/   网页根目录：页面 HTML、样式、字体，features/（各页面逻辑）、ui/（界面组件）、lib/（浏览器端模块）、data/（资源索引）
-backend/    server.js（本地服务器与题库接口）、lib/（服务端模块）、scripts/（PDF 导入、OCR 清理、校验等 Python / Node 数据脚本）
-resources/  前后端共用的题库与词书数据（只在本机，不上传）
+frontend/   网页根目录：页面 HTML、样式、字体；features/ 页面逻辑，ui/ 界面组件，lib/ 浏览器端模块，data/ 资源索引
+backend/    server.js 本地服务器与题库接口；lib/ 服务端模块；scripts/ 导入、校验、构建、上传脚本
+functions/  Cloudflare Pages Function：从 R2 读取 /IELTS/ 下的原卷与音频
+resources/  题库与词书数据（版权部分只在本机）
 tests/      Node 与 Python 单元测试、浏览器端到端测试
-docs/       设计、数据导入与修复记录
+docs/       设计、数据导入、复核与部署记录
 ```
 
-浏览器访问的路径不变（如 `/practice.html`、`/lib/...`、`/resources/...`）：服务器默认从 `frontend/` 取文件，`/resources/` 与 `/IELTS/` 从项目根目录取。
+### 只在本机、不进仓库的资料
 
-### 不在仓库中的本地资料
+以下内容见 `.gitignore`：
+- `IELTS/`：原版 PDF、音频和视频；
+- `WORD/`：词书原始资料；
+- `resources/cambridge/`：由真题整理的题目数据、版式和图片；
+- `resources/words/`、`resources/synonyms/`、`resources/page-maps/`；
+- `dist/`：构建产物，里面含有题库内容；
+- 少数内嵌题干的修复脚本。
 
-仓库公开，以下内容受版权保护，只保存在本机（见 `.gitignore`）：`IELTS/`（原版 PDF 与音频）、`WORD/`（词书原始资料）、`resources/cambridge/`（由真题整理的题目数据）、`resources/words/`、`resources/synonyms/`、`resources/page-maps/`。新克隆的仓库需自行放入原始资料，再用 `backend/scripts/` 中的导入脚本生成数据；缺少这些资料时，依赖题库数据的测试会失败。
+新克隆的仓库需要自己放入原始资料，再用 `backend/scripts/` 里的导入脚本生成数据。缺少这些资料时，依赖题库数据的测试会失败。
 
-## 已实现
+## 线上部署（Cloudflare，私有）
 
-- 学习概览、目标设置、四科单项练习、完整模考、练习历史。
-- 听力 5 分钟 / 阅读 8 分钟 / 写作 10 分钟 / 口语 3 分钟，均为缩减体验时长。
-- 答案自动保存、刷新恢复、暂停继续、题目标记、题号跳转、到时自动提交当前科目。
-- 提交后下一科等待点击继续；离开考试页会暂停，关闭或刷新考试页不会额外延长计时。
-- 听力合成英文语音及文字稿后备；听读自动判题与解析。
-- 写作英文词数、作文保存；口语麦克风录音、回放和下载。
-- 历史复盘、纯文本报告导出。录音需在报告页单独下载。
+线上网站全部托管在 Cloudflare，本机关机也能访问：
 
-文字进度保存在 localStorage，录音保存在 IndexedDB。清理浏览器数据会删除这些内容；不跨设备同步。录音过程中刷新或关闭页面可能丢失当前音频，请先结束录音。
+| 内容 | 放在哪里 |
+|---|---|
+| 网页、题库 JSON、题目图片（约 800 个文件，100 MB） | Cloudflare Pages，项目名 `ielts-studio` |
+| 题库目录 | 构建时生成为静态文件 `/api/catalog.json` |
+| 原卷 PDF、听力音频（156 个文件，3.4 GB） | R2 存储桶 `ielts-media`，由 `functions/IELTS/[[path]].js` 按原路径读取，支持拖动进度 |
+| 登录 | Cloudflare Access：名单内邮箱通过一次性验证码登录 |
 
-## 范围
+更新网站：
 
-当前只包含一套原创 Academic 示例题，并非完整官方题库。听读只显示答对题数，不按短卷比例推算 Band；写作、口语没有接入 AI 或人工评分。首页无虚构练习数据。不包含账户、后端、支付或 General Training 题目。
+```sh
+npm run upload:media   # 有新的原卷或音频时：只上传新增文件
+npm run deploy:pages   # 改了页面、代码或题库后：重新构建 dist/ 并发布
+```
+
+- 两样都改了时，先运行 `upload:media`，再运行 `deploy:pages`。
+- 命令提示未登录时，先运行 `npx wrangler login`。
+- 加人、删人不需要运行命令，在 Cloudflare Zero Trust 的 Access 策略里修改邮箱名单即可。
+- 发布有问题时，可以在 Pages 控制台的 Deployments 里回滚到之前的版本。
+
+首次部署步骤、上传范围和限制见 [docs/CLOUDFLARE_DEPLOY.md](docs/CLOUDFLARE_DEPLOY.md)。
+
+## 数据保存
+
+练习记录、生词本和笔记保存在浏览器的 localStorage，录音保存在 IndexedDB。这些数据都不上传服务器，所以换浏览器或换设备不会同步；清理浏览器数据会把它们一起删掉。
 
 ## 验证
 
 ```sh
-npm run check
-npm test
+npm run check   # 语法检查
+npm test        # Node 与 Python 单元测试
 ```
 
-`tests/browser-check.mjs` 使用本机 Chrome 与原生 CDP，执行桌面和移动布局、完整模考、进度恢复、录音模拟、计时提交及导出检查。先启动开发服务器，再运行 `node tests/browser-check.mjs`。该测试会启动隔离的无头 Chrome，使用模拟麦克风，并把截图写入 `artifacts/`，不验证真实硬件录音质量。
+浏览器端到端测试（`tests/*.mjs`）使用本机 Chrome 和原生 CDP。运行前先 `npm start`，再执行例如 `node tests/practice-browser.mjs`。截图写入 `artifacts/`。
 
-## Cambridge PDF Importer
+## 题库导入
 
-Importer 分三阶段执行，当前只实现第一阶段 `PDF → page map`。它不会修改原 PDF，也不会立即解析所有题目。
+Cambridge PDF 的导入分几步：
+1. 生成页码映射（`npm run import:page-maps`）；
+2. 按「一个 Test + 一个科目」提取题目，写成独立 JSON；
+3. 校验，并与原卷做人工或辅助的视觉核对。
 
-剑雅 18：
+全程不使用 LLM 生成题目内容。有文字层的 PDF 直接提取文字，没有文字层时才调用本机 Tesseract OCR。
 
-```sh
-npm run import:page-map:c18
-```
-
-任意一本：
-
-```sh
-python backend/scripts/cambridge_pdf_importer.py page-map --book 19 --pdf "IELTS/你的文件.pdf" --output "resources/page-maps/cambridge-19.json"
-```
-
-处理规则：
-
-- 先检测每页是否有可用文字层；有文字层时直接提取。
-- 无文字层时才调用本机 Tesseract OCR，全程不使用 LLM。
-- 首次 OCR 的页面文本保存在 `.cache/cambridge-importer/`，该目录被 Git 忽略；JSON 只保存章节页码和短标题证据。
-- 输出同时记录书上印刷页码和从 1 开始的 PDF 页码。无法可靠推断的页码会保留为 `null`，不会猜测。
-- `needsReview` 为空表示识别到了四套 Test 的 Listening、Reading、Writing、Speaking 共 16 个区间；这仍是结构检测结果，不代表题目已经转录。
-
-已验证结果位于 `resources/page-maps/cambridge-18.json`。后续阶段应按一个 Test + 一个 Skill 读取该范围，再输出独立 JSON；不要把整本 OCR 文本加入应用数据或模型上下文。
-"# IELTS-YUNLONG" 
+导入和复核的进度、方法记录在 [docs/DATA_IMPORT_PROGRESS.md](docs/DATA_IMPORT_PROGRESS.md) 及 `docs/` 下的各份审计记录中。
