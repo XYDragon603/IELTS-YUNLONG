@@ -668,6 +668,18 @@ OCR 把判断题与匹配题的题干分错了位置：有的题空着，有的�
 - **选择题 149 题**题干只是占位的 “Question N”，页面上只能看到选项。
   - 93 题由 `backend/scripts/repair_listening_choice_stems.py` 和 `repair_listening_choice_stems_pass2.py` 从原卷文字取出，要求紧随其后的 A 选项与数据一致。
   - 56 题按原卷逐字转录。
-- **匹配题 44 组**：每组补入原卷题干说明（如 “What has each of the following volunteers helped someone to do?”）。其中 15 组的条目也是占位，已按原卷补入（共 76 题，如 C14 T3 的 Habib、Consuela 等）。另有 3 组共用选项框的选择题（C14 T1 15–20、C14 T4 8–10、C17 T4 15–20）同样补了题组说明，并把题干改为对应条目。
+- **题组说明 36 组**：33 组匹配/流程图题和 3 组共用选项框的选择题（C14 T1 15–20、C14 T4 8–10、C17 T4 15–20）补入原卷题干说明，如 “What has each of the following volunteers helped someone to do?”。
+- **匹配题条目 90 题**原为占位，已按原卷补入，如 C14 T3 的 Habib、Consuela 等。
 
 **复检**：听力中除已嵌入原卷表格、笔记或已有原卷图片的题外，占位题干为 0。每题原值保存在 `promptRepairs`/`contextRepairs`，修改前文件备份在 `backups/listening-matching-2026-10-15/`。验证器 32 套听力通过，Node 53/53、Python 58/58 及听力相关浏览器测试通过。
+
+### 十九、口语题目文字核对（2026-10-15）
+
+页面上的题卡显示的是原卷图片，但题卡文字和 Part 1/3 题目文字也会用于搜索、记录和导出，而其中 OCR 问题很多。本次逐套对照原卷（32 套）：
+
+- **Part 2 题卡文字 28 张**：混入了右侧 “You will have to talk…” 说明或识别错误（如 C19 T4 “pyecrive … ngcrul views”、C16 T4 “fete ea ange pins”）。已按题卡原图逐字转录为 “题目 / You should say: / 三个要点 / and explain…”。
+- **Part 1/3 题目 37 处**：去掉项目符号和页边字符，合并被拆行的题目，补回题组标题（如 C15 T3 的 Swimming、Famous people today）。另外补全漏题：
+  - C20 T1 Part 3 原只有 1 题，补齐 6 题；
+  - C20 T2 Part 3 原缺一题的前半句。
+
+每处原值保存在 `textRepairs`/`topicRepairs`，修改前文件备份在 `backups/speaking-cue-text-2026-10-15/`。32 套口语通过验证器，Node 53/53、Python 58/58 通过。
