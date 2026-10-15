@@ -334,3 +334,4 @@ dialog.exam-answer-card::backdrop{background:#1a1f2d33}
 .layout-form-table .form-heading th{padding:12px 12px 6px;text-align:left;font-weight:700;background:var(--soft);border-top:1px solid var(--line)}
 .layout-form-table tr:first-child>*{border-top:0}
 .layout-form-table th[scope=row]+td{border-left:1px solid var(--line)}
+.layout-source-image{margin:0 0 12px}.layout-source-image>summary{cursor:pointer;color:var(--accent-ink);font-size:13px;padding:4px 0}
