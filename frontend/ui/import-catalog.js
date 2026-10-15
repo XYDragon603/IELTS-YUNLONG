@@ -14,6 +14,8 @@ export function localPracticeEntries(){
   const drafts=[],history=[];
   try{for(let i=0;i<localStorage.length;i++){
     const key=localStorage.key(i);
+    const lh=key.match(/^ielts-c(\d+)-t([1-4])-import-preview-v1-history$/);
+    if(lh){const value=read(key);if(Array.isArray(value))for(const item of value)if(item?.id&&item.submitted)history.push({book:Number(lh[1]),test:Number(lh[2]),skill:'listening',title:`Cambridge ${lh[1]} · Test ${lh[2]} · 听力`,href:`/import-preview.html?book=${lh[1]}&test=${lh[2]}&attempt=${encodeURIComponent(item.id)}`,date:item.submitted});continue;}
     const listening=key.match(/^ielts-c(\d+)-t([1-4])-import-preview-v1$/);
     if(listening){const s=read(key);if(s?.answers&&!s.submitted&&Object.keys(s.answers).length)drafts.push({book:Number(listening[1]),test:Number(listening[2]),skill:'listening',answered:Object.keys(s.answers).length,savedAt:Number(s.savedAt)||0,title:`Cambridge ${listening[1]} · Test ${listening[2]} · 听力预览`,href:`/import-preview.html?book=${listening[1]}&test=${listening[2]}`});continue;}
     const m=key.match(/^ielts-practice-v1-c(\d+)-t([1-4])-(reading|writing|speaking)(-history)?$/);if(!m)continue;
@@ -38,6 +40,8 @@ export async function mountCatalog(){
   const book=Number(host.dataset.bookNumber),test=Number(host.dataset.testNumber);
   try{
     const response=await fetch('/api/catalog');if(!response.ok)throw new Error();const result=await response.json();
+    // Also hold this book when an already-running server still has the previous catalog module cached.
+    result.entries=result.entries.map(e=>e.book===12?{...e,status:'missing-resource',available:false,issues:['按要求暂留空，等待可靠原卷']}:e);
     if(!host.isConnected)return;
     const entries=result.entries.filter(e=>!book||e.book===book&&e.test===test);
     const imported=result.entries.filter(e=>e.status!=='not-imported');
@@ -48,25 +52,26 @@ export async function mountCatalog(){
     host.innerHTML=`<h2 ${book?'':'class="sr-only"'}>${book?`Test ${test} · 四科状态`:'在线题库'}</h2>${book?note:''}<div class="catalog-filters">${book?'':`<label>册次<select data-filter="book"><option value="">全部册次</option>${Array.from({length:17},(_,i)=>20-i).map(b=>`<option>${b}</option>`).join('')}</select></label>`}<label>科目<select data-filter="skill"><option value="">全部科目</option>${Object.entries(labels).map(([id,label])=>`<option value="${id}">${label}</option>`).join('')}</select></label><label>状态<select data-filter="status"><option value="imported">已导入</option><option value="">全部状态</option><option value="needs-review">待核对</option><option value="ready">已核对</option><option value="missing-resource">资料缺失</option><option value="not-imported">尚未导入</option></select></label><button class="btn" data-refresh>刷新题库</button></div><div data-catalog-list></div>${book?'':`<div class="catalog-note">${note}</div>`}`;
     if(book)host.querySelector('[data-filter=status]').value='';
     const progress=e=>{
-      const key=`ielts-practice-v1-c${e.book}-t${e.test}-${e.skill}`;
-      const s=read(e.skill==='listening'?`ielts-c${e.book}-t${e.test}-import-preview-v1`:key);
+      const key=e.skill==='listening'?`ielts-c${e.book}-t${e.test}-import-preview-v1`:`ielts-practice-v1-c${e.book}-t${e.test}-${e.skill}`;
+      const s=read(key);
       const history=read(key+'-history');const count=Array.isArray(history)?history.length:0;
       const answered=s?.answers?Object.values(s.answers).filter(v=>Array.isArray(v)?v.length:String(v||'').trim()).length:0;
-      const historyHref=count?`/practice.html?book=${e.book}&test=${e.test}&skill=${e.skill}&attempt=${encodeURIComponent(history[0].id)}`:'';
+      const historyHref=count?`${e.skill==='listening'?`/import-preview.html?book=${e.book}&test=${e.test}`:`/practice.html?book=${e.book}&test=${e.test}&skill=${e.skill}`}&attempt=${encodeURIComponent(history[0].id)}`:'';
       return {submitted:Boolean(s?.submitted),answered,count,historyHref};
     };
     const row=e=>{
       const p=progress(e);
       const action=p.submitted?'查看本次记录':p.answered?'继续练习':'进入练习';
-      return `<article class="catalog-row" data-entry="${e.book}-${e.test}-${e.skill}"><div><strong>Cambridge ${e.book} · Test ${e.test} · ${labels[e.skill]}</strong><small><i class="status-dot ${e.status}"></i>${statuses[e.status]}${p.answered?` · 已保存 ${p.answered} 项作答`:''}</small>${e.issues.length?`<small>${esc([...new Set(e.issues)].join('；'))}</small>`:''}</div><div class="catalog-actions">${e.available?`<a class="btn primary" href="${esc(e.href)}">${action}</a>`:'<span class="hint">暂不可进入</span>'}${p.count?`<a class="text-btn" href="${p.historyHref}">历史 ${p.count} 次 ↗</a>`:''}</div></article>`;
+      return `<article class="catalog-row" data-entry="${e.book}-${e.test}-${e.skill}"><div><strong>Cambridge ${e.book} · Test ${e.test} · ${labels[e.skill]}</strong><small><i class="status-dot ${e.status}"></i>${statuses[e.status]}${p.answered?` · 已保存 ${p.answered} 项作答`:''}</small>${e.issues.length?`<small>${esc([...new Set(e.issues)].join('；'))}</small>`:''}</div><div class="catalog-actions">${e.available?`<a class="btn primary" href="${esc(e.href)}">${action}</a>`:'<span class="hint">暂不可进入</span>'}${redo(e,p)}${p.count?`<a class="text-btn" href="${p.historyHref}">历史 ${p.count} 次 ↗</a>`:''}</div></article>`;
     };
+    const redo=(e,p)=>e.available&&p.submitted?`<a class="btn small catalog-restart" href="${esc(e.href)}&new=1" title="旧记录会保留在练习历史中">重新练习</a>`:'';
     const dot=e=>e.status==="needs-review"&&!ready?"":`<i class="status-dot ${e.status}"></i>`;
     const cell=e=>{
       if(!e)return '<span class="shelf-cell empty" aria-hidden="true">—</span>';
       const p=progress(e),title=`${labels[e.skill]} · ${statuses[e.status]}${e.issues.length?' · '+[...new Set(e.issues)].join('；'):''}`;
       if(!e.available)return `<span class="shelf-cell locked" data-entry="${e.book}-${e.test}-${e.skill}" title="${esc(title)}"><i class="status-dot ${e.status}"></i>${e.status==='not-imported'?'未导入':'暂不可用'}</span>`;
       const label=p.submitted?'已提交':p.answered?`继续 · ${p.answered}`:'开始';
-      return `<span class="shelf-cell${p.submitted?' done':p.answered?' active':''}" data-entry="${e.book}-${e.test}-${e.skill}"><a href="${esc(e.href)}" title="${esc(title)}" aria-label="Test ${e.test} ${esc(title)} · ${label}">${dot(e)}${label}</a>${p.count?`<a class="shelf-history" href="${p.historyHref}">历史 ${p.count}</a>`:''}</span>`;
+      return `<span class="shelf-cell${p.submitted?' done':p.answered?' active':''}" data-entry="${e.book}-${e.test}-${e.skill}"><a href="${esc(e.href)}" title="${esc(title)}" aria-label="Test ${e.test} ${esc(title)} · ${label}">${dot(e)}${label}</a>${redo(e,p)}${p.count?`<a class="shelf-history" href="${p.historyHref}">历史 ${p.count}</a>`:''}</span>`;
     };
     const SELECT_KEY='ielts-library-selection';
     const remembered=()=>{try{return JSON.parse(localStorage.getItem(SELECT_KEY))||{};}catch{return {};}};
@@ -92,14 +97,14 @@ export async function mountCatalog(){
         const p=progress(e);
         if(!e.available)return `<td class="book-cell locked" data-entry="${e.book}-${e.test}-${e.skill}"><span>${e.status==='not-imported'?'未导入':'暂不可用'}</span></td>`;
         const label=p.submitted?'已提交':p.answered?'继续':'开始练习';
-        return `<td class="book-cell${p.submitted?' done':p.answered?' active':''}" data-entry="${e.book}-${e.test}-${e.skill}"><a class="btn small${p.answered&&!p.submitted?' primary':''}" href="${esc(e.href)}" aria-label="Test ${e.test} ${labels[e.skill]} · ${label}">${label}</a>${dot(e)?`<span class="cell-status">${dot(e)}${statuses[e.status]}</span>`:''}${p.count?`<a class="shelf-history" href="${p.historyHref}">历史 ${p.count}</a>`:''}</td>`;
+        return `<td class="book-cell${p.submitted?' done':p.answered?' active':''}" data-entry="${e.book}-${e.test}-${e.skill}"><a class="btn small${p.answered&&!p.submitted?' primary':''}" href="${esc(e.href)}" aria-label="Test ${e.test} ${labels[e.skill]} · ${label}">${label}</a>${dot(e)?`<span class="cell-status">${dot(e)}${statuses[e.status]}</span>`:''}${redo(e,p)}${p.count?`<a class="shelf-history" href="${p.historyHref}">历史 ${p.count}</a>`:''}</td>`;
       };
       const table=`<table class="book-table"><thead><tr><th scope="col">试卷</th>${columns.map(s=>`<th scope="col"><span class="th-skill">${icon(icons[s])}${labels[s]}</span></th>`).join('')}</tr></thead><tbody>${tests.map(t=>`<tr${t===test?' class="is-selected"':''}><th scope="row"><button type="button" data-pick-test="${t}" aria-pressed="${t===test}">Test ${t}</button></th>${columns.map(s=>tableCell(own.find(e=>e.test===t&&e.skill===s))).join('')}</tr>`).join('')}</tbody></table>`;
       const res=getTestResources(selected,test);
       const audio=res&&Object.values(res.audio||{})[0];
       const side=`<aside class="test-panel" aria-label="Test ${test} 资料与进度"><h3>Test ${test} · 资料与进度</h3><ul>${Object.keys(labels).map(s=>{const e=own.find(x=>x.test===test&&x.skill===s);const p=e&&progress(e);
         const action=!e||!e.available?'<span class="hint">暂不可用</span>':`<a class="btn small${p.answered&&!p.submitted?' primary':''}" href="${esc(p.submitted&&p.historyHref?p.historyHref:e.href)}">${p.submitted?'查看记录':p.answered?'继续练习':'开始练习'}</a>`;
-        return `<li>${icon(icons[s])}<span>${labels[s]}</span>${action}<span class="cell-status">${e&&dot(e)?`${dot(e)}${statuses[e.status]}`:p?.answered&&!p.submitted?`已作答 ${p.answered}`:''}</span></li>`;}).join('')}</ul>
+        return `<li>${icon(icons[s])}<span>${labels[s]}</span>${action}${e&&p?redo(e,p):""}<span class="cell-status">${e&&dot(e)?`${dot(e)}${statuses[e.status]}`:p?.answered&&!p.submitted?`已作答 ${p.answered}`:''}</span></li>`;}).join('')}</ul>
         <a class="btn primary test-enter" href="#library/${selected}/${test}">进入练习 ${icon('arrow')}</a>
         <div class="test-resources">${res?.documents?.[0]?`<a href="${esc(res.documents[0].url)}" target="_blank" rel="noopener">${icon('doc')}<span>原卷 PDF</span>↗</a>`:''}${audio?`<a href="${esc(audio.url)}" target="_blank" rel="noopener">${icon('headphones')}<span>配套音频</span>↗</a>`:''}</div></aside>`;
       const missing=missingBooks.length&&!bookFilter?`<p class="hint shelf-missing">第 ${bookRanges(missingBooks)} 册尚未导入在线题目，可在下方“原卷与音频”中打开 PDF 练习。</p>`:'';

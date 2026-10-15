@@ -4,7 +4,7 @@ export function mockRuns(storage=localStorage){const raw=storage.getItem(MOCK_KE
 export function mockPaperOptions(entries){
  const papers=new Map();
  for(const entry of entries){const key=`${entry.book}-${entry.test}`;if(!papers.has(key))papers.set(key,{book:entry.book,test:entry.test,skills:{}});papers.get(key).skills[entry.skill]=entry;}
- return [...papers.values()].map(paper=>({...paper,available:MOCK_SKILLS.every(skill=>paper.skills[skill]?.available),verified:MOCK_SKILLS.every(skill=>paper.skills[skill]?.status==='ready')})).sort((a,b)=>b.book-a.book||a.test-b.test);
+ return [...papers.values()].map(paper=>({...paper,available:paper.book!==12&&MOCK_SKILLS.every(skill=>paper.skills[skill]?.available),verified:MOCK_SKILLS.every(skill=>paper.skills[skill]?.status==='ready')})).sort((a,b)=>b.book-a.book||a.test-b.test);
 }
 export function createMockRun(storage=localStorage,selection={book:18,test:1}){const {book,test}=selection;if(!Number.isInteger(book)||!Number.isInteger(test)||book<4||book>20||test<1||test>4)throw Error('试卷编号无效');const run={id:crypto.randomUUID(),book,test,source:'imported',created:new Date().toISOString()};storage.setItem(MOCK_KEY,JSON.stringify([run,...mockRuns(storage)]));return run;}
 export function listeningRunKey(run){return `ielts-c${run.book}-t${run.test}-import-preview-v1-mock-${run.id}`;}

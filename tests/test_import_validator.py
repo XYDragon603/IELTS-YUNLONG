@@ -473,6 +473,16 @@ class TestImportValidatorNegative(unittest.TestCase):
         failed = {c["name"] for c in res["checks"] if not c["passed"]}
         self.assertIn("reading_assets_verified", failed)
 
+    def test_rejects_missing_reading_continuation_image(self):
+        data = json.loads((C18_T1_DIR / "reading.json").read_text(encoding="utf-8"))
+        group = data["passages"][0]["groups"][1]
+        first = group.pop("asset")
+        group["assets"] = [first, {**first, "asset": "./assets/missing-continuation.png"}]
+        test_file = self.temp_path / "reading.json"
+        test_file.write_text(json.dumps(data), encoding="utf-8")
+        failed = {c["name"] for c in validate_reading(test_file)["checks"] if not c["passed"]}
+        self.assertIn("reading_assets_verified", failed)
+
     def test_rejects_fake_human_verification(self):
         data = json.loads((C18_T1_DIR / "reading.json").read_text(encoding="utf-8"))
         # Tamper curation reviewMethod to invalid value

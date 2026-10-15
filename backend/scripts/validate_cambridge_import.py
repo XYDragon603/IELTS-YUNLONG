@@ -524,8 +524,8 @@ def validate_reading(reading_path: Path) -> dict:
     asset_details = []
     for p in passages:
         for g in p.get("groups", []):
-            if "asset" in g:
-                ok, msg = check_asset(workspace, g["asset"], skill_dir)
+            for asset in g.get("assets", [g["asset"]] if "asset" in g else []):
+                ok, msg = check_asset(workspace, asset, skill_dir)
                 asset_details.append(msg)
                 if not ok:
                     assets_ok = False

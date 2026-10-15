@@ -73,7 +73,7 @@ try {
   await waitFor('document.querySelector(".studio-nav [aria-current=page]")?.getAttribute("href")==="/review.html"');
   await send('Page.navigate',{url:'http://127.0.0.1:4173/mock.html'});
   await waitFor('Boolean(document.querySelector("#new-mock"))');
-  assert.ok(await evaluate('document.querySelector("#mock-main").textContent.includes("36 / 68")'));
+  assert.ok(await evaluate('document.querySelector("#mock-main").textContent.includes("32 / 68")'));
   assert.ok(await evaluate('[...document.querySelector("#mock-paper").options].some(o=>o.value==="20-4"&&!o.disabled)'));
   assert.ok(await evaluate('[...document.querySelector("#mock-paper").options].some(o=>o.value==="4-1"&&o.disabled)'));
   await screenshot('mock-selector.png');

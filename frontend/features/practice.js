@@ -33,7 +33,7 @@ function promptText(q){const text=String(q.prompt||'').replace(new RegExp(`^\\s*
 // PDF line breaks inside a sentence (next line starts lower-case or with a digit) are shown as spaces.
 function flowText(text){return String(text||'').replace(/([^.!?:\n])\n(?=[a-z0-9(])/g,'$1 ');}
 function groups(){return skill==='reading'?data.passages:skill==='writing'?data.tasks:data.parts;}
-function img(asset){return asset?`<img class="practice-asset" src="${esc(assetURL(base,asset.asset))}" alt="${esc(asset.alt||'原卷图片')}" loading="lazy">`:'';}
+function img(asset){return asset?`<img class="practice-asset" src="${esc(assetURL(base,asset.asset))}" alt="${esc(asset.alt||'原卷图片')}" loading="lazy">${asset.sourcePdfPage?sourceLink({pdfPage:asset.sourcePdfPage}):''}`:'';}
 function sourceLink(source){return source?.pdfPage&&data.sources?.paper?.path?`<a class="text-btn" href="${esc(localResourceURL(data.sources.paper.path))}#page=${source.pdfPage}" target="_blank" rel="noopener">原卷第 ${source.pdfPage} 页 ↗</a>`:'';}
 const JUDGEMENTS={'true-false-not-given':['TRUE','FALSE','NOT GIVEN'],'yes-no-not-given':['YES','NO','NOT GIVEN']};
 function input(q,group){
@@ -46,9 +46,10 @@ function input(q,group){
   const options=q.options||group.options||[];
   return `<section class="practice-q" id="question-${esc(q.id)}">${flag}<label for="answer-${esc(q.id)}"><strong><span class="sr-only">第 </span>${q.number}<span class="sr-only"> 题</span></strong> ${esc(promptText(q))}</label>${options.length?`<select id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" ${state.submitted?'disabled':''}><option value="">选择答案</option>${options.map(o=>`<option value="${esc(o.value)}" ${state.answers[q.id]===o.value?'selected':''}>${esc(o.value)} · ${esc(o.label)}</option>`).join('')}</select>`:`<input id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${esc(state.answers[q.id]||'')}" ${state.submitted?'disabled':''} autocomplete="off" spellcheck="false">`}</section>`;
 }
+function groupAssets(group){return group.assets||(group.asset?[group.asset]:[]);}
 function questionRange(passage){const n=(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>Number(q.number)).filter(Number.isFinite);return n.length?`Questions ${Math.min(...n)}–${Math.max(...n)}`:'Questions';}
 function reading(passage){
-  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>${questionRange(passage)}</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>`<section><h3>Questions ${g.questionRange.join('–')}</h3>${g.asset?`<figure class="practice-group-asset">${img(g.asset)}${sourceLink(g.source)}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
+  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>${questionRange(passage)}</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>`<section><h3>Questions ${g.questionRange.join('–')}</h3>${groupAssets(g).length?`<figure class="practice-group-asset">${groupAssets(g).map(img).join('')}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
 }
 const SELF_CHECKS={
   task1:['概述了主要趋势或特征','选取了关键数据并做比较','没有加入个人观点或原因推测','达到至少 150 词'],
@@ -106,8 +107,8 @@ async function render(){
     ${skill==='reading'&&readingItems(data).length!==40?`<p class="practice-warning">当前导入 ${readingItems(data).length} 个题目记录，完整卷应有 40 个计分点；资料补齐后刷新即可加载。</p>`:''}
     <nav class="practice-tabs" aria-label="练习分段">${items.map((p,i)=>`<button class="btn" data-index="${i}" aria-pressed="${i===state.index}">${skill==='reading'?'Passage':skill==='writing'?'Task':'Part'} ${p.number||p.part||i+1}</button>`).join('')}</nav>
     ${skill==='reading'?reading(item):skill==='writing'?writing(item):speaking(item)}
-    <div class="practice-actions"><button class="btn primary" id="submit-practice" ${state.submitted?'disabled':''}>${state.submitted?'本次已提交':'提交本次练习'}</button><button class="btn" id="export-practice">导出记录</button></div>${review()}${mockRun?'<p><a class="btn primary" href="/mock.html">返回整套进度 / 继续下一科</a></p>':''}
-    <div class="practice-actions">${historyId?`<a class="btn primary" href="/practice.html?book=${book}&test=${test}&skill=${skill}">返回当前练习</a>`:state.submitted&&!mockRun?'<button class="btn" id="restart-practice">重新练习（保留旧记录）</button>':''}</div>${historyView()}`;
+    <div class="practice-actions">${state.submitted&&!historyId&&!mockRun?'<button class="btn primary" id="restart-practice">重新练习</button>':`<button class="btn primary" id="submit-practice" ${state.submitted?'disabled':''}>${state.submitted?'本次已提交':'提交本次练习'}</button>`}<button class="btn" id="export-practice">导出记录</button></div>${review()}${mockRun?'<p><a class="btn primary" href="/mock.html">返回整套进度 / 继续下一科</a></p>':''}
+    ${historyId?`<div class="practice-actions"><a class="btn primary" href="/practice.html?book=${book}&test=${test}&skill=${skill}">返回当前练习</a></div>`:''}${historyView()}`;
   refreshCounters();
   if(skill==='reading')disposeReadingTools=mountReadingTools({passage:item,index:state.index,state,save,message});
   mountExamWorkspace({skill,book,test,state,items,onNavigate:async index=>{state.index=index;save();await render();}});
@@ -214,6 +215,7 @@ window.addEventListener('beforeunload',e=>{if(pendingMic||recorder?.state==='rec
 window.addEventListener('pagehide',()=>{if(recorder?.state==='recording')recorder.stop();stream?.getTracks().forEach(t=>t.stop());if(data){pausePractice(state);save();}});
 mountExamHeader({book,test,skill,mockRunId:mockRun?.id});
 try{
+  if(book===12)throw new Error('剑雅 12 按要求暂留空，等待可靠原卷后再开放。');
   if(mockError)throw mockError;
   if(historyId){
     archiveEntry=historyEntries(key).find(e=>e.id===historyId);
@@ -222,7 +224,8 @@ try{
   }else{
     const response=await fetch(base+skill+'.json');if(!response.ok)throw new Error('本套资料尚未导入');data=await response.json();
     if(data.book!==book||data.test!==test||data.skill!==skill)throw new Error('试卷信息不匹配');
-    if(state.submitted){archivePractice(key,state,data);archiveEntry=historyEntries(key).find(e=>e.id===state.attemptId);data=archiveEntry.paper;}
+    if(state.submitted){archivePractice(key,state,data);if(params.get('new')==='1'&&!mockRun){state=newPractice(skill,key);}else{archiveEntry=historyEntries(key).find(e=>e.id===state.attemptId);data=archiveEntry.paper;}}
+    if(params.has('new')){params.delete('new');history.replaceState(null,'',location.pathname+'?'+params);}
     save();
   }
   await render();

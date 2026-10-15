@@ -10,6 +10,7 @@ test('catalog discovers new imports and refuses missing assets and invalid JSON'
   const dir=path.join(root,'resources/cambridge/c18/test-2');await mkdir(dir,{recursive:true});
   const find=c=>c.entries.find(e=>e.book===18&&e.test===2&&e.skill==='writing');
   assert.equal(find(await buildCatalog(root)).status,'not-imported');
+  const held=(await buildCatalog(root)).entries.filter(e=>e.book===12);assert.equal(held.length,16);assert.ok(held.every(e=>!e.available&&e.issues.some(i=>i.includes('暂留空'))));
   const data={schemaVersion:1,book:18,test:2,skill:'writing',verified:true,status:'ready',tasks:[{number:1,prompt:'Write',assets:[]}],needsReview:[]};
   await writeFile(path.join(dir,'writing.json'),JSON.stringify(data));
   assert.equal(find(await buildCatalog(root)).available,true);

@@ -86,7 +86,10 @@ try {
   assert.equal(await evaluate('document.querySelector("#essay").value'),'New attempt draft');
   await reset('reading');
   await screenshot('studio-reading-desktop.png');
-  assert.equal(await evaluate('getComputedStyle(document.querySelector(".practice-reading .practice-editor")).overflowY'),'auto');
+  // Desktop reading: the passage stays in view and scrolls on its own; the questions scroll with the page.
+  assert.equal(await evaluate('getComputedStyle(document.querySelector(".practice-reading .practice-paper")).position'),'sticky');
+  assert.equal(await evaluate('getComputedStyle(document.querySelector(".practice-reading .practice-paper")).overflowY'),'auto');
+  assert.equal(await evaluate('getComputedStyle(document.querySelector(".practice-reading .practice-editor")).overflowY'),'visible');
   await click('#answer-card-toggle');
   assert.equal(await evaluate('document.querySelector(".exam-answer-card").open'),true);
   await click('[data-question-jump][data-passage-index="1"]');
@@ -131,7 +134,7 @@ try {
   await waitFor('Boolean(document.querySelector("#restart-practice"))');
   const oldSpeakingURL=await evaluate('document.querySelector(".history-row").href');
   await click('#restart-practice');
-  await waitFor('!document.querySelector("#submit-practice").disabled');
+  await waitFor('document.querySelector("#submit-practice")&&!document.querySelector("#submit-practice").disabled');
   await click('[data-index="1"]');
   await sleep(100);
   assert.equal(await evaluate('Boolean(document.querySelector("#record-player audio"))'),false);
@@ -171,7 +174,7 @@ try {
     assert.equal(await evaluate('document.documentElement.scrollWidth <= innerWidth'),true);
     console.log('PASS: live catalog API, four-skill detail, filtering, home resume link, mobile layout.');
   }
-  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=15&test=1&skill=reading'});
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=15&test=1&skill=reading&new=1'});
   await waitFor('Boolean(document.querySelector("#submit-practice"))');
   await click('#submit-practice');
   await click('#practice-submit button[value="submit"]');

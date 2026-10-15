@@ -10,7 +10,7 @@ export function mountExamWorkspace({skill,book,test,state,items,onNavigate}){
   intro.querySelector('h1').textContent=skill==='reading'&&current?.title?current.title:`Cambridge ${book} · Test ${test}`;
   intro.querySelector('.eyebrow').textContent=`${skill.toUpperCase()} PRACTICE`;
   const actions=document.createElement('div');actions.className='exam-top-actions';
-  const submit=main.querySelector('#submit-practice');
+  const submit=main.querySelector('#restart-practice,#submit-practice');if(submit.id==='restart-practice')submit.title='旧记录会保留在练习历史中';
   actions.append(submit);intro.append(actions);
   const warnings=[...main.querySelectorAll(':scope > .practice-warning')];
   if(warnings.length){const details=document.createElement('details');details.className='exam-data-note';const summary=document.createElement('summary');const unverified=warnings.some(w=>w.hasAttribute('data-unverified'));details.classList.toggle('unverified',unverified);summary.textContent=unverified?'资料待核对 · 题干可能有识别错误':'练习资料说明';details.append(summary,...warnings);intro.querySelector('h1').after(details);}
@@ -22,7 +22,7 @@ export function mountExamWorkspace({skill,book,test,state,items,onNavigate}){
     const details=document.createElement('details');details.className='exam-reading-options';
     const summary=document.createElement('summary');summary.textContent='阅读工具 · 字号 / 高亮';
     const panel=document.createElement('div');panel.className='exam-tools-panel';
-    [...toolbar.children].filter(el=>el!==tabs).forEach(el=>panel.append(el));details.append(summary,panel);toolbar.append(details);
+    [...toolbar.children].filter(el=>el!==tabs&&!el.matches('.reading-notes-toggle')).forEach(el=>panel.append(el));details.append(summary,panel);toolbar.append(details);
     const sectionBar=document.createElement('div');sectionBar.className='exam-section-bar';
     const sections=main.querySelector('.practice-tabs');sections.before(sectionBar);sectionBar.append(sections,toolbar);
   }

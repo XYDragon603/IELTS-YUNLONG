@@ -8,6 +8,7 @@ export async function buildCatalog(root){
     await Promise.all(skills.map(async skill=>{
       const directory=path.join(root,`resources/cambridge/c${book}/test-${test}`);
       const entry={book,test,skill,status:'not-imported',available:false,issues:[]};
+      if(book===12){entry.status='missing-resource';entry.issues.push('按要求暂留空，等待可靠原卷');entries.push(entry);return;}
       let data;
       try{data=JSON.parse(await readFile(path.join(directory,skill+'.json'),'utf8'));}
       catch(error){if(error.code!=='ENOENT'){entry.status='needs-review';entry.issues.push('文件正在写入或 JSON 格式无效');}entries.push(entry);return;}
