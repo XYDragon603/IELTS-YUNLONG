@@ -1,0 +1,12 @@
+# 剑雅 13–20 阅读题排版与原卷复核（2026-10-15）
+
+范围：32 套 Reading，共 1,280 题。剑雅 12 保持原状，本次未导入或修改。
+
+- 99 个需在原文中作答的填空/摘要/表格/流程题组现有行内布局，覆盖 491 个题号；每组题号与答框逐一对应。原先 42 个仅靠 OCR 上下文生成的草稿布局已逐页对照本地原卷截图并校订，现 99 组均记录 `assistant-visual` 原卷页码。
+- 拆出了 OCR 拼入正文的词库，补齐剑雅 16 Test 2 第 17–20、31–35 题等词库摘要的 A–H / A–J 选项；修复笔记题的标题、分行、标点与个别专名。
+- 7 组“段落标题配对”题按原卷恢复完整的罗马数字标题列表和 A–H 等段落编号；剑雅 20 Test 2 第 24 题恢复与第 23 题共用的完整双选题干。
+- 非行内题组共 789 题，自动检查未发现空题干、异常控制字符、题干包含相邻题或明显过长的 OCR 残留。自动检查不能代替逐题视觉比对，故不将这 789 题宣称为全部逐页核准。
+
+验证：`python backend/scripts/audit_reading_completion_groups.py`、`python backend/scripts/audit_reading_question_text.py`、`python -m unittest tests.test_reading_inline_layouts`、`npm run check`、`npm test` 和 `node tests/practice-browser.mjs` 均通过。浏览器抽测覆盖行内答框、词库下拉、段落标题列表及题号。
+
+本记录只说明阅读题的呈现与题干复核；参考答案、听力/写作/口语及整套试卷的 `verified` 状态仍按各自的数据审核流程处理。

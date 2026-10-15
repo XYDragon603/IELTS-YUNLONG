@@ -12,6 +12,7 @@ import { localResourceURL } from '../lib/imported-listening.js';
 import { exactReadingExcerpt, renderSynonymNotes, saveSynonymWord } from '../lib/synonym-notes.js';
 import { addReviewItem, createReadingReviewItem } from '../lib/review-queue.js';
 import { renderLayout, layoutBlanks } from '../lib/listening-layouts.js';
+import { withCurrentPracticeImages } from '../lib/practice-images.js';
 
 const params=new URLSearchParams(location.search);
 const skill=['reading','writing','speaking'].includes(params.get('skill'))?params.get('skill'):'reading';
@@ -27,14 +28,14 @@ let archiveEntry=null, disposeReadingTools=()=>{};
 const names={reading:'阅读',writing:'写作',speaking:'口语'};
 const main=document.querySelector('#practice-main');
 const notice=document.querySelector('#practice-notice');
-let readingLayouts=[],data,state=identifyPractice(loadPractice(key,skill),key),recorder,stream,pendingMic=false,finishingRecording=false,stopPromise,recordURL,recordBlob,renderToken=0;
+let readingLayouts=[],data,latestPaper,imagesUpdated=false,state=identifyPractice(loadPractice(key,skill),key),recorder,stream,pendingMic=false,finishingRecording=false,stopPromise,recordURL,recordBlob,renderToken=0;
 const message=text=>{notice.textContent=text;};
 function save(){if(historyId)return true;try{state.savedAt=Date.now();localStorage.setItem(key,JSON.stringify(state));document.querySelector('#save-status')?.replaceChildren(document.createTextNode('已保存至本机'));return true;}catch{message('本地保存失败，请导出记录并保持页面打开。');return false;}}
 function promptText(q){const text=String(q.prompt||'').replace(new RegExp(`^\\s*${Number(q.number)}[.)]?\\s+`),'');return text||'请对照上方题组或原图填写对应空格。';}
 // PDF line breaks inside a sentence (next line starts lower-case or with a digit) are shown as spaces.
 function flowText(text){return String(text||'').replace(/([^.!?:\n])\n(?=[a-z0-9(])/g,'$1 ');}
 function groups(){return skill==='reading'?data.passages:skill==='writing'?data.tasks:data.parts;}
-function img(asset){return asset?`<img class="practice-asset" src="${esc(assetURL(base,asset.asset))}" alt="${esc(asset.alt||'原卷图片')}" loading="lazy">${asset.sourcePdfPage?sourceLink({pdfPage:asset.sourcePdfPage}):''}`:'';}
+function img(asset){return asset?`<a href="${esc(assetURL(base,asset.asset))}" target="_blank" rel="noopener" aria-label="查看完整原图：${esc(asset.alt||'原卷图片')}"><img class="practice-asset" src="${esc(assetURL(base,asset.asset))}" alt="${esc(asset.alt||'原卷图片')}" loading="lazy"></a>${asset.sourcePdfPage?sourceLink({pdfPage:asset.sourcePdfPage}):''}`:'';}
 function sourceLink(source){return source?.pdfPage&&data.sources?.paper?.path?`<a class="text-btn" href="${esc(localResourceURL(data.sources.paper.path))}#page=${source.pdfPage}" target="_blank" rel="noopener">原卷第 ${source.pdfPage} 页 ↗</a>`:'';}
 const JUDGEMENTS={'true-false-not-given':['TRUE','FALSE','NOT GIVEN'],'yes-no-not-given':['YES','NO','NOT GIVEN']};
 // Some imported groups are typed "unclassified"; recognise judgement groups by their instructions or, failing that, their answer keys.
@@ -63,19 +64,33 @@ function groupAssets(group){return group.assets||(group.asset?[group.asset]:[]);
 // A transcribed table is used only when its blanks are exactly this group's questions and all of them are typed answers.
 function groupLayout(group){
   const qs=group.questions||[],numbers=qs.map(q=>Number(q.number));
-  if(!qs.length||judgementOf(group)||qs.some(q=>(q.options||group.options||[]).length))return null;
+  if(!qs.length||judgementOf(group))return null;
   return readingLayouts.find(l=>{const blanks=layoutBlanks(l);return blanks.length===numbers.length&&new Set(blanks).size===blanks.length&&numbers.every(n=>blanks.includes(n));})||null;
 }
 function layoutGroup(group,layout){
   const byNumber=new Map(group.questions.map(q=>[Number(q.number),q]));
-  const blank=n=>{const q=byNumber.get(n);return `<span class="layout-blank" id="question-${esc(q.id)}"><label class="sr-only" for="answer-${esc(q.id)}">第 ${n} 题</label><input id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${esc(state.answers[q.id]||'')}" placeholder="${n}" ${state.submitted?'disabled':''} autocomplete="off" spellcheck="false"></span>`;};
+  const blank=n=>{
+    const q=byNumber.get(n),options=q.options?.length?q.options:group.options?.length?group.options:layout.options||[];
+    const field=options.length?`<select id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" ${state.submitted?'disabled':''}><option value="">${n}</option>${options.map(o=>`<option value="${esc(o.value)}" ${state.answers[q.id]===o.value?'selected':''}>${esc(o.value)}</option>`).join('')}</select>`:`<input id="answer-${esc(q.id)}" data-answer="${esc(q.id)}" value="${esc(state.answers[q.id]||'')}" placeholder="${n}" ${state.submitted?'disabled':''} autocomplete="off" spellcheck="false">`;
+    return `<span class="layout-blank" id="question-${esc(q.id)}"><label class="sr-only" for="answer-${esc(q.id)}">第 ${n} 题</label>${field}</span>`;
+  };
   const assets=groupAssets(group);
-  return `${groupInstruction(group)}${renderLayout(layout,{blank})}${assets.length?`<details class="layout-source-image"><summary>原卷图片（对照）</summary><figure class="practice-group-asset">${assets.map(img).join('')}</figure></details>`:''}`;
+  const options=group.options?.length?group.options:layout.options||[];
+  const optionList=options.length?`<div class="layout-options" aria-label="可选答案">${options.map(o=>`<span><strong>${esc(o.value)}</strong> ${esc(o.label)}</span>`).join('')}</div>`:'';
+  return `${groupInstruction(group)}${renderLayout(layout,{blank})}${optionList}${assets.length?`<details class="layout-source-image"><summary>原卷图片（对照）</summary><figure class="practice-group-asset">${assets.map(img).join('')}</figure></details>`:sourceLink(group.source)}`;
 }
-function groupInstruction(group){const line=String(group.context||'').split('\n').find(l=>/^(Complete|Choose|Write)/.test(l.trim()));return line?`<p class="practice-muted layout-instruction">${esc(line.trim())}</p>`:'';}
+function groupInstruction(group){
+  const lines=String(group.context||'').split('\n').map(l=>l.trim()).filter(Boolean);
+  const instructions=lines.slice(0,3).filter(l=>/^(Complete|Choose|Write)/.test(l));
+  return instructions.map(line=>`<p class="practice-muted layout-instruction">${esc(line)}</p>`).join('');
+}
+function headingList(group){
+  if(group.type!=='matching-headings'||!group.options?.length)return '';
+  return `<div class="layout-options" aria-label="List of Headings">${group.options.map(o=>`<span><strong>${esc(o.value)}</strong> ${esc(o.label)}</span>`).join('')}</div>`;
+}
 function questionRange(passage){const n=(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>Number(q.number)).filter(Number.isFinite);return n.length?`Questions ${Math.min(...n)}–${Math.max(...n)}`:'Questions';}
 function reading(passage){
-  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>${questionRange(passage)}</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>groupLayout(g)?`<section><h3>Questions ${g.questionRange.join('–')}</h3>${layoutGroup(g,groupLayout(g))}</section>`:`<section><h3>Questions ${g.questionRange.join('–')}</h3>${groupAssets(g).length?`<figure class="practice-group-asset">${groupAssets(g).map(img).join('')}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
+  return `${readingToolbar(passage)}<div class="practice-grid practice-reading"><article class="practice-paper" tabindex="0" aria-label="阅读文章，可滚动"><h2>${esc(passage.title||'文章标题待整理')}</h2>${(passage.blocks||[]).map((b,i)=>readingBlock(b,i,state.index,state.readingMarks||[])).join('')}${sourceLink(passage.blocks?.[0]?.source)}</article><section class="practice-editor"><h2>${questionRange(passage)}</h2><nav class="practice-map" aria-label="本篇题号">${(passage.groups||[]).flatMap(g=>g.questions||[]).map(q=>`<a href="#question-${esc(q.id)}" data-map="${esc(q.id)}">${q.number}</a>`).join('')}</nav>${(passage.groups||[]).map(g=>groupLayout(g)?`<section><h3>Questions ${g.questionRange.join('–')}</h3>${layoutGroup(g,groupLayout(g))}</section>`:`<section><h3>Questions ${g.questionRange.join('–')}</h3>${groupAssets(g).length?`<figure class="practice-group-asset">${groupAssets(g).map(img).join('')}</figure>`:`<details ${(g.questions||[]).some(q=>!q.prompt)?'open':''}><summary>题组说明与上下文</summary><p class="practice-prose">${esc(g.context||g.instruction||'')}</p>${sourceLink(g.source)}</details>`}${headingList(g)}${(g.questions||[]).map(q=>input(q,g)).join('')}</section>`).join('')||'<p>本篇题目尚待整理，请对照原卷。</p>'}</section></div>`;
 }
 const SELF_CHECKS={
   task1:['概述了主要趋势或特征','选取了关键数据并做比较','没有加入个人观点或原因推测','达到至少 150 词'],
@@ -88,7 +103,8 @@ function selfCheck(id,kind,title){
   return `<fieldset class="self-check"><legend>${title} <small>（可选）</small></legend>${SELF_CHECKS[kind].map((label,i)=>`<label><input type="checkbox" data-self-check="${esc(id)}" value="${i}" ${done.includes(i)?'checked':''} ${historyId?'disabled':''}> ${label}</label>`).join('')}</fieldset>`;
 }
 function writing(task){
-  return `<div class="practice-grid"><article class="practice-paper"><h2>Writing Task ${task.number}</h2><p class="practice-prose">${esc(flowText(task.prompt))}</p>${(task.assets||[]).map(img).join('')}${sourceLink(task.source)}</article><section class="practice-editor"><label for="essay"><h2>Your response</h2></label><div class="practice-metrics"><span>建议至少 ${task.minimumWords||'—'} 词</span><output id="word-count">0 词</output></div><textarea id="essay" data-answer="${esc(task.id)}" ${state.submitted?'readonly':''} placeholder="Write your response here…">${esc(state.answers[task.id]||'')}</textarea>${selfCheck(task.id,Number(task.number)===1?'task1':'task2','写作自查')}<div class="essay-foot"><p class="practice-muted">草稿自动保存。提交后保留全文，不生成虚构评分。</p><button class="btn" type="button" id="export-essay">${icon('download')} 导出作文</button></div></section></div>`;
+  const assets=task.assets||[];
+  return `<div class="practice-grid"><article class="practice-paper"><h2>Writing Task ${task.number}</h2><p class="practice-prose">${esc(flowText(task.prompt))}</p>${assets.length?`<p class="practice-muted">原卷图题 · ${assets.length} 张图片${assets.length>1?'（含续页）':''} · 点击图片可查看完整原图</p>${assets.map(img).join('')}`:sourceLink(task.source)}</article><section class="practice-editor"><label for="essay"><h2>Your response</h2></label><div class="practice-metrics"><span>建议至少 ${task.minimumWords||'—'} 词</span><output id="word-count">0 词</output></div><textarea id="essay" data-answer="${esc(task.id)}" ${state.submitted?'readonly':''} placeholder="Write your response here…">${esc(state.answers[task.id]||'')}</textarea>${selfCheck(task.id,Number(task.number)===1?'task1':'task2','写作自查')}<div class="essay-foot"><p class="practice-muted">草稿自动保存。提交后保留全文，不生成虚构评分。</p><button class="btn" type="button" id="export-essay">${icon('download')} 导出作文</button></div></section></div>`;
 }
 function cueCard(card){
   if(card.asset)return img(card.asset);
@@ -127,7 +143,7 @@ async function render(){
   const items=groups(); if(!items?.length)throw new Error('本技能暂无可用内容');
   state.index=Math.max(0,Math.min(state.index,items.length-1));
   const item=items[state.index];
-  main.innerHTML=`<div class="practice-intro"><div><span class="eyebrow">CAMBRIDGE ${book} / TEST ${test}</span><h1>${names[skill]} · ${skill[0].toUpperCase()+skill.slice(1)}</h1><span id="save-status" class="practice-muted">本机草稿 · ${state.submitted?'已提交':'未提交'}</span></div><div class="practice-clock">${icon('clock')}<output id="practice-clock" aria-label="剩余时间">${formatTime(practiceRemaining(state))}</output><button class="btn" id="clock-toggle" ${state.submitted?'disabled':''}>${state.deadline?'暂停计时':'开始计时'}</button></div></div>
+  main.innerHTML=`<div class="practice-intro"><div><span class="eyebrow">CAMBRIDGE ${book} / TEST ${test}</span><h1>${names[skill]} · ${skill[0].toUpperCase()+skill.slice(1)}</h1><span id="save-status" class="practice-muted">本机草稿 · ${state.submitted?'已提交':'未提交'}${imagesUpdated?' · 图题图片已按原卷补全':''}</span></div><div class="practice-clock">${icon('clock')}<output id="practice-clock" aria-label="剩余时间">${formatTime(practiceRemaining(state))}</output><button class="btn" id="clock-toggle" ${state.submitted?'disabled':''}>${state.deadline?'暂停计时':'开始计时'}</button></div></div>
     ${!data.verified?'<p class="practice-warning" data-unverified>本卷由 OCR 自动整理，尚未人工核对。遇到缺失题干或识别异常时，请对照原卷继续练习；答案待核对的题不计为错误。</p>':''}
     ${state.legacySnapshot?'<p class="practice-warning">这是旧版练习记录。旧答案已保留，题目与参考结果在本次迁移时保存，无法还原首次提交时的题库版本。</p>':''}
     ${skill==='reading'&&readingItems(data).length!==40?`<p class="practice-warning">当前导入 ${readingItems(data).length} 个题目记录，完整卷应有 40 个计分点；资料补齐后刷新即可加载。</p>`:''}
@@ -211,7 +227,7 @@ main.addEventListener('click',async e=>{
   if(el.id==='stop-record')await stopRecording();
   if(el.id==='submit-practice'){if(pendingMic){message('请先完成麦克风授权。');return;}el.disabled=true;try{await stopRecording();await openSubmissionCheck({skill,paper:data,state,recordingStore,onNavigate:async(index,target)=>{state.index=index;save();await render();if(skill==='reading')document.querySelector('[data-reading-panel="questions"]')?.click();const input=target?document.getElementById('answer-'+target):document.querySelector(skill==='writing'?'#essay':'#record');input?.focus({preventScroll:true});input?.scrollIntoView({block:'center'});}});}finally{el.disabled=Boolean(state.submitted);}}
   if(el.id==='restart-practice'&&!historyId&&state.submitted){
-    try{archivePractice(key,state,data);const response=await fetch(base+skill+'.json');if(!response.ok)throw new Error('Unable to load current paper');const latest=await response.json();if(latest.skill!==skill||latest.book!==book||latest.test!==test)throw new Error('Paper identity mismatch');const next=newPractice(skill,key);localStorage.setItem(key,JSON.stringify(next));state=next;data=latest;archiveEntry=null;await render();message('已开始新练习，旧记录已保留。');}catch(error){message('无法保存新练习，旧记录未替换。'+error.message);}return;
+    try{archivePractice(key,state,data);const response=await fetch(base+skill+'.json');if(!response.ok)throw new Error('Unable to load current paper');const latest=await response.json();if(latest.skill!==skill||latest.book!==book||latest.test!==test)throw new Error('Paper identity mismatch');const next=newPractice(skill,key);localStorage.setItem(key,JSON.stringify(next));state=next;data=latest;imagesUpdated=false;archiveEntry=null;await render();message('已开始新练习，旧记录已保留。');}catch(error){message('无法保存新练习，旧记录未替换。'+error.message);}return;
   }
   if(el.id==='export-essay'){
     const task=groups()[state.index],text=String(state.answers[task.id]||'');
@@ -247,13 +263,15 @@ try{
     archiveEntry=historyEntries(key).find(e=>e.id===historyId);
     if(!archiveEntry)throw new Error('未找到这次练习记录');
     data=archiveEntry.paper;state=structuredClone(archiveEntry.session);
+    try{const response=await fetch(base+skill+'.json');if(response.ok)latestPaper=await response.json();}catch{}
   }else{
-    const response=await fetch(base+skill+'.json');if(!response.ok)throw new Error('本套资料尚未导入');data=await response.json();
+    const response=await fetch(base+skill+'.json');if(!response.ok)throw new Error('本套资料尚未导入');data=await response.json();latestPaper=data;
     if(skill==='reading'){try{const r=await fetch(base+'reading-layouts.json');const file=r.ok?await r.json():null;if(file?.book===book&&file?.test===test&&file.source?.sha256===data.sources?.paper?.sha256&&Array.isArray(file.layouts))readingLayouts=file.layouts;}catch{}}
     if(data.book!==book||data.test!==test||data.skill!==skill)throw new Error('试卷信息不匹配');
     if(state.submitted){archivePractice(key,state,data);if(params.get('new')==='1'&&!mockRun){state=newPractice(skill,key);}else{archiveEntry=historyEntries(key).find(e=>e.id===state.attemptId);data=archiveEntry.paper;}}
     if(params.has('new')){params.delete('new');history.replaceState(null,'',location.pathname+'?'+params);}
     save();
   }
+  if(archiveEntry){const resolved=withCurrentPracticeImages(data,latestPaper);data=resolved.paper;imagesUpdated=resolved.changed;}
   await render();
 }catch(error){main.innerHTML=`<section class="practice-paper"><h1>暂时无法打开练习</h1><p>${esc(error.message)}</p><a class="btn" href="/#library/${book}/${test}">返回题库</a></section>`;}

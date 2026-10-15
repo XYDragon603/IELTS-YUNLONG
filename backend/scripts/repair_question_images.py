@@ -50,9 +50,12 @@ def main():
             page=task['source']['pdfPage']
             # Keep complete instructions rather than a clipped line above the chart.
             box=[0,.02,.98,.98]
+            if data['book']==20 and data['test']==1:box=[.42,.17,.70,.83]
             if data['book']==20 and data['test']==4:box=[.18,.02,.92,.98]
+            alt=(f'Cambridge {data["book"]} Test {data["test"]} Writing Task 1 完整原图')
+            if data['book']==20 and data['test']==1:alt='New York City 1800–2000 总人口完整表格'
             assets=[render(doc,file,page,box,
-                           'writing-task-1-complete.png',f'Cambridge {data["book"]} Test {data["test"]} Writing Task 1 完整原图')]
+                           'writing-task-1-complete.png',alt)]
             if data['book']==20 and data['test']==3:
                 assets=[render(doc,file,23,[0,.02,.66,.98],'writing-task-1-complete.png','Little Chalfont Library：饼图、分类表和借阅数量柱状图')]
             if data['book']==20 and data['test'] in (1,2):

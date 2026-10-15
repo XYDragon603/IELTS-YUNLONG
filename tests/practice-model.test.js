@@ -5,6 +5,14 @@ test('unknown reading answers are not marked incorrect and duplicates do not add
  const data={passages:[{groups:[{questions:[{id:'q1',number:1,answer:{accepted:['TRUE']}},{id:'q2',number:2,answer:{accepted:null}},{id:'q1',number:1,answer:{accepted:['TRUE']}}]}]}]};
  const results=readingReport(data,{q1:' true '});assert.equal(results.length,2);assert.equal(results[0].correct,true);assert.equal(results[1].correct,null);
 });
+test('two-letter reading choices require two distinct correct letters',()=>{
+ const questions=[22,23].map(n=>({id:`q${n}`,number:n,answer:{accepted:['B','D']}}));
+ const data={passages:[{groups:[{type:'multiple-choice',questions}]}]};
+ assert.deepEqual(readingReport(data,{q22:'B',q23:'D'}).map(r=>r.correct),[true,true]);
+ assert.deepEqual(readingReport(data,{q22:'D',q23:'B'}).map(r=>r.correct),[true,true]);
+ assert.deepEqual(readingReport(data,{q22:'B',q23:'B'}).map(r=>r.correct),[true,false]);
+ assert.deepEqual(readingReport(data,{q22:'A',q23:'B'}).map(r=>r.correct),[false,true]);
+});
 test('timer pause retains exact remaining time and expires at zero',()=>{
  const s={remaining:3600,deadline:11000};assert.equal(practiceRemaining(s,2000),9);pausePractice(s,2000);assert.equal(s.deadline,null);assert.equal(practiceRemaining(s,90000),9);assert.equal(practiceRemaining({deadline:1000},2000),0);
 });

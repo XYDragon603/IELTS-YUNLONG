@@ -328,6 +328,13 @@ dialog.exam-answer-card::backdrop{background:#1a1f2d33}
 .layout-blank input::placeholder{color:var(--accent);font-weight:600;opacity:.85}
 .layout-blank input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .layout-blank input:disabled{opacity:.85}
+.practice-reading .layout-title{font-size:20px}
+.practice-reading .layout-lines p{font-size:17px;line-height:1.8}
+.practice-reading .layout-instruction{font-size:15px;margin:7px 0}
+.practice-reading .layout-blank input{font-size:16px;min-height:36px}
+.practice-reading .layout-blank select{width:6em;min-height:36px;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font-size:16px}
+.practice-reading .layout-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:7px 16px;margin:16px 0;padding:14px;border:1px solid var(--line);border-radius:10px;font:15px/1.5 var(--sans)}
+.practice-reading .layout-options strong{display:inline-block;min-width:22px;color:var(--accent-ink)}
 @media(max-width:700px){.layout-table{min-width:640px}.layout-blank input{width:7.5em}}
 .layout-form-table th[scope=row]{width:38%;padding:8px 12px;font-weight:500;text-align:left;vertical-align:top;color:var(--muted);background:none;border-bottom:0;border-top:1px solid var(--line)}
 .layout-form-table td{padding:8px 12px}

@@ -42,7 +42,7 @@ def task(row):
 
 def main():
     original=json.loads((ROOT/'artifacts/question-images-check/mapping.json').read_text(encoding='utf-8'))
-    rows=[r for r in original['images'] if r['skill'] in ('listening','reading','writing')]
+    rows=[r for r in original['images'] if r['skill'] in ('listening','reading','writing','speaking')]
     cache_file=OUT/'automatic-check.json'
     cached=json.loads(cache_file.read_text(encoding='utf-8'))['images'] if cache_file.exists() and '--after' in sys.argv else []
     cached_by_image={r['image']:r for r in cached}
@@ -51,7 +51,7 @@ def main():
         pending=[]
         for row in rows:
             old=cached_by_image.get(row['image'])
-            if old and old['sha256']==row['sha256']:results.append(old)
+            if old and old['sha256']==row['sha256']:results.append({**old, **row})
             else:pending.append(row)
         futures=[pool.submit(task,row) for row in pending]
         for future in as_completed(futures):

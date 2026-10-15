@@ -180,6 +180,83 @@ try {
   await click('#practice-submit button[value="submit"]');
   await waitFor('Boolean(document.querySelector(".practice-review"))');
   assert.ok(await evaluate('document.querySelectorAll(".practice-review .synonym-note").length > 0'));
+  // A submitted C20 writing attempt may still contain the old cropped first table.
+  // Display the current two source pages without rewriting its saved paper or essay.
+  await evaluate(`(async()=>{
+    const key='ielts-practice-v1-c20-t1-writing', paper=await (await fetch('/resources/cambridge/c20/test-1/writing.json')).json();
+    paper.tasks[0].assets=[{asset:'./assets/writing-task-1-chart.png',sourcePdfPage:23,alt:'Old clipped table'}];
+    const session={version:1,skill:'writing',index:0,answers:{'task-1':'Preserved archived essay'},flags:[],remaining:3600,deadline:null,submitted:new Date().toISOString(),attemptId:'image-repair-check'};
+    localStorage.setItem(key+'-history',JSON.stringify([{id:session.attemptId,session,paper}]));
+  })()`);
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=20&test=1&skill=writing&attempt=image-repair-check'});
+  await waitFor('Boolean(document.querySelector("#essay"))');
+  assert.equal(await evaluate('document.querySelector("#essay").value'),'Preserved archived essay');
+  assert.deepEqual(await evaluate('[...document.querySelectorAll(".practice-paper .practice-asset")].map(img=>img.getAttribute("src"))'),[
+    '/resources/cambridge/c20/test-1/assets/writing-task-1-complete.png',
+    '/resources/cambridge/c20/test-1/assets/writing-task-1-continuation.png'
+  ]);
+  await waitFor('[...document.querySelectorAll(".practice-paper .practice-asset")].every(img=>img.complete&&img.naturalWidth>0)');
+  assert.deepEqual(await evaluate('[...document.querySelectorAll(".practice-paper .practice-asset")].map(img=>img.naturalHeight>350)'),[true,true]);
+  assert.deepEqual(await evaluate('[...document.querySelectorAll(".practice-paper .text-btn")].map(a=>a.textContent.trim())'),['原卷第 23 页 ↗','原卷第 24 页 ↗']);
+  assert.ok(await evaluate('document.querySelector("#save-status").textContent.includes("图题图片已按原卷补全")'));
+  assert.equal(await evaluate('JSON.parse(localStorage.getItem("ielts-practice-v1-c20-t1-writing-history"))[0].paper.tasks[0].assets[0].asset'),'./assets/writing-task-1-chart.png');
+  await screenshot('c20-t1-writing-archived-images.png');
+  for(const [book,test] of [[13,1],[18,2],[20,1]]){
+    await send('Page.navigate',{url:`http://127.0.0.1:4173/practice.html?book=${book}&test=${test}&skill=speaking`});
+    await waitFor('document.querySelectorAll(".practice-tabs button").length===3');
+    await click('[data-index="1"]');
+    await waitFor('Boolean(document.querySelector(".practice-speaking .practice-asset"))');
+    await waitFor('document.querySelector(".practice-speaking .practice-asset").complete && document.querySelector(".practice-speaking .practice-asset").naturalWidth>700');
+    assert.equal(await evaluate('document.querySelector(".practice-speaking .eyebrow").textContent.trim()'),'SPEAKING · PART 2');
+    assert.ok(await evaluate('document.querySelector(".practice-speaking .practice-asset").naturalHeight>350'));
+  }
+  for(const test of [3,4]){
+    await send('Page.navigate',{url:`http://127.0.0.1:4173/practice.html?book=13&test=${test}&skill=speaking`});
+    await waitFor('document.querySelectorAll(".practice-tabs button").length===3');
+    assert.deepEqual(await evaluate('[...document.querySelectorAll(".practice-tabs button")].map(b=>b.textContent.trim())'),['Part 1','Part 2','Part 3']);
+  }
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=20&test=1&skill=reading&new=1'});
+  await waitFor('Boolean(document.querySelector("#answer-q7"))');
+  assert.ok(await evaluate('document.querySelector("#question-q7").closest(".listening-layout-block").textContent.includes("A type of parrot")'));
+  assert.equal(await evaluate('document.querySelectorAll(".layout-blank input").length>=7'),true);
+  await screenshot('c20-t1-reading-inline-notes.png');
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=19&test=1&skill=reading&new=1'});
+  await waitFor('Boolean(document.querySelector(".practice-tabs button:nth-child(2)"))');
+  await click('[data-index="1"]');
+  await waitFor('Boolean(document.querySelector("#answer-q20"))');
+  assert.deepEqual(await evaluate('[...document.querySelectorAll("#answer-q20 option")].map(option=>option.value)'),['','A','B','C','D','E']);
+  assert.ok(await evaluate('document.querySelector("#question-q20").closest(".listening-layout-block").textContent.includes("Mediterranean region")'));
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=20&test=3&skill=reading&new=1'});
+  await waitFor('Boolean(document.querySelector(".practice-tabs button:nth-child(2)"))');
+  await click('[data-index="1"]');
+  await waitFor('Boolean(document.querySelector("#answer-q22"))');
+  assert.equal(await evaluate('document.querySelector("#answer-q22").tagName'),'SELECT');
+  assert.ok(await evaluate('document.querySelector("#question-q22").closest(".listening-layout-block").textContent.includes("London Zoo")'));
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=13&test=4&skill=reading&new=1'});
+  await waitFor('Boolean(document.querySelector(".practice-tabs button:nth-child(3)"))');
+  await click('[data-index="2"]');
+  await waitFor('Boolean(document.querySelector("#answer-q30"))');
+  assert.deepEqual(await evaluate('[...document.querySelectorAll("#answer-q30 option")].map(option=>option.value)'),['','A','B','C','D','E','F','G']);
+  assert.ok(await evaluate('document.querySelector("#question-q30").closest(".listening-layout-block").textContent.includes("Jeremy Bentham")'));
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=20&test=1&skill=reading&new=1'});
+  await waitFor('Boolean(document.querySelector(".practice-tabs button:nth-child(2)"))');
+  await click('[data-index="1"]');
+  await waitFor('Boolean(document.querySelector("#answer-q19"))');
+  assert.deepEqual(await evaluate('[...document.querySelectorAll("#answer-q19 option")].map(option=>option.value)'),['','A','B','C']);
+  assert.ok(await evaluate('document.querySelector("#answer-q19 option[value=A]").textContent.includes("Matt Elliot")'));
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=14&test=2&skill=reading&new=1'});
+  await waitFor('Boolean(document.querySelector(".practice-tabs button:nth-child(3)"))');
+  await click('[data-index="2"]');
+  await waitFor('Boolean(document.querySelector("#answer-q27"))');
+  assert.deepEqual(await evaluate('[...document.querySelectorAll("#answer-q27 option")].map(option=>option.value)'),['','i','ii','iii','iv','v','vi','vii','viii','ix']);
+  assert.equal(await evaluate('document.querySelector("#question-q27 label").textContent.includes("Section A")'),true);
+  assert.equal(await evaluate('document.querySelector(".layout-options").textContent.includes("Fundamental beliefs")'),true);
+  await send('Page.navigate',{url:'http://127.0.0.1:4173/practice.html?book=16&test=2&skill=reading&new=1'});
+  await waitFor('Boolean(document.querySelector(".practice-tabs button:nth-child(2)"))');
+  await click('[data-index="1"]');
+  await waitFor('Boolean(document.querySelector("#answer-q17"))');
+  assert.deepEqual(await evaluate('[...document.querySelectorAll("#answer-q17 option")].map(option=>option.value)'),['','A','B','C','D','E','F','G','H']);
+  assert.equal(await evaluate('document.querySelector("#question-q17").closest(".listening-layout-block").textContent.includes("tolerant of microbes")'),true);
   assert.deepEqual(errors,[]);
   console.log('PASS: three skills, writing word count/task switch/submission, reading persistence/flags, timers, speaking recording/IndexedDB reload, mobile layouts.');
   await send('Browser.close');

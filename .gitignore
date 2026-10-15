@@ -23,3 +23,16 @@ resources/import-report.json
 IELTS-Studio/
 backups/
 cleanup-c-drive-safe.ps1
+
+.tmp-test/
+# Repair scripts that embed transcribed paper text (passages, stems, option lists): local only
+backend/scripts/add_remaining_reading_layouts.py
+backend/scripts/add_verified_reading_layouts.py
+backend/scripts/repair_c13_t4_reading_mcq.py
+backend/scripts/repair_reading_heading_lists.py
+backend/scripts/repair_reading_layout_prompts.py
+backend/scripts/repair_reading_notes_drafts.py
+backend/scripts/repair_reading_wordbank_layouts.py
+backend/scripts/repair_stray_reading_prompts.py
+backend/scripts/review_remaining_reading_layouts.py
+backend/scripts/repair_reading_matching_options.py
